@@ -3,7 +3,7 @@
 
 
 
-
+/* 
 html,
 body {
   overflow-x: hidden;
@@ -12,5 +12,5 @@ body {
 
 * {
   box-sizing: border-box;
-}
+} */
 @import "@heroui/styles";

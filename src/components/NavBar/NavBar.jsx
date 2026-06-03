@@ -13,11 +13,11 @@ const NavBar = () => {
   );
 
   return (
-    <div className="">
-      <div className="navbar mx-auto fixed top-0 z-50  w-11/12 ">
+<div className="mx-auto z-50 flex justify-center">
+      <div className="navbar mx-auto fixed  z-50  w-11/12 ">
         <div className="navbar-start">
           <div className="dropdown">
-            <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
+            <div tabIndex={0} role="button" className="btn btn-ghost text-white lg:hidden">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="h-5 w-5"
@@ -36,7 +36,7 @@ const NavBar = () => {
             </div>
             <ul
               tabIndex="-1"
-              className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
+              className="menu menu-sm dropdown-content  bg-white/10 backdrop-blur-xs rounded-box z-1 mt-3 w-52 p-2 shadow"
             >
               {navData}
             </ul>
@@ -54,7 +54,7 @@ const NavBar = () => {
           </a>
         </div>
         <div className="navbar-center hidden lg:flex">
-          <ul className="menu menu-horizontal gap-5 border rounded-full px-4">
+         <ul className="menu menu-horizontal gap-5 rounded-full border border-white/20 bg-white/10 backdrop-blur-xs shadow">
             {navData}
           </ul>
         </div>
@@ -63,7 +63,7 @@ const NavBar = () => {
           <ThemeSwitch/>
         </div>
       </div>
-    </div>
+   </div>
   );
 };
 
