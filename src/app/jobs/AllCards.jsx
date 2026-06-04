@@ -56,12 +56,12 @@ const AllCards = ({ jobsData }) => {
                 {!sevedJob.includes(job._id) ? (
                   <BsBookmark className="w-5 h-5 sm:w-6 sm:h-6 stroke-[0.3]" />
                 ) : (
-                  <FaBookmark className="w-5 h-5 sm:w-6 sm:h-6 stroke-[0.3]" />
+                  <FaBookmark className="w-5 h-5 sm:w-6 text-yellow-400 sm:h-6 stroke-[0.3]" />
                 )}
               </button>
             </div>
 
-            {/* Middle Section: Job Title, Location, and Salary */}
+           
             <div className="mt-3 sm:mt-4">
               <h2 className="text-lg sm:text-xl font-bold tracking-tight leading-tight hover:text-blue-600 cursor-pointer wrap-break-word">
                 {job.title}

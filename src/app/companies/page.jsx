@@ -1,6 +1,12 @@
+import CompanyCard from "@/components/Companies/CompanyCard";
+import CompanyFilters from "@/components/Companies/CompanyFilters";
+
 const CompaniesPage = () => {
   return (
-    <div>companies</div>
+    <div>
+   <CompanyFilters/>
+      <CompanyCard/>
+    </div>
   );
 };
 
