@@ -1,17 +1,25 @@
 "use client";
 import { Pagination } from "@heroui/react";
-import { useState } from "react";
-const PaginationPage = () => {
-  const [page, setPage] = useState(1);
-  const totalPages = 3;
+import { useRouter } from "next/navigation";
+
+const PaginationPage = ({page,totalPages, search}) => {
+ const router=useRouter()
+ const crruntPage=Number(page)
+ const handleChange=(newPage)=>{
+const url=search? `/jobs?page=${newPage}&search=${search}`:`/jobs?page=${newPage}`
+router.push(url)
+ }
+
   return (
     <div>
-      <Pagination className="justify-center">
+      <Pagination
+     
+       className="justify-center">
         <Pagination.Content>
           <Pagination.Item>
             <Pagination.Previous
-              isDisabled={page === 1}
-              onPress={() => setPage((p) => p - 1)}
+              isDisabled={crruntPage === 1}
+              onPress={() => handleChange(crruntPage- 1)}
             >
               <Pagination.PreviousIcon />
               <span>Previous</span>
@@ -20,9 +28,9 @@ const PaginationPage = () => {
           {Array.from({ length: totalPages }, (_, i) => i + 1).map((p) => (
             <Pagination.Item key={p}>
               <Pagination.Link
-                isActive={p === page}
-                onPress={() => setPage(p)}
-                className={p === page && "bg-info text-white"}
+                isActive={p === crruntPage}
+                onPress={() => handleChange(p)}
+                className={p === crruntPage && "bg-info text-white"}
               >
                 {p}
               </Pagination.Link>
@@ -30,8 +38,8 @@ const PaginationPage = () => {
           ))}
           <Pagination.Item>
             <Pagination.Next
-              isDisabled={page === totalPages}
-              onPress={() => setPage((p) => p + 1)}
+              isDisabled={crruntPage === totalPages}
+              onPress={() => handleChange(crruntPage + 1)}
             >
               <span>Next</span>
               <Pagination.NextIcon />
