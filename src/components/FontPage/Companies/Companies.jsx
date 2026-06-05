@@ -1,4 +1,4 @@
-import Image from "next/image";
+// import Image from "next/image";
 import Marquee from "react-fast-marquee";
 
 const companies = [
@@ -49,7 +49,7 @@ const Companies = () => {
             className="mx-4 flex items-center gap-3 rounded-2xl border border-base-300 bg-base-100/50 backdrop-blur-sm px-5 py-3 shadow-sm hover:scale-105 transition-all duration-300"
           >
             <img
-              src={company.logo}
+              src={company?.logo}
               alt={company.name}
               width={40}
               height={40}
