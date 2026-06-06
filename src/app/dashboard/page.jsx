@@ -1,7 +1,114 @@
-const DashboardPage = () => {
+'use client'
+import DashBoardTable from "@/DashboardComponents/DashBoardTable/DashBoardTable";
+
+
+import {
+ 
+ 
+  FiMenu,
+ 
+  FiBell,
+  FiSearch,
+} from "react-icons/fi";
+
+const DashboardLayout = () => {
+ 
+
+  
+
   return (
-    <div>Dashboard</div>
+    <div className="flex h-screen mb-10  overflow-hidden font-sans antialiased">
+    
+
+      <div className="flex flex-col flex-1 overflow-hidden">
+        <header className=" h-16 border-b border-gray-400 flex items-center justify-between px-6 z-30">
+          <div className="flex items-center gap-4">
+          
+
+            {/* Search Bar */}
+            <div className="relative hidden sm:block">
+              <FiSearch
+                className="absolute left-3 top-1/2 -translate-y-1/2"
+                size={18}
+              />
+              <input
+                type="text"
+                placeholder="Search everything..."
+                className="pl-10 pr-4 py-2 border border-gray-200 rounded-xl text-sm focus:outline-none focus:border-emerald-500 transition w-64"
+              />
+            </div>
+          </div>
+
+          {/* Top Navbar Actions */}
+          <div className="flex items-center gap-3">
+            <button className="p-2.5 hover:bg-gray-100 hover:text-black rounded-xl relative transition">
+              <FiBell size={20} />
+              <span className="absolute top-2 right-2 w-2 h-2 bg-rose-500 rounded-full"></span>
+            </button>
+            <hr className="h-6 w-px " />
+            <button className="bg-emerald-500 text-white text-xs font-bold px-4 py-2 rounded-xl hover:bg-gray-800 transition">
+              + New Post
+            </button>
+          </div>
+        </header>
+
+        {/* Scrollable Workspace Dashboard Layout Body */}
+        <main className="flex-1 overflow-y-auto p-6 space-y-6">
+          {/* Welcome Banner */}
+          <div>
+            <h1 className="text-2xl font-extrabold tracking-tight">
+              Welcome back, Julie
+            </h1>
+            <p className="text-sm text-gray-400 mt-0.5">
+              Here is an overview of your recruitment and pay pipeline metrics.
+            </p>
+          </div>
+
+          {/* Grid Layout for Metrics Cards */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className=" border border-gray-300 p-6 rounded-2xl  hover:shadow-[0_0_20px] ">
+              <p className="text-sm font-semibold text-gray-400">
+                Active Applications
+              </p>
+              <p className="text-3xl font-extrabold  mt-2">1,240</p>
+              <span className="text-xs font-bold text-emerald-600  px-2 py-0.5 rounded-md mt-2 inline-block">
+                +12% vs last month
+              </span>
+            </div>
+
+            <div className=" border border-gray-300 p-6 rounded-2xl hover:shadow-[0_0_20px] ">
+              <p className="text-sm font-semibold text-gray-400">
+                Median Rate Offered
+              </p>
+              <p className="text-3xl font-extrabold mt-2">$49.00/hr</p>
+              <span className="text-xs font-bold text-yellow-500 px-2 py-0.5 rounded-md mt-2 inline-block">
+                Employer verified
+              </span>
+            </div>
+
+            <div className=" border  border-gray-300 p-6 rounded-2xl  hover:shadow-[0_0_20px]  sm:col-span-2 lg:col-span-1">
+              <p className="text-sm font-semibold ">
+                Interview Completion Rate
+              </p>
+              <p className="text-3xl font-extrabold  mt-2">72%</p>
+              <span className="text-xs font-bold text-emerald-600  px-2 py-0.5 rounded-md mt-2 inline-block">
+                Highly recommended
+              </span>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+            <div className=" border-gray-300 p-6 rounded-2xl hover:shadow-[0_0_20px] border lg:col-span-8 min-h-75 flex items-center justify-center text-gray-400 font-medium">
+              <DashBoardTable/>
+            </div>
+            <div className="hover:shadow-[0_0_20px] border border-gray-300  p-6 rounded-2xl lg:col-span-4 min-h-75 flex items-center justify-center text-gray-400 font-medium">
+              Secondary Activity Log
+            </div>
+          </div>
+        </main>
+      </div>
+    </div>
   );
 };
 
-export default DashboardPage;
+export default DashboardLayout;
