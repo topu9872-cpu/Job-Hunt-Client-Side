@@ -1,4 +1,5 @@
 'use client'
+import DashboardChart from "@/DashboardComponents/DashboardChart/DashboardChart";
 import DashBoardTable from "@/DashboardComponents/DashBoardTable/DashBoardTable";
 
 
@@ -98,11 +99,11 @@ const DashboardLayout = () => {
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
-            <div className=" border-gray-300 p-6 rounded-2xl hover:shadow-[0_0_20px] border lg:col-span-8 min-h-75 flex items-center justify-center text-gray-400 font-medium">
+            <div className=" bg-background border border-gray-300 rounded-2xl hover:shadow-[0_0_20px] lg:col-span-6 min-h-75 flex items-center justify-center font-medium">
               <DashBoardTable/>
             </div>
-            <div className="hover:shadow-[0_0_20px] border border-gray-300  p-6 rounded-2xl lg:col-span-4 min-h-75 flex items-center justify-center text-gray-400 font-medium">
-              Secondary Activity Log
+            <div className="hover:shadow-[0_0_20px] border border-gray-300  p-6 rounded-2xl lg:col-span-6 min-h-75 flex items-center justify-center text-gray-400 font-medium">
+              <DashboardChart/>
             </div>
           </div>
         </main>

@@ -1,119 +1,109 @@
 "use client";
 
 import React, { useState } from "react";
-import { Table } from "@heroui/react";
 
-// 1. Define table columns matching the screenshot layout
-const columns = [
-  { id: "name", label: "Name" },
-  { id: "role", label: "Role" },
-  { id: "status", label: "Status" },
-  { id: "email", label: "Email" },
+const initialData = [
+  {
+    id: 1,
+    name: "Alex Johnson",
+    role: "Frontend Developer",
+    status: "active",
+    email: "alex@company.com",
+  },
+  {
+    id: 2,
+    name: "Sarah Williams",
+    role: "Backend Developer",
+    status: "on-leave",
+    email: "sarah@company.com",
+  },
+  {
+    id: 3,
+    name: "David Chen",
+    role: "UI/UX Designer",
+    status: "active",
+    email: "david@company.com",
+  },
+  {
+    id: 4,
+    name: "Emily Brown",
+    role: "Product Manager",
+    status: "inactive",
+    email: "emily@company.com",
+  },
 ];
 
-// 2. Mock dataset accurately representing data from Screenshot 2026-06-06 185228.png
-const initialRows = [
-  { id: "1", name: "Kate Moore", role: "CEO", status: "active", email: "kate@acme.com" },
-  { id: "2", name: "John Smith", role: "CTO", status: "active", email: "john@acme.com" },
-  { id: "3", name: "Sara Johnson", role: "CMO", status: "on-leave", email: "sara@acme.com" },
-  { id: "4", name: "Michael Brown", role: "CFO", status: "active", email: "michael@acme.com" },
-  { id: "5", name: "Emily Davis", role: "Product Manager", status: "inactive", email: "emily@acme.com" },
-];
-
-// 3. Dynamic status map configuration for badge rendering styles
-const statusMap = {
-  "active": {
-    label: "Active",
-    badgeClass: "bg-[#14291f] text-[#4ade80] border border-[#163f2b]"
-  },
-  "on-leave": {
-    label: "On Leave",
-    badgeClass: "bg-[#2e1d11] text-[#fb923c] border border-[#4a2e1b]"
-  },
-  "inactive": {
-    label: "Inactive",
-    badgeClass: "bg-[#2d1919] text-[#f87171] border border-[#4c2424]"
-  }
+const statusStyle = {
+  active: "bg-emerald-500/10 text-emerald-400 border border-emerald-500/20",
+  "on-leave": "bg-orange-500/10 text-orange-400 border border-orange-500/20",
+  inactive: "bg-red-500/10 text-red-400 border border-red-500/20",
 };
 
-const DashBoardTable = () => {
-  const [users] = useState(initialRows);
-
-  // Dynamic cell renderer helper
-  const renderCell = (item, columnKey) => {
-    const value = item[columnKey];
-
-    switch (columnKey) {
-      case "name":
-        return <span className="text-white font-semibold text-[17px]">{value}</span>;
-      
-      case "role":
-        return <span className="text-[#e4e4e7] font-medium text-[16px]">{value}</span>;
-      
-      case "status":
-        const currentStatus = statusMap[value] || { label: value, badgeClass: "bg-gray-800 text-gray-400" };
-        return (
-          <span className={`inline-block px-3 py-1 rounded-full text-sm font-semibold tracking-wide ${currentStatus.badgeClass}`}>
-            {currentStatus.label}
-          </span>
-        );
-      
-      case "email":
-        return <span className="text-[#a1a1aa] font-normal text-[16px] truncate max-w-[180px] block">{value}</span>;
-      
-      default:
-        return value;
-    }
-  };
+const DashboardTable = () => {
+  const [data] = useState(initialData);
 
   return (
-    <div className="w-full max-w-5xl mx-auto p-4 bg-[#09090b] min-h-screen flex items-start justify-center pt-12 font-sans antialiased">
+    <div className="w-full flex z-50 justify-center ">
       
-      {/* Outer Dark Table Container mimicking Screenshot 2026-06-06 185228.png layout */}
-      <div className="w-full bg-[#18181b] rounded-2xl border border-[#27272a] shadow-2xl overflow-hidden p-2">
-        
-        <Table 
-          aria-label="Dark mode team management data table"
-          className="w-full bg-transparent"
-        >
-          <Table.ScrollContainer>
-            <Table.Content>
-              
-              {/* Header Columns Mapping */}
-              <Table.Header columns={columns}>
-                {(column) => (
-                  <Table.Column 
-                    id={column.id}
-                    className="text-[#71717a] text-[15px] font-bold px-6 py-4 border-b border-[#27272a] text-left select-none tracking-wide"
-                  >
-                    {column.label}
-                  </Table.Column>
-                )}
-              </Table.Header>
+      <div className="w-screen p-2">
 
-              {/* Data Body Mapping */}
-              <Table.Body items={users}>
-                {(item) => (
-                  <Table.Row 
-                    id={item.id} 
-                    className="border-b border-[#27272a]/50 last:border-none transition duration-150 ease-in-out hover:bg-[#202024]"
-                  >
-                    {(columnKey) => (
-                      <Table.Cell className="px-6 py-4.5 align-middle">
-                        {renderCell(item, columnKey)}
-                      </Table.Cell>
-                    )}
-                  </Table.Row>
-                )}
-              </Table.Body>
+       
+        <div className="mb-6">
+          <h1 className="text-2xl font-bold ">
+            Team Dashboard
+          </h1>
+          <p className="text-sm ">
+            Manage your team members and their roles
+          </p>
+        </div>
 
-            </Table.Content>
-          </Table.ScrollContainer>
-        </Table>
+        {/* Table */}
+        <div className=" rounded-2xl overflow-hidden shadow-2xl">
 
+          {/* Table Head */}
+          <div className="grid grid-cols-4 text-sm font-semibold px-6 py-4">
+            <span>Name</span>
+            <span>Role</span>
+            <span>Status</span>
+            <span>Email</span>
+          </div>
+
+          {/* Table Body */}
+          {data.map((user) => (
+            <div
+              key={user.id}
+              className="grid grid-cols-4 px-2 py-4 border-t border-white/5 hover:bg-white/5 transition"
+            >
+              {/* Name */}
+              <div className=" font-medium">
+                {user.name}
+              </div>
+
+              {/* Role */}
+              <div >
+                {user.role}
+              </div>
+
+              {/* Status */}
+              <div>
+                <span
+                  className={`px-3 py-1 rounded-full text-xs font-semibold ${statusStyle[user.status]}`}
+                >
+                  {user.status}
+                </span>
+              </div>
+
+              {/* Email */}
+              <div className="text-sm ">
+                {user.email}
+              </div>
+            </div>
+          ))}
+
+        </div>
       </div>
     </div>
   );
 };
 
-export default DashBoardTable;
+export default DashboardTable;

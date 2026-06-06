@@ -37,7 +37,7 @@ const SideBar = () => {
       {/* SIDEBAR */}
       <aside
         className={`
-          fixed inset-y-0 left-0 z-50 mt-0 md:mt-16 w-64 bg-background shadow-2xl
+          fixed inset-y-0 left-0 z-50 mt-0 md:mt-16 h-screen w-64 bg-background shadow-2xl
           flex flex-col transform transition-transform duration-300 ease-in-out
           md:translate-x-0 md:relative
           ${isSidebarOpen ? "translate-x-0" : "-translate-x-full"}
