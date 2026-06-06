@@ -1,6 +1,7 @@
 "use client";
-import { createDelta } from "framer-motion";
+
 import Image from "next/image";
+import Link from "next/link";
 import { useState } from "react";
 import { BsBookmark, BsLightningChargeFill } from "react-icons/bs";
 import { FaBookmark } from "react-icons/fa";
@@ -16,9 +17,10 @@ const AllCards = ({ jobsData }) => {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 ">
       {jobsData.map((job) => (
-        <div
+        <Link
+          href={`/jobs/${job._id}`}
           key={job._id}
-          className="w-full p-4 flex justify-center items-center "
+          className="w-full p-4 flex justify-center hover:bg-gray-200 items-center "
         >
           <div className="w-full sm:max-w-md  border border-gray-200 rounded-2xl p-4 sm:p-5 shadow-sm font-sans relative transition-all duration-200 hover:shadow-md">
             <div className="flex justify-between items-start gap-4">
@@ -32,7 +34,6 @@ const AllCards = ({ jobsData }) => {
                   />
                 </div>
 
-                {/* Company & Rating */}
                 <div className="min-w-0">
                   <div className="flex flex-wrap items-center gap-x-2 gap-y-0.5">
                     <span className="text-sm sm:text-base  font-medium truncate">
@@ -50,7 +51,11 @@ const AllCards = ({ jobsData }) => {
 
               {/* Bookmark Button */}
               <button
-                onClick={() => handleToggle(job._id)}
+                onClick={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  handleToggle(job._id);
+                }}
                 className="  p-1 shrink-0 active:scale-95"
               >
                 {!sevedJob.includes(job._id) ? (
@@ -61,7 +66,6 @@ const AllCards = ({ jobsData }) => {
               </button>
             </div>
 
-           
             <div className="mt-3 sm:mt-4">
               <h2 className="text-lg sm:text-xl font-bold tracking-tight leading-tight hover:text-blue-600 cursor-pointer wrap-break-word">
                 {job.title}
@@ -91,7 +95,7 @@ const AllCards = ({ jobsData }) => {
               </span>
             </div>
           </div>
-        </div>
+        </Link>
       ))}
     </div>
   );

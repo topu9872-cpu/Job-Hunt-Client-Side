@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { BsBookmark } from "react-icons/bs";
 import { HiOutlineTrophy } from "react-icons/hi2";
 import { FaBookmark, FaStar } from "react-icons/fa";
+import Image from "next/image";
 
 const CompanyCard = ({ company }) => {
   const [isBookmarked, setIsBookmarked] = useState(false);
@@ -20,7 +21,7 @@ const CompanyCard = ({ company }) => {
     salary,
     type,
   } = company;
-
+console.log(logo)
   return (
     <div className="w-full flex p-4">
       {/* CARD */}
@@ -30,10 +31,10 @@ const CompanyCard = ({ company }) => {
         <div className="flex justify-between items-start">
           <div className="flex items-center gap-3">
             <div className="w-14 h-14 flex items-center justify-center rounded-xl border shadow-sm">
-              <img src={logo} width={50} height={50} alt={name} />
+              <Image src={logo} width={50} height={50} alt={name} />
             </div>
 
-            <div className="min-h-[60px]">
+            <div className="min-h-15">
               <h1 className="text-2xl font-bold">{name}</h1>
               <p className="text-sm">{location}</p>
             </div>
