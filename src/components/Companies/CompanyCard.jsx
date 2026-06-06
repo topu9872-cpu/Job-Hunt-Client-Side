@@ -21,7 +21,7 @@ const CompanyCard = ({ company }) => {
     salary,
     type,
   } = company;
-console.log(logo)
+
   return (
     <div className="w-full flex p-4">
       {/* CARD */}

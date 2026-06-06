@@ -11,5 +11,5 @@ export const getCompaniesData = async (search = "") => {
 };
 
 export const getJobDetailsData = async (id) => {
-  return getData(`/job/:${id}`)
+  return getData(`/jobs/${id}`)
 };

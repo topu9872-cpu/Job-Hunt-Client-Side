@@ -12,7 +12,7 @@ const CompanyFilters = () => {
     router.push(`/companies?search=${search}`);
   };
   return (
-    <div className="mt-30">
+    <div className="mt-10">
       <motion.div
         initial={{ opacity: 0, y: 15 }}
         animate={{ opacity: 1, y: 0 }}
