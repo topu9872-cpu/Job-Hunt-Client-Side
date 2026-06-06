@@ -56,12 +56,12 @@ const Companies = () => {
   return (
     <>
       <h1 className="text-4xl text-center font-bold mt-18"> Companies</h1>
-      <section className="mt-10 overflow-hidden">
-        <Marquee speed={100} gradient={false}>
+      <section className="mt-10 overflow-hidden ">
+        <Marquee speed={50} gradient={false}>
           {companies.map((company, index) => (
             <div
               key={index}
-              className="mx-4 flex items-center gap-3 rounded-2xl border border-base-300 bg-base-100/50 backdrop-blur-sm px-5 py-3 shadow-sm hover:scale-105 transition-all duration-300"
+              className="mx-4 flex items-center gap-3 rounded-2xl mb-5  bg-base-100/10 backdrop-blur-sm px-5 py-3 shadow-xl hover:scale-105 transition-all duration-300"
             >
               <Image
                 src={company?.logo}

@@ -21,6 +21,7 @@ export const metadata = {
 };
 
 export default function RootLayout({ children }) {
+ 
   return (
     <html
       lang="en" suppressHydrationWarning
@@ -29,10 +30,10 @@ export default function RootLayout({ children }) {
     >
       <body className="min-h-full flex flex-col bg-background text-foreground">
         <Providers>
-          <NavBar />
+          {/* <NavBar /> */}
            <Toaster />
           {children}
-          <Footer/>
+          {/* <Footer/> */}
         </Providers>
       </body>
     </html>
