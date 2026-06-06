@@ -45,7 +45,7 @@ const DashboardTable = () => {
   return (
     <div className="w-full flex z-50 justify-center ">
       
-      <div className="w-screen p-2">
+      <div className="w-screen p-4">
 
        
         <div className="mb-6">
@@ -58,7 +58,7 @@ const DashboardTable = () => {
         </div>
 
         {/* Table */}
-        <div className=" rounded-2xl overflow-hidden shadow-2xl">
+        <div className=" rounded-2xl overflow-hidden">
 
           {/* Table Head */}
           <div className="grid grid-cols-4 text-sm font-semibold px-6 py-4">
@@ -72,7 +72,7 @@ const DashboardTable = () => {
           {data.map((user) => (
             <div
               key={user.id}
-              className="grid grid-cols-4 px-2 py-4 border-t border-white/5 hover:bg-white/5 transition"
+              className="grid grid-cols-4 px-2 text-sm py-4 border-t border-white/5 hover:bg-white/5 transition"
             >
               {/* Name */}
               <div className=" font-medium">
@@ -80,7 +80,7 @@ const DashboardTable = () => {
               </div>
 
               {/* Role */}
-              <div >
+              <div>
                 {user.role}
               </div>
 
@@ -94,7 +94,7 @@ const DashboardTable = () => {
               </div>
 
               {/* Email */}
-              <div className="text-sm ">
+              <div className="text-xs">
                 {user.email}
               </div>
             </div>

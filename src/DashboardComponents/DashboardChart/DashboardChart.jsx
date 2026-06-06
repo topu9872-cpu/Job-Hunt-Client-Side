@@ -50,13 +50,13 @@ const DashboardChart = () => {
   }, []);
 
   return (
-    <div className="w-full h-screen flex items-center justify-center bg-[#0a0a0a] px-4">
+    <div className="w-full flex flex-col items-center justify-center">
 
-      <div className="w-full max-w-7xl h-[85vh] bg-[#0f0f0f] border border-white/10 rounded-2xl p-6 shadow-2xl">
+    
 
         {/* Header */}
         <div className="mb-6">
-          <h2 className="text-white text-2xl font-bold">
+          <h2 className=" text-2xl font-bold">
             Analytics Overview
           </h2>
           <p className="text-sm text-zinc-400">
@@ -65,7 +65,7 @@ const DashboardChart = () => {
         </div>
 
       {/* WIDE CHART WRAPPER */}
-<div className="w-full max-w-none "> 
+<div className="w-full "> 
   <Chart
     chartType="PieChart"
     width="100%"
@@ -74,7 +74,7 @@ const DashboardChart = () => {
     options={options}
   />
 </div>
-      </div>
+     
     </div>
   );
 };

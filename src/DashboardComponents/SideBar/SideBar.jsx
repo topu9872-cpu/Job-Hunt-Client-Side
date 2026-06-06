@@ -7,8 +7,9 @@ import {
   FiSettings,
   FiX,
   FiMenu,
+  
 } from "react-icons/fi";
-import { MdCreateNewFolder } from "react-icons/md";
+import { MdCreateNewFolder ,MdNoteAdd} from "react-icons/md";
 import React, { useState } from "react";
 import { usePathname } from "next/navigation";
 
@@ -20,24 +21,24 @@ const SideBar = () => {
     { icon: <FiHome size={20} />, label: "Overview", href: "/dashboard" },
     { icon: <FiBriefcase size={20} />, label: "Job Applications", href: "/dashboard/jobapplications" },
     { icon: <MdCreateNewFolder size={20} />, label: "Create Job", href: "/dashboard/createjob" },
-    { icon: <FiPieChart size={20} />, label: "Analytics", href: "/dashboard/analytics" },
+    { icon: <MdNoteAdd size={20} />, label: "Companey", href: "/dashboard/companey" },
     { icon: <FiSettings size={20} />, label: "Settings", href: "/dashboard/settings" },
   ];
 
   return (
     <>
-      {/* MOBILE TOP BUTTON */}
+    
       <button
-        className="fixed top-4 left-4 z-50 p-2 mt-20 rounded-lg hover:bg-gray-100 md:hidden"
+        className="fixed top-4 left-4 p-2 mt-20 hover:text-white rounded-lg hover:bg-black z-50 md:hidden"
         onClick={() => setIsSidebarOpen(true)}
       >
-        <FiMenu size={22} />
+        <FiMenu size={20} />
       </button>
 
       {/* SIDEBAR */}
       <aside
         className={`
-          fixed inset-y-0 left-0 z-50 mt-0 md:mt-16 h-screen w-64 bg-background shadow-2xl
+          fixed inset-y-0 left-0  mt-0 md:mt-16 h-screen bg-background w-60 shadow-[5px_0px_10px_rgba(0,0,0,0.2)]
           flex flex-col transform transition-transform duration-300 ease-in-out
           md:translate-x-0 md:relative
           ${isSidebarOpen ? "translate-x-0" : "-translate-x-full"}
@@ -53,14 +54,14 @@ const SideBar = () => {
           </div>
 
           <button className="md:hidden" onClick={() => setIsSidebarOpen(false)}>
-            <FiX size={24} />
+            <FiX size={20} />
           </button>
         </div>
 
         {/* NAV */}
         <nav className="flex-1 px-4 py-6 space-y-1.5 overflow-y-auto">
           {navItems.map((item, idx) => {
-            const isActive = pathname.startsWith(item.href);
+            const isActive = pathname===item.href;
 
             return (
               <a
@@ -90,7 +91,7 @@ const SideBar = () => {
             alt="User Avatar"
             width={40}
             height={40}
-            className="rounded-full object-cover border border-slate-700"
+            className="rounded-full w-12 h-12 object-cover border border-slate-700"
           />
           <div className="overflow-hidden">
             <p className="text-sm font-bold truncate">Julie Sweet</p>
@@ -104,7 +105,7 @@ const SideBar = () => {
       {/* BACKDROP */}
       {isSidebarOpen && (
         <div
-          className="fixed inset-0 z-40 bg-black/40 md:hidden"
+          className="fixed inset-0 z-50 bg-black/40  md:hidden"
           onClick={() => setIsSidebarOpen(false)}
         />
       )}

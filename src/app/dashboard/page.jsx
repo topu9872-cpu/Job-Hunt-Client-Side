@@ -1,12 +1,12 @@
 'use client'
 import DashboardChart from "@/DashboardComponents/DashboardChart/DashboardChart";
 import DashBoardTable from "@/DashboardComponents/DashBoardTable/DashBoardTable";
-
+import Link from "next/link";
 
 import {
  
  
-  FiMenu,
+  
  
   FiBell,
   FiSearch,
@@ -18,16 +18,16 @@ const DashboardLayout = () => {
   
 
   return (
-    <div className="flex h-screen mb-10  overflow-hidden font-sans antialiased">
+    <div className="flex h-screen mb-10  font-sans antialiased">
     
 
-      <div className="flex flex-col flex-1 overflow-hidden">
-        <header className=" h-16 border-b border-gray-400 flex items-center justify-between px-6 z-30">
+      <div className="flex flex-col flex-1 ">
+        <header className=" h-16 border-b border-gray-400 flex items-center justify-between px-6 ">
           <div className="flex items-center gap-4">
           
 
             {/* Search Bar */}
-            <div className="relative hidden sm:block">
+            <div className="relative hidden md:block">
               <FiSearch
                 className="absolute left-3 top-1/2 -translate-y-1/2"
                 size={18}
@@ -47,9 +47,9 @@ const DashboardLayout = () => {
               <span className="absolute top-2 right-2 w-2 h-2 bg-rose-500 rounded-full"></span>
             </button>
             <hr className="h-6 w-px " />
-            <button className="bg-emerald-500 text-white text-xs font-bold px-4 py-2 rounded-xl hover:bg-gray-800 transition">
+            <Link href= "/dashboard/createjob" className="bg-emerald-500 text-white text-xs font-bold px-4 py-2 rounded-xl hover:bg-gray-800 transition">
               + New Post
-            </button>
+            </Link>
           </div>
         </header>
 
@@ -67,7 +67,7 @@ const DashboardLayout = () => {
 
           {/* Grid Layout for Metrics Cards */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            <div className=" border border-gray-300 p-6 rounded-2xl  hover:shadow-[0_0_20px] ">
+            <div className=" border border-gray-300 p-6 rounded-2xl hover:scale-102  transition-all duration-500 ease-in-out  hover:shadow-[0_0_10px] ">
               <p className="text-sm font-semibold text-gray-400">
                 Active Applications
               </p>
@@ -77,7 +77,7 @@ const DashboardLayout = () => {
               </span>
             </div>
 
-            <div className=" border border-gray-300 p-6 rounded-2xl hover:shadow-[0_0_20px] ">
+            <div className=" border border-gray-300 p-6 rounded-2xl hover:scale-102  transition-all duration-500 ease-in-out  hover:shadow-[0_0_10px] ">
               <p className="text-sm font-semibold text-gray-400">
                 Median Rate Offered
               </p>
@@ -87,7 +87,7 @@ const DashboardLayout = () => {
               </span>
             </div>
 
-            <div className=" border  border-gray-300 p-6 rounded-2xl  hover:shadow-[0_0_20px]  sm:col-span-2 lg:col-span-1">
+            <div className=" border  border-gray-300 p-6 rounded-2xl hover:scale-102  transition-all duration-500 ease-in-out  hover:shadow-[0_0_10px]  sm:col-span-2 lg:col-span-1">
               <p className="text-sm font-semibold ">
                 Interview Completion Rate
               </p>
@@ -98,12 +98,11 @@ const DashboardLayout = () => {
             </div>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
-            <div className=" bg-background border border-gray-300 rounded-2xl hover:shadow-[0_0_20px] lg:col-span-6 min-h-75 flex items-center justify-center font-medium">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-5">
+            <div className=" border border-gray-300 rounded-2xl hover:scale-102  transition-all duration-500 ease-in-out  hover:shadow-[0_0_10px] lg:col-span-7 min-h-75 flex items-center justify-center font-medium">
               <DashBoardTable/>
             </div>
-            <div className="hover:shadow-[0_0_20px] border border-gray-300  p-6 rounded-2xl lg:col-span-6 min-h-75 flex items-center justify-center text-gray-400 font-medium">
-              <DashboardChart/>
+ <div className="border border-gray-300 rounded-2xl hover:scale-102  transition-all duration-500 ease-in-out  hover:shadow-[0_0_10px] lg:col-span-5  flex items-center justify-center font-medium">              <DashboardChart/>
             </div>
           </div>
         </main>
