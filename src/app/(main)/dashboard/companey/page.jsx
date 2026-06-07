@@ -1,48 +1,57 @@
-"use client"
-import React, { useState } from 'react';
+"use client";
+import { authClient } from "@/lib/auth-client";
+import React, { useState } from "react";
 
 const CreateCompanyForm = ({ onSubmit }) => {
+  const { data: session } = authClient.useSession();
+  const user = session?.user;
+
   const [formData, setFormData] = useState({
-    name: '',
-    logo: '',
-    location: '',
-    rating: '',
-    founded: '',
-    description: '',
-    companySize: '',
-    openJobs: '',
-    review: '',
-    salary: '',
-    type: ''
+    name: "",
+    logo: "",
+    location: "",
+    rating: "",
+    founded: "",
+    description: "",
+    companySize: "",
+    openJobs: "",
+    review: "",
+    salary: "",
+    type: "",
+    postedAt: new Date().toLocaleDateString("en-GB"),
+    user: user?.id,
   });
- 
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
       ...prevData,
-      [name]: value
+      [name]: value,
     }));
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (onSubmit) onSubmit(formData);
-    console.log('Company Data Submitted:', formData);
+    console.log("Company Data Submitted:", formData);
   };
 
   return (
     <div className="max-w-4xl mx-auto my-8 p-6 rounded-xl border border-current/20 bg-transparent">
       <div className="mb-8 border-b border-current/10 pb-4">
         <h2 className="text-2xl font-bold">Create Company Profile</h2>
-        <p className="text-sm opacity-60 mt-1">Enter the organization details to generate a new directory listing.</p>
+        <p className="text-sm opacity-60 mt-1">
+          Enter the organization details to generate a new directory listing.
+        </p>
       </div>
 
       <form onSubmit={handleSubmit} className="space-y-6">
         {/* Row 1: Name & Type */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <div className="md:col-span-2">
-            <label className="block text-sm font-semibold mb-2">Company Name *</label>
+            <label className="block text-sm font-semibold mb-2">
+              Company Name *
+            </label>
             <input
               type="text"
               name="name"
@@ -54,7 +63,9 @@ const CreateCompanyForm = ({ onSubmit }) => {
             />
           </div>
           <div>
-            <label className="block text-sm font-semibold mb-2">Industry Type</label>
+            <label className="block text-sm font-semibold mb-2">
+              Industry Type
+            </label>
             <input
               type="text"
               name="type"
@@ -68,7 +79,9 @@ const CreateCompanyForm = ({ onSubmit }) => {
 
         {/* Row 2: Logo URL */}
         <div>
-          <label className="block text-sm font-semibold mb-2">Logo Image URL</label>
+          <label className="block text-sm font-semibold mb-2">
+            Logo Image URL
+          </label>
           <input
             type="url"
             name="logo"
@@ -82,7 +95,9 @@ const CreateCompanyForm = ({ onSubmit }) => {
         {/* Row 3: Location & Founded */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <div className="md:col-span-2">
-            <label className="block text-sm font-semibold mb-2">Headquarters Location</label>
+            <label className="block text-sm font-semibold mb-2">
+              Headquarters Location
+            </label>
             <input
               type="text"
               name="location"
@@ -93,7 +108,9 @@ const CreateCompanyForm = ({ onSubmit }) => {
             />
           </div>
           <div>
-            <label className="block text-sm font-semibold mb-2">Year Founded</label>
+            <label className="block text-sm font-semibold mb-2">
+              Year Founded
+            </label>
             <input
               type="number"
               name="founded"
@@ -108,7 +125,9 @@ const CreateCompanyForm = ({ onSubmit }) => {
         {/* Row 4: Rating, Company Size, Open Jobs */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
           <div>
-            <label className="block text-sm font-semibold mb-2">Rating (0.0 - 5.0)</label>
+            <label className="block text-sm font-semibold mb-2">
+              Rating (0.0 - 5.0)
+            </label>
             <input
               type="number"
               name="rating"
@@ -122,7 +141,9 @@ const CreateCompanyForm = ({ onSubmit }) => {
             />
           </div>
           <div>
-            <label className="block text-sm font-semibold mb-2">Company Size</label>
+            <label className="block text-sm font-semibold mb-2">
+              Company Size
+            </label>
             <input
               type="text"
               name="companySize"
@@ -133,7 +154,9 @@ const CreateCompanyForm = ({ onSubmit }) => {
             />
           </div>
           <div>
-            <label className="block text-sm font-semibold mb-2">Open Jobs Count</label>
+            <label className="block text-sm font-semibold mb-2">
+              Open Jobs Count
+            </label>
             <input
               type="number"
               name="openJobs"
@@ -147,7 +170,9 @@ const CreateCompanyForm = ({ onSubmit }) => {
 
         {/* Row 5: Salary Range */}
         <div>
-          <label className="block text-sm font-semibold mb-2">Average Salary Range</label>
+          <label className="block text-sm font-semibold mb-2">
+            Average Salary Range
+          </label>
           <input
             type="text"
             name="salary"
@@ -160,7 +185,9 @@ const CreateCompanyForm = ({ onSubmit }) => {
 
         {/* Row 6: Description */}
         <div>
-          <label className="block text-sm font-semibold mb-2">Company Description</label>
+          <label className="block text-sm font-semibold mb-2">
+            Company Description
+          </label>
           <textarea
             name="description"
             rows="4"
@@ -173,7 +200,9 @@ const CreateCompanyForm = ({ onSubmit }) => {
 
         {/* Row 7: Review */}
         <div>
-          <label className="block text-sm font-semibold mb-2">Featured Review / Executive Summary</label>
+          <label className="block text-sm font-semibold mb-2">
+            Featured Review / Executive Summary
+          </label>
           <textarea
             name="review"
             rows="3"

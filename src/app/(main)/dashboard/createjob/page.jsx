@@ -1,5 +1,6 @@
 "use client";
 
+import { authClient } from "@/lib/auth-client";
 import React, { useState } from "react";
 import {
   FiBriefcase,
@@ -13,12 +14,15 @@ import {
   FiFileText,
 } from "react-icons/fi";
 // 2. Dynamic Skills Tag Management State
- 
 
 const CreateJobForm = () => {
-   const [skills, setSkills] = useState(["ReactJS", "Node.js", "JavaScript"]);
+  const [skills, setSkills] = useState(["ReactJS", "Node.js", "JavaScript"]);
   const [skillInput, setSkillInput] = useState("");
   const [isSubmitted, setIsSubmitted] = useState(false);
+
+  const { data: session } = authClient.useSession();
+  const user = session?.user;
+
   // 1. Form Core States
   const [formData, setFormData] = useState({
     jobTitle: "",
@@ -33,9 +37,8 @@ const CreateJobForm = () => {
     salaryPeriod: "Hour",
     description: "",
     postedAt: new Date().toLocaleDateString("en-GB"),
+    user: user?.id,
   });
-
- 
 
   // Form Input Change Handler
   const handleInputChange = (e) => {
@@ -160,7 +163,7 @@ const CreateJobForm = () => {
 
                     setFormData((prev) => ({
                       ...prev,
-                     logo: imageUrl,
+                      logo: imageUrl,
                     }));
                   }}
                   className="w-full px-4 py-3 border border-gray-400 rounded-xl text-sm focus:outline-none transition"

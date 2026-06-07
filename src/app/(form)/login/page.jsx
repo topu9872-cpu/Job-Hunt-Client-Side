@@ -13,7 +13,7 @@ const LoginPage = () => {
   const handleSubmit = async (e) => {
      e.preventDefault();
      const formData = Object.fromEntries(new FormData(e.target));
- 
+ console.log(formData)
      const { data, error } = await authClient.signIn.email({
        email: formData.email,
        password: formData.password,
@@ -56,6 +56,7 @@ const LoginPage = () => {
 
         {/* EMAIL */}
         <input
+        name="email"
           type="email"
           placeholder="Email"
           className="w-full p-3 border rounded-lg outline-none focus:ring-2 focus:ring-black"
@@ -64,6 +65,7 @@ const LoginPage = () => {
         {/* PASSWORD */}
         <div className="relative">
           <input
+          name="password"
             type={showPassword ? "text" : "password"}
             placeholder="Password"
             className="w-full p-3 border rounded-lg pr-12 outline-none focus:ring-2 focus:ring-black"

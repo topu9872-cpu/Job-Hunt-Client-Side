@@ -11,42 +11,62 @@ import { useRouter } from "next/navigation";
 const SignupForm = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [role, setRole] = useState("user");
+  const [image, setImage] = useState("");
   const router = useRouter();
+
+  const uploadToImgBB = async (file) => {
+    const formDataImg = new FormData();
+    formDataImg.append("image", file);
+
+    const res = await fetch(
+      `https://api.imgbb.com/1/upload?key=${process.env.NEXT_PUBLIC_IMGBB_API_KEY}`,
+      {
+        method: "POST",
+        body: formDataImg,
+      },
+    );
+
+    const data = await res.json();
+    return data.data.url;
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     const formData = Object.fromEntries(new FormData(e.target));
 
     const { data, error } = await authClient.signUp.email({
       email: formData.email,
       password: formData.password,
       name: formData.name,
-      // image: formData.image,
-      role: formData.role,
+      image: image,
+      role: role, 
     });
+    console.log(formData)
+
     if (data) {
-      toast.success("Account Ctreted Successfully !");
+      toast.success("Account Created Successfully!");
       router.push("/login");
     }
+
     if (error) {
-toast.error(error.message || "Account Creation Failed!");    }
+      toast.error(error.message || "Account Creation Failed!");
+    }
   };
 
   const handleGoogleSignup = async () => {
     await authClient.signIn.social({
       provider: "google",
-
       callbackURL: "/login",
     });
   };
 
-  const handleGitHubSignup=async()=>{
-     await authClient.signIn.social({
+  const handleGitHubSignup = async () => {
+    await authClient.signIn.social({
       provider: "github",
-
       callbackURL: "/login",
     });
   };
-  
 
   return (
     <div className="min-h-screen flex items-center mt-10 justify-center p-4">
@@ -64,10 +84,18 @@ toast.error(error.message || "Account Creation Failed!");    }
           placeholder="Full Name"
           className="w-full p-3 border rounded-lg outline-none focus:ring-2 focus:ring-black"
         />
+
+        {/* IMAGE UPLOAD */}
         <input
-          name="image"
           type="file"
-          className="w-full p-3 border rounded-lg outline-none focus:ring-2 focus:ring-black"
+          onChange={async (e) => {
+            const file = e.target.files[0];
+            if (!file) return;
+
+            const url = await uploadToImgBB(file);
+            setImage(url); // ✅ FIXED
+          }}
+          className="w-full p-3 border rounded-lg"
         />
 
         {/* EMAIL */}
@@ -77,30 +105,29 @@ toast.error(error.message || "Account Creation Failed!");    }
           className="w-full p-3 border rounded-lg outline-none focus:ring-2 focus:ring-black"
         />
 
-        {/* PASSWORD (FUNCTIONAL) */}
+        {/* PASSWORD */}
         <div className="relative">
           <input
             name="password"
             type={showPassword ? "text" : "password"}
             placeholder="Password"
-            className="w-full p-3 border rounded-lg pr-12 outline-none focus:ring-2 focus:ring-black"
+            className="w-full p-3 border rounded-lg pr-12"
           />
 
           <button
             type="button"
             onClick={() => setShowPassword(!showPassword)}
-            className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-600"
+            className="absolute right-3 top-1/2 -translate-y-1/2"
           >
             {showPassword ? <FaEyeSlash /> : <FaEye />}
           </button>
         </div>
 
-        {/* ROLE (FUNCTIONAL) */}
-        <div className="flex gap-4 p-2 rounded-xl">
-          <label className="flex items-center gap-2 cursor-pointer">
+        {/* ROLE */}
+        <div className="flex gap-4">
+          <label>
             <input
               type="radio"
-              name="role"
               value="user"
               checked={role === "user"}
               onChange={(e) => setRole(e.target.value)}
@@ -108,10 +135,9 @@ toast.error(error.message || "Account Creation Failed!");    }
             User
           </label>
 
-          <label className="flex items-center gap-2 cursor-pointer">
+          <label>
             <input
               type="radio"
-              name="role"
               value="recruiter"
               checked={role === "recruiter"}
               onChange={(e) => setRole(e.target.value)}
@@ -120,29 +146,22 @@ toast.error(error.message || "Account Creation Failed!");    }
           </label>
         </div>
 
-        {/* BUTTON */}
-        <button
-          type="submit"
-          className="w-full btn btn-info text-white p-3 rounded-lg font-medium"
-        >
+        {/* SUBMIT */}
+        <button type="submit" className="w-full btn btn-info">
           Sign Up
         </button>
-        <p className="text-center text-sm text-gray-500">
-          I have an account?
-          <Link
-            href="/login"
-            className="text-blue-400 hover:underline font-medium"
+
+        {/* SOCIAL */}
+        <div className="flex flex-col gap-3">
+          <button
+            type="button"
+            onClick={handleGoogleSignup}
+            className="btn bg-white text-black"
           >
-            Sign Up
-          </Link>
-        </p>
-        <div className="flex flex-col space-y-3">
-          {/* Google */}
-          <button onClick={handleGoogleSignup} className="btn bg-white text-black border-[#e5e5e5]">
             <svg
               aria-label="Google logo"
-              width="20"
-              height="20"
+              width="16"
+              height="16"
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 512 512"
             >
@@ -169,8 +188,7 @@ toast.error(error.message || "Account Creation Failed!");    }
             Login with Google
           </button>
 
-          {/* GitHub */}
-          <button onClick={handleGitHubSignup} className="btn bg-black text-white border-black">
+          <button type="button" onClick={handleGitHubSignup} className="btn">
             <svg
               aria-label="GitHub logo"
               width="16"
@@ -186,6 +204,13 @@ toast.error(error.message || "Account Creation Failed!");    }
             Login with GitHub
           </button>
         </div>
+
+        <p className="text-center text-sm">
+          I have an account?{" "}
+          <Link href="/login" className="text-blue-500">
+            Login
+          </Link>
+        </p>
       </motion.form>
     </div>
   );

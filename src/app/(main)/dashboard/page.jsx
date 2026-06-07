@@ -1,11 +1,16 @@
 "use client";
 import DashboardChart from "@/DashboardComponents/DashboardChart/DashboardChart";
 import DashBoardTable from "@/DashboardComponents/DashBoardTable/DashBoardTable";
+import { authClient } from "@/lib/auth-client";
 import Link from "next/link";
 
 import { FiBell, FiSearch } from "react-icons/fi";
 
 const DashboardLayout = () => {
+  const { data: session } = authClient.useSession();
+  const user = session?.user;
+
+
   return (
     <div className="flex h-screen mb-10 z-10 font-sans antialiased">
       <div className="flex flex-col flex-1 ">
@@ -46,7 +51,7 @@ const DashboardLayout = () => {
           {/* Welcome Banner */}
           <div>
             <h1 className="text-2xl font-extrabold tracking-tight">
-              Welcome back, Julie
+              Welcome back,{user?.name}
             </h1>
             <p className="text-sm text-gray-400 mt-0.5">
               Here is an overview of your recruitment and pay pipeline metrics.

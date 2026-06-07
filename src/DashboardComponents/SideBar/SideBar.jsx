@@ -12,6 +12,7 @@ import {
 import { MdCreateNewFolder ,MdNoteAdd} from "react-icons/md";
 import React, { useState } from "react";
 import { usePathname } from "next/navigation";
+import { authClient } from "@/lib/auth-client";
 
 
 const SideBar = () => {
@@ -25,6 +26,12 @@ const SideBar = () => {
     { icon: <MdNoteAdd size={20} />, label: "Companey", href: "/dashboard/companey" },
     { icon: <FiSettings size={20} />, label: "Settings", href: "/dashboard/settings" },
   ];
+
+
+  const {data:session}=authClient.useSession()
+  const user=session?.user ;
+  
+ 
 
   return (
     <>
@@ -94,16 +101,16 @@ const SideBar = () => {
         {/* USER */}
         <div className="p-4 border-t border-slate-800 flex items-center gap-3">
           <Image
-            src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=100&auto=format&fit=crop"
-            alt="User Avatar"
+            src={user?.image}
+            alt={user?.name}
             width={40}
             height={40}
             className="rounded-full w-12 h-12 object-cover border border-slate-700"
           />
           <div className="overflow-hidden">
-            <p className="text-sm font-bold truncate">Julie Sweet</p>
+            <p className="text-sm font-bold truncate">{user?.name}</p>
             <p className="text-xs text-gray-400 truncate">
-              julie.s@accenture.com
+             {user?.email}
             </p>
           </div>
         </div>
