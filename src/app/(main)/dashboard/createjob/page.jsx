@@ -40,6 +40,7 @@ const CreateJobForm = () => {
     user: user?.id,
   });
 
+  
   // Form Input Change Handler
   const handleInputChange = (e) => {
     const { name, value } = e.target;

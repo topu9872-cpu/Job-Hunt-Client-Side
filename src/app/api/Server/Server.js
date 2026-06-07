@@ -1,4 +1,4 @@
-import { getData } from "./api";
+import { getData, postData } from "./api";
 
 export const getJobsData = async (page = 1, search = "", location = "") => {
   return getData(
@@ -13,3 +13,7 @@ export const getCompaniesData = async (search = "") => {
 export const getJobDetailsData = async (id) => {
   return getData(`/jobs/${id}`)
 };
+
+export const getCompaniesPost=async(formData)=>{
+  return postData(formData, '/companies')
+}

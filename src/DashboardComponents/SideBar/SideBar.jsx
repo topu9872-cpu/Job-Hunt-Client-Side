@@ -81,7 +81,7 @@ const SideBar = () => {
               <a
                 key={idx}
                 href={item.href}
-                onClick={() => setIsSidebarOpen(false)} // auto close mobile
+                onClick={() => setIsSidebarOpen(false)}
                 className={`
                   flex items-center gap-4 px-4 py-3 rounded-xl font-medium text-sm transition-all
                   ${

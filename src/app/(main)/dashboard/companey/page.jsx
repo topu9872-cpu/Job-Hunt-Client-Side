@@ -1,6 +1,9 @@
 "use client";
+
+import {getCompaniesPost } from "@/app/api/Server/Server";
 import { authClient } from "@/lib/auth-client";
 import React, { useState } from "react";
+import toast from "react-hot-toast";
 
 const CreateCompanyForm = ({ onSubmit }) => {
   const { data: session } = authClient.useSession();
@@ -30,10 +33,16 @@ const CreateCompanyForm = ({ onSubmit }) => {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (onSubmit) onSubmit(formData);
     console.log("Company Data Submitted:", formData);
+    const result = await getCompaniesPost(formData);
+    if (result) {
+      toast.success("Company Created Successfully !");
+    } else {
+      toast.error("Failed to Created Company !");
+    }
   };
 
   return (
