@@ -4,23 +4,53 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import Link from "next/link";
+import { authClient } from "@/lib/auth-client";
+import toast from "react-hot-toast";
 
 const LoginPage = () => {
   const [showPassword, setShowPassword] = useState(false);
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    const formData = Object.fromEntries(new FormData(e.target));
-    console.log(formData);
-  };
+     e.preventDefault();
+     const formData = Object.fromEntries(new FormData(e.target));
+ 
+     const { data, error } = await authClient.signIn.email({
+       email: formData.email,
+       password: formData.password,
+      callbackURL: "/",
+     });
+     if (data) {
+       toast.success("Login Successfully !");
+      
+     }
+     if (error) {
+ toast.error(error.message || "Login Failed!");    }
+   };
+ 
+   const handleGoogleSignin= async () => {
+     await authClient.signIn.social({
+       provider: "google",
+ 
+       callbackURL: "/",
+     });
+   };
+ 
+   const handleGitHubSignin=async()=>{
+      await authClient.signIn.social({
+       provider: "github",
+ 
+       callbackURL: "/",
+     });
+   };
+   
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-4">
+    <div className="min-h-screen flex items-center  justify-center p-4">
       <motion.form
         onSubmit={handleSubmit}
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
-        className="w-full max-w-md  bg-white p-6 rounded-2xl shadow-xl space-y-4"
+        className="w-full max-w-md   p-6 rounded-2xl shadow-xl space-y-4 border border-gray-300 "
       >
         <h2 className="text-2xl font-bold text-center">Login</h2>
 
@@ -70,7 +100,7 @@ const LoginPage = () => {
         </p>
         <div className="flex flex-col space-y-3">
           {/* Google */}
-          <button className="btn bg-white text-black border-[#e5e5e5]">
+          <button onClick={handleGoogleSignin} className="btn bg-white text-black border-[#e5e5e5]">
             <svg
               aria-label="Google logo"
               width="20"
@@ -102,7 +132,7 @@ const LoginPage = () => {
           </button>
 
           {/* GitHub */}
-          <button className="btn bg-black text-white border-black">
+          <button onClick={handleGitHubSignin} className="btn bg-black text-white border-black">
             <svg
               aria-label="GitHub logo"
               width="16"
