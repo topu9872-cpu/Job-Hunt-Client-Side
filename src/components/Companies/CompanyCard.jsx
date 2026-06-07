@@ -21,6 +21,8 @@ const CompanyCard = ({ company }) => {
     salary,
     type,
   } = company;
+   console.log(company);
+  
 
   return (
     <div className="w-full flex p-4">

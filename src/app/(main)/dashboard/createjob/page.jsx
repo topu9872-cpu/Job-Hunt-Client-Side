@@ -12,26 +12,30 @@ import {
   FiCheckCircle,
   FiFileText,
 } from "react-icons/fi";
+// 2. Dynamic Skills Tag Management State
+ 
 
 const CreateJobForm = () => {
+   const [skills, setSkills] = useState(["ReactJS", "Node.js", "JavaScript"]);
+  const [skillInput, setSkillInput] = useState("");
+  const [isSubmitted, setIsSubmitted] = useState(false);
   // 1. Form Core States
   const [formData, setFormData] = useState({
     jobTitle: "",
     company: "Google",
-    companylogo: "",
+    logo: "",
     location: "",
     jobType: "Full-time",
-    experienceLevel: "Mid-Level",
+    experience: "Mid-Level",
     salaryMin: "",
     salaryMax: "",
+    skills: skills,
     salaryPeriod: "Hour",
     description: "",
+    postedAt: new Date().toLocaleDateString("en-GB"),
   });
-  console.log(formData);
-  // 2. Dynamic Skills Tag Management State
-  const [skills, setSkills] = useState(["ReactJS", "Node.js", "JavaScript"]);
-  const [skillInput, setSkillInput] = useState("");
-  const [isSubmitted, setIsSubmitted] = useState(false);
+
+ 
 
   // Form Input Change Handler
   const handleInputChange = (e) => {
@@ -57,6 +61,7 @@ const CreateJobForm = () => {
     setIsSubmitted(true);
     console.log("Job Data Created Successfully:", { ...formData, skills });
     setSkillInput("");
+    // window.location.reload();
     setTimeout(() => setIsSubmitted(false), 4000);
   };
 
@@ -65,7 +70,7 @@ const CreateJobForm = () => {
     formDataImg.append("image", file);
 
     const res = await fetch(
-      `https://api.imgbb.com/1/upload?key=process.env.NEXT_PUBLIC_IMGBB_API_KEY`,
+      `https://api.imgbb.com/1/upload?key=${process.env.NEXT_PUBLIC_IMGBB_API_KEY}`,
       {
         method: "POST",
         body: formDataImg,
@@ -87,15 +92,6 @@ const CreateJobForm = () => {
           </span>
         </div>
       )}
-      <img
-        src={
-          formData.companylogo ||
-          "https://i.ibb.co.com/wZfmHD2J/elg21-bird-8788491.jpg"
-        }
-        width={70}
-        height={70}
-        alt="logo"
-      />
 
       {/* Header Banner */}
       <div className="mb-8">
@@ -114,7 +110,6 @@ const CreateJobForm = () => {
         className=" border-gray-400 rounded-2xl shadow-sm overflow-hidden"
       >
         <div className="p-6 md:p-8 space-y-8">
-          {/* SECTION 1: ROLE DETAILS */}
           <div>
             <h2 className="text-lg font-bold  flex items-center gap-2 mb-4">
               <FiBriefcase className="text-gray-500" />
@@ -133,7 +128,7 @@ const CreateJobForm = () => {
                   placeholder="e.g. ReactJS Full Stack Engineer"
                   value={formData.jobTitle}
                   onChange={handleInputChange}
-                  className="w-full px-4 py-3  border border-gray-400 rounded-xl text-sm focus:outline-none focus:border-black focus:bg-white transition"
+                  className="w-full px-4 py-3 bg-background  border border-gray-400 rounded-xl text-sm focus:outline-none  transition"
                 />
               </div>
               <div>
@@ -147,7 +142,7 @@ const CreateJobForm = () => {
                   placeholder="Company"
                   value={formData.company}
                   onChange={handleInputChange}
-                  className="w-full px-4 py-3  border border-gray-400 rounded-xl text-sm focus:outline-none focus:border-black focus:bg-white transition"
+                  className="w-full px-4 py-3  border border-gray-400 rounded-xl text-sm focus:outline-none transition"
                 />
               </div>
               <div>
@@ -156,8 +151,7 @@ const CreateJobForm = () => {
                 </label>
                 <input
                   type="file"
-                  name="companylogo"
-                  accept="image/*"
+                  name="logo"
                   onChange={async (e) => {
                     const file = e.target.files[0];
                     if (!file) return;
@@ -166,10 +160,10 @@ const CreateJobForm = () => {
 
                     setFormData((prev) => ({
                       ...prev,
-                      companylogo: imageUrl,
+                     logo: imageUrl,
                     }));
                   }}
-                  className="w-full px-4 py-3 border border-gray-400 rounded-xl text-sm focus:outline-none focus:border-black focus:bg-white transition"
+                  className="w-full px-4 py-3 border border-gray-400 rounded-xl text-sm focus:outline-none transition"
                 />
               </div>
 
@@ -189,7 +183,7 @@ const CreateJobForm = () => {
                     placeholder="e.g. Morristown, NJ"
                     value={formData.location}
                     onChange={handleInputChange}
-                    className="w-full pl-10 pr-4 py-3 border border-gray-400 rounded-xl text-sm focus:outline-none focus:border-black focus:bg-white transition"
+                    className="w-full pl-10 pr-4 py-3 border border-gray-400 rounded-xl text-sm focus:outline-none transition"
                   />
                 </div>
               </div>
@@ -228,7 +222,7 @@ const CreateJobForm = () => {
                   />
                   <select
                     name="experienceLevel"
-                    value={formData.experienceLevel}
+                    value={formData.experience}
                     onChange={handleInputChange}
                     className="w-full pl-10 pr-4 py-3 border bg-background  border-gray-400 rounded-xl text-sm focus:outline-none   cursor-pointer"
                   >
@@ -263,7 +257,7 @@ const CreateJobForm = () => {
                   placeholder="44.00"
                   value={formData.salaryMin}
                   onChange={handleInputChange}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-xl text-sm focus:outline-none focus:border-black focus:bg-white transition"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-xl text-sm focus:outline-none transition"
                 />
               </div>
 
@@ -278,7 +272,7 @@ const CreateJobForm = () => {
                   placeholder="54.00"
                   value={formData.salaryMax}
                   onChange={handleInputChange}
-                  className="w-full px-4 py-3 border border-gray-200 rounded-xl text-sm focus:outline-none focus:border-black focus:bg-white transition"
+                  className="w-full px-4 py-3 border border-gray-200 rounded-xl text-sm focus:outline-none transition"
                 />
               </div>
 
@@ -321,7 +315,7 @@ const CreateJobForm = () => {
                   placeholder="Outline context flexibility, benefits structures, project terms..."
                   value={formData.description}
                   onChange={handleInputChange}
-                  className="w-full px-4 py-3  border border-gray-300 rounded-xl text-sm focus:outline-none focus:border-black focus:bg-white transition resize-none leading-relaxed"
+                  className="w-full px-4 py-3  border border-gray-300 rounded-xl text-sm focus:outline-none  transition resize-none leading-relaxed"
                 />
               </div>
 
@@ -340,7 +334,7 @@ const CreateJobForm = () => {
                       e.key === "Enter" &&
                       (e.preventDefault(), handleAddSkill(e))
                     }
-                    className="w-full px-4 py-3 border border-gray-300 rounded-xl text-sm focus:outline-none focus:border-black focus:bg-white transition"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-xl text-sm focus:outline-none transition"
                   />
                   <button
                     type="button"

@@ -74,7 +74,12 @@ const AllCards = ({ jobsData }) => {
                 {job.location}
               </p>
               <p className=" text-sm sm:text-base font-medium mt-1 flex flex-wrap gap-x-1 items-center">
-                <span>{job.salary} K</span>
+                <span>
+                  {job.salaryMin && job.salaryMax
+                    ? `${job.salaryMin} - ${job.salaryMax} K`
+                    : `${job.salary}`}
+                </span>
+
                 <span className=" font-normal text-xs sm:text-sm">
                   (Employer provided)
                 </span>
