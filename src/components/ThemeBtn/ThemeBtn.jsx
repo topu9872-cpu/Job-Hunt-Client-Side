@@ -11,7 +11,7 @@ export function ThemeSwitch() {
   return (
  <button
   onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-  className="relative w-10 h-10 flex items-center justify-center overflow-hidden"
+  className="relative w-10 h-10 flex items-center p-6 justify-center overflow-hidden"
 >
   <MdSunny
     className={`absolute text-yellow-500 text-xl transition-all duration-500 ease-in-out ${

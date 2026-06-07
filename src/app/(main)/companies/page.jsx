@@ -1,7 +1,7 @@
 export const dynamic = "force-dynamic";
 import CompanyCard from "@/components/Companies/CompanyCard";
 import CompanyFilters from "@/components/Companies/CompanyFilters";
-import { getCompaniesData } from "../api/Server/Server";
+import { getCompaniesData } from "../../api/Server/Server";
 import OneByOneBack from "@/components/OneByOneBack/OneByOneBack";
 
 const CompaniesPage = async ({ searchParams }) => {

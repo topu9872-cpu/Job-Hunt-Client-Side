@@ -77,7 +77,7 @@ const CreateJobForm = () => {
   };
 
   return (
-    <div className="max-w-4xl mx-auto border border-gray-500 rounded-2xl p-4 font-sans antialiased">
+    <div className="max-w-4xl mx-auto border mt-12 border-gray-500 rounded-2xl p-4 font-sans antialiased">
       {/* Toast Notification */}
       {isSubmitted && (
         <div className="fixed top-5 right-5 z-50 flex items-center gap-3 bg-emerald-600 text-white px-5 py-3.5 rounded-xl shadow-xl transition-all duration-300 animate-bounce">

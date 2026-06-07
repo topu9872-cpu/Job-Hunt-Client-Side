@@ -3,7 +3,7 @@ import Image from "next/image";
 import {
   FiHome,
   FiBriefcase,
-  FiPieChart,
+ 
   FiSettings,
   FiX,
   FiMenu,
@@ -12,6 +12,7 @@ import {
 import { MdCreateNewFolder ,MdNoteAdd} from "react-icons/md";
 import React, { useState } from "react";
 import { usePathname } from "next/navigation";
+
 
 const SideBar = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -28,22 +29,27 @@ const SideBar = () => {
   return (
     <>
     
-      <button
-        className="fixed top-4 left-4 p-2 mt-20 hover:text-white rounded-lg hover:bg-black z-50 md:hidden"
+    
+       
+        <button
+        className=" relative top-30 left-10  md:hidden"
         onClick={() => setIsSidebarOpen(true)}
       >
         <FiMenu size={20} />
+        
       </button>
+  
 
       {/* SIDEBAR */}
       <aside
         className={`
-          fixed inset-y-0 left-0  mt-0 md:mt-16 h-screen bg-background w-60 shadow-[5px_0px_10px_rgba(0,0,0,0.2)]
+          fixed inset-y-0 left-0 z-30  mt-0 pt-16 h-screen bg-background w-60 shadow-[5px_0px_10px_rgba(0,0,0,0.2)]
           flex flex-col transform transition-transform duration-300 ease-in-out
           md:translate-x-0 md:relative
           ${isSidebarOpen ? "translate-x-0" : "-translate-x-full"}
         `}
       >
+         
         {/* HEADER */}
         <div className="h-16 flex items-center justify-between px-6 border-b border-gray-400">
           <div className="flex items-center gap-2 font-bold text-xl">
@@ -55,6 +61,7 @@ const SideBar = () => {
 
           <button className="md:hidden" onClick={() => setIsSidebarOpen(false)}>
             <FiX size={20} />
+            
           </button>
         </div>
 
@@ -105,7 +112,7 @@ const SideBar = () => {
       {/* BACKDROP */}
       {isSidebarOpen && (
         <div
-          className="fixed inset-0 z-50 bg-black/40  md:hidden"
+          className="fixed inset-0 bg-black/40  md:hidden"
           onClick={() => setIsSidebarOpen(false)}
         />
       )}

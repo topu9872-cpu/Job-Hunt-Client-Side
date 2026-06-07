@@ -1,8 +1,14 @@
+"use client";
 import Image from "next/image";
 import NavLink from "./NavLink";
 import { ThemeSwitch } from "../ThemeBtn/ThemeBtn";
 
+import { authClient } from "@/lib/auth-client";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+
 const NavBar = () => {
+  const router=useRouter()
   const navData = (
     <>
       <NavLink href="/">Home</NavLink>
@@ -12,8 +18,21 @@ const NavBar = () => {
     </>
   );
 
+  const { data: session } = authClient.useSession();
+  const user = session?.user;
+
+  const handleSignout = async () => {
+    await authClient.signOut({
+      fetchOptions: {
+        onSuccess: () => {
+          router.push("/login");
+        },
+      },
+    });
+  };
+
   return (
-<div className="mx-auto z-50 flex justify-center">
+    <div className="mx-auto z-50 flex justify-center">
       <div className="navbar mx-auto fixed  z-50  w-11/12 ">
         <div className="navbar-start">
           <div className="dropdown">
@@ -41,7 +60,7 @@ const NavBar = () => {
               {navData}
             </ul>
           </div>
-          <a className="">
+          <a className="z-50">
             {" "}
             <Image
               src={
@@ -54,16 +73,33 @@ const NavBar = () => {
           </a>
         </div>
         <div className="navbar-center hidden lg:flex">
-         <ul className="menu menu-horizontal gap-5 rounded-full border border-white/20 bg-white/10 backdrop-blur-xs shadow">
+          <ul className="menu menu-horizontal gap-5 rounded-full border border-white/20 bg-white/10 backdrop-blur-xs shadow">
             {navData}
           </ul>
         </div>
         <div className="navbar-end gap-5">
-          <a className="btn">Button</a>
-          <ThemeSwitch/>
+          {user ? (
+            <div className="flex gap-5">
+              <h1 className="text-white tracking-wide truncate max-w-30">
+                Hi, {user.name}
+              </h1>
+              <button
+                onClick={handleSignout}
+                className="btn btn-error text-white"
+              >
+                Logout
+              </button>
+            </div>
+          ) : (
+            <div className="space-x-4 flex">
+              <Link href={'/login'} className="btn btn-info text-white">Login</ Link>
+              <Link href={'/signup'} className="btn btn-info text-white">Sigin</Link>
+            </div>
+          )}
+          <ThemeSwitch />
         </div>
       </div>
-   </div>
+    </div>
   );
 };
 

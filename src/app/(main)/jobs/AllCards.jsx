@@ -20,7 +20,7 @@ const AllCards = ({ jobsData }) => {
         <Link
           href={`/jobs/${job._id}`}
           key={job._id}
-          className="w-full p-4 flex justify-center hover:bg-gray-200 items-center "
+          className="w-full p-4 flex justify-center hover:opacity-60 duration-500 items-center "
         >
           <div className="w-full sm:max-w-md  border border-gray-200 rounded-2xl p-4 sm:p-5 shadow-sm font-sans relative transition-all duration-200 hover:shadow-md">
             <div className="flex justify-between items-start gap-4">

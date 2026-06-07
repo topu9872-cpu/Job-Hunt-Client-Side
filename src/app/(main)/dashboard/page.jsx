@@ -1,31 +1,16 @@
-'use client'
+"use client";
 import DashboardChart from "@/DashboardComponents/DashboardChart/DashboardChart";
 import DashBoardTable from "@/DashboardComponents/DashBoardTable/DashBoardTable";
 import Link from "next/link";
 
-import {
- 
- 
-  
- 
-  FiBell,
-  FiSearch,
-} from "react-icons/fi";
+import { FiBell, FiSearch } from "react-icons/fi";
 
 const DashboardLayout = () => {
- 
-
-  
-
   return (
-    <div className="flex h-screen mb-10  font-sans antialiased">
-    
-
+    <div className="flex h-screen mb-10 z-10 font-sans antialiased">
       <div className="flex flex-col flex-1 ">
         <header className=" h-16 border-b border-gray-400 flex items-center justify-between px-6 ">
           <div className="flex items-center gap-4">
-          
-
             {/* Search Bar */}
             <div className="relative hidden md:block">
               <FiSearch
@@ -47,7 +32,10 @@ const DashboardLayout = () => {
               <span className="absolute top-2 right-2 w-2 h-2 bg-rose-500 rounded-full"></span>
             </button>
             <hr className="h-6 w-px " />
-            <Link href= "/dashboard/createjob" className="bg-emerald-500 text-white text-xs font-bold px-4 py-2 rounded-xl hover:bg-gray-800 transition">
+            <Link
+              href="/dashboard/createjob"
+              className="bg-emerald-500 z-40 text-white text-xs font-bold px-4 py-2 rounded-xl hover:bg-gray-800 transition"
+            >
               + New Post
             </Link>
           </div>
@@ -100,9 +88,11 @@ const DashboardLayout = () => {
 
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-5">
             <div className=" border border-gray-300 rounded-2xl hover:scale-102  transition-all duration-500 ease-in-out  hover:shadow-[0_0_10px] lg:col-span-7 min-h-75 flex items-center justify-center font-medium">
-              <DashBoardTable/>
+              <DashBoardTable />
             </div>
- <div className="border border-gray-300 rounded-2xl hover:scale-102  transition-all duration-500 ease-in-out  hover:shadow-[0_0_10px] lg:col-span-5  flex items-center justify-center font-medium">              <DashboardChart/>
+            <div className="border border-gray-300 rounded-2xl hover:scale-102  transition-all duration-500 ease-in-out  hover:shadow-[0_0_10px] lg:col-span-5  flex items-center justify-center font-medium">
+              {" "}
+              <DashboardChart />
             </div>
           </div>
         </main>

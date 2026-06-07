@@ -1,6 +1,6 @@
 const JobApplications = () => {
   return (
-    <div className='border'>
+    <div className='border m-12'>
         JobApplications
     </div>
   );

@@ -39,7 +39,7 @@ const CreateCompanyForm = () => {
   };
 
   return (
-    <div className="max-w-4xl mx-auto p-2 font-sans antialiased">
+    <div className="max-w-4xl mx-auto border border-gray-400 mt-12 rounded-2xl p-6 font-sans antialiased">
       
       {/* Toast Notification Pop */}
       {isSubmitted && (
