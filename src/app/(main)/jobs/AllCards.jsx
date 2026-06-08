@@ -1,5 +1,6 @@
 "use client";
 
+import { getDaysAgo } from "@/app/api/Server/api";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
@@ -7,6 +8,7 @@ import { BsBookmark, BsLightningChargeFill } from "react-icons/bs";
 import { FaBookmark } from "react-icons/fa";
 const AllCards = ({ jobsData }) => {
   const [sevedJob, setSevedJob] = useState([]);
+  console.log(jobsData);
 
   const handleToggle = async (id) => {
     setSevedJob((prev) =>
@@ -20,17 +22,17 @@ const AllCards = ({ jobsData }) => {
         <Link
           href={`/jobs/${job._id}`}
           key={job._id}
-          className="w-full p-4 flex justify-center hover:opacity-60 duration-500 items-center "
+          className="w-full p-4 flex justify-center duration-500 items-center "
         >
-          <div className="w-full sm:max-w-md  border border-gray-200 rounded-2xl p-4 sm:p-5 shadow-sm font-sans relative transition-all duration-200 hover:shadow-md">
+          <div className="w-full sm:max-w-md h-60 border border-gray-200 rounded-2xl p-4 sm:p-5 shadow-sm font-sans relative transition-all duration-200 hover:shadow-md">
             <div className="flex justify-between items-start gap-4">
               <div className="flex gap-3 items-center min-w-0">
                 <div className="w-11 h-11 sm:w-12 sm:h-12   border-gray-100 rounded-xl flex items-center justify-center shadow-sm shrink-0 overflow-hidden">
                   <Image
-                    src={job.logo}
+                    src={job?.logo}
                     width={40}
                     height={40}
-                    alt={job.title}
+                    alt={job.title || 'title'}
                   />
                 </div>
 
@@ -66,9 +68,9 @@ const AllCards = ({ jobsData }) => {
               </button>
             </div>
 
-            <div className="mt-3 sm:mt-4">
+            <div className=" mt-auto sm:mt-4">
               <h2 className="text-lg sm:text-xl font-bold tracking-tight leading-tight hover:text-blue-600 cursor-pointer wrap-break-word">
-                {job.title}
+                {job.title || job.jobTitle}
               </h2>
               <p className="text-sm sm:text-base mt-0.5 sm:mt-1">
                 {job.location}
@@ -95,8 +97,10 @@ const AllCards = ({ jobsData }) => {
               </div>
 
               {/* Time Posted */}
-              <span className=" text-xs sm:text-sm font-medium shrink-0">
-                14 days
+              <span className="text-xs sm:text-sm font-medium shrink-0">
+                {getDaysAgo(job.postedAt) <= 10
+                  ? `🔥 New • ${getDaysAgo(job.postedAt)} days ago`
+                  : "14+ days ago"}
               </span>
             </div>
           </div>

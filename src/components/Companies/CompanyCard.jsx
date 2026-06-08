@@ -17,11 +17,11 @@ const CompanyCard = ({ company }) => {
     description,
     companySize,
     openJobs,
-    review,
+    
     salary,
     type,
   } = company;
-   console.log(company);
+  
   
 
   return (
@@ -90,14 +90,14 @@ const CompanyCard = ({ company }) => {
 
           <div>
             <span className="font-bold">
-              {review || "70K-110k"}
+              {rating || "70K-110k"}
             </span>{" "}
             <span className="text-green-600 font-medium">Reviews</span>
           </div>
 
           <div>
             <span className="font-bold">
-              {salary || "129K-160k"}
+              {`${salary} k `|| "129K-160k"}
             </span>{" "}
             <span className="text-green-600 font-medium">Salaries</span>
           </div>

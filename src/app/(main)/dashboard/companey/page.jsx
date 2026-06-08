@@ -2,13 +2,14 @@
 
 import {getCompaniesPost } from "@/app/api/Server/Server";
 import { authClient } from "@/lib/auth-client";
+import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import toast from "react-hot-toast";
 
 const CreateCompanyForm = ({ onSubmit }) => {
   const { data: session } = authClient.useSession();
   const user = session?.user;
-
+const router=useRouter()
   const [formData, setFormData] = useState({
     name: "",
     logo: "",
@@ -22,8 +23,10 @@ const CreateCompanyForm = ({ onSubmit }) => {
     salary: "",
     type: "",
     postedAt: new Date().toLocaleDateString("en-GB"),
-    user: user?.id,
+    userId: user?.id,
+    status:'Active'
   });
+
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -39,7 +42,10 @@ const CreateCompanyForm = ({ onSubmit }) => {
     console.log("Company Data Submitted:", formData);
     const result = await getCompaniesPost(formData);
     if (result) {
-      toast.success("Company Created Successfully !");
+     setTimeout(()=>{
+       toast.success("Company Created Successfully !");
+     },400)
+      router.push('/dashboard')
     } else {
       toast.error("Failed to Created Company !");
     }

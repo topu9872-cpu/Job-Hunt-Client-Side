@@ -1,7 +1,9 @@
 "use client";
 
+import { getJobsPost } from "@/app/api/Server/Server";
 import { authClient } from "@/lib/auth-client";
 import React, { useState } from "react";
+import toast from "react-hot-toast";
 import {
   FiBriefcase,
   FiMapPin,
@@ -25,7 +27,7 @@ const CreateJobForm = () => {
 
   // 1. Form Core States
   const [formData, setFormData] = useState({
-    jobTitle: "",
+    title: "",
     company: "Google",
     logo: "",
     location: "",
@@ -37,10 +39,9 @@ const CreateJobForm = () => {
     salaryPeriod: "Hour",
     description: "",
     postedAt: new Date().toLocaleDateString("en-GB"),
-    user: user?.id,
+    userId:user?.id,
   });
-
-  
+console.log(user)
   // Form Input Change Handler
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -60,8 +61,14 @@ const CreateJobForm = () => {
   };
 
   // Form Submit Submission Engine
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    const res = await getJobsPost(formData);
+    if (res) {
+      toast.success("Job Cteated Successfully !");
+    } else {
+      toast.error("Faild to Creted Job !");
+    }
     setIsSubmitted(true);
     console.log("Job Data Created Successfully:", { ...formData, skills });
     setSkillInput("");
@@ -127,10 +134,10 @@ const CreateJobForm = () => {
                 </label>
                 <input
                   type="text"
-                  name="jobTitle"
+                  name="title"
                   required
                   placeholder="e.g. ReactJS Full Stack Engineer"
-                  value={formData.jobTitle}
+                  value={formData.title}
                   onChange={handleInputChange}
                   className="w-full px-4 py-3 bg-background  border border-gray-400 rounded-xl text-sm focus:outline-none  transition"
                 />

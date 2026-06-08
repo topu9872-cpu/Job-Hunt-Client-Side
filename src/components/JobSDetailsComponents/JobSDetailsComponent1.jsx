@@ -114,7 +114,7 @@ const JobDetailsComponent1 = ({ jobDetailsData }) => {
 
         {/* Existing Qualifications Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-y-3 gap-x-6 mb-6">
-          {skills.map((skill, ind) => (
+          {skills?.map((skill, ind) => (
             <div
               key={ind}
               className="flex items-center gap-3  font-medium"
@@ -132,7 +132,7 @@ const JobDetailsComponent1 = ({ jobDetailsData }) => {
           </h3>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-y-4 gap-x-8 mb-4">
-            {requirements.map((requirement, ind) => (
+            {requirements?.map((requirement, ind) => (
               <div key={ind} className="flex items-center gap-3">
                 <div className="flex gap-1.5">
                   <button className="p-2  rounded-lg  transition">

@@ -17,3 +17,7 @@ export const getJobDetailsData = async (id) => {
 export const getCompaniesPost=async(formData)=>{
   return postData(formData, '/companies')
 }
+
+export const getJobsPost=async(formData)=>{
+  return postData(formData, '/jobs');
+}

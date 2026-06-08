@@ -29,3 +29,20 @@ export const postData = async (formData, endpoint) => {
     return null;
   }
 };
+
+
+
+
+
+// date 
+
+export const getDaysAgo = (postedAt) => {
+  const [day, month, year] = postedAt.split("/");
+  const postDate = new Date(year, month - 1, day);
+
+  const today = new Date();
+
+  return Math.floor(
+    (today - postDate) / (1000 * 60 * 60 * 24)
+  );
+};

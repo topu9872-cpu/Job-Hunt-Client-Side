@@ -16,6 +16,7 @@ const CompaniesPage = async ({ searchParams }) => {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
         {companies.map((company) => (
           <CompanyCard key={company._id} company={company} />
+          
         ))}
       </div>
     </div>
