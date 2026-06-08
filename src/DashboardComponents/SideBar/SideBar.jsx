@@ -102,7 +102,7 @@ const SideBar = () => {
         <div className="p-4 border-t border-slate-800 flex items-center gap-3">
           <Image
             src={user?.image}
-            alt={user?.name}
+            alt='user name'
             width={40}
             height={40}
             className="rounded-full w-12 h-12 object-cover border border-slate-700"

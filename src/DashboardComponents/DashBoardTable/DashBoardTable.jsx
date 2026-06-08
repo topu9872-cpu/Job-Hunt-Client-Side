@@ -1,105 +1,73 @@
 "use client";
 
-import React, { useState } from "react";
-
-const initialData = [
-  {
-    id: 1,
-    name: "Alex Johnson",
-    role: "Frontend Developer",
-    status: "active",
-    email: "alex@company.com",
-  },
-  {
-    id: 2,
-    name: "Sarah Williams",
-    role: "Backend Developer",
-    status: "on-leave",
-    email: "sarah@company.com",
-  },
-  {
-    id: 3,
-    name: "David Chen",
-    role: "UI/UX Designer",
-    status: "active",
-    email: "david@company.com",
-  },
-  {
-    id: 4,
-    name: "Emily Brown",
-    role: "Product Manager",
-    status: "inactive",
-    email: "emily@company.com",
-  },
-];
-
-const statusStyle = {
-  active: "bg-emerald-500/10 text-emerald-400 border border-emerald-500/20",
-  "on-leave": "bg-orange-500/10 text-orange-400 border border-orange-500/20",
-  inactive: "bg-red-500/10 text-red-400 border border-red-500/20",
-};
+import { getRectuterJobsData } from "@/app/api/Server/Server";
+import { authClient } from "@/lib/auth-client";
+import React, { useEffect, useState } from "react";
+import { FaEye } from "react-icons/fa6";
+import { IoTrashOutline } from "react-icons/io5";
+import { MdOutlineEdit } from "react-icons/md";
 
 const DashboardTable = () => {
-  const [data] = useState(initialData);
+  const [getJobData, setGetJobData] = useState([]);
 
+  const { data: session } = authClient.useSession();
+  const users = session?.user;
+
+  useEffect(() => {
+    const handleData = async () => {
+      const datas = await getRectuterJobsData();
+      setGetJobData(datas);
+    };
+
+    handleData();
+  }, []);
+  console.log(getJobData);
   return (
     <div className="w-full flex z-50 justify-center ">
-      
       <div className="w-screen p-4">
-
-       
         <div className="mb-6">
-          <h1 className="text-2xl font-bold ">
-            Team Dashboard
-          </h1>
-          <p className="text-sm ">
-            Manage your team members and their roles
-          </p>
+          <h1 className="text-2xl font-bold ">Manage All Jobs</h1>
+          <p className="text-sm ">Manage your Company`s data and their roles</p>
         </div>
 
         {/* Table */}
         <div className=" rounded-2xl overflow-hidden">
-
           {/* Table Head */}
           <div className="grid grid-cols-4 text-sm font-semibold px-6 py-4">
             <span>Name</span>
-            <span>Role</span>
+            <span>JobType</span>
             <span>Status</span>
-            <span>Email</span>
+            <span>Actions</span>
           </div>
 
-          {/* Table Body */}
-          {data.map((user) => (
-            <div
-              key={user.id}
-              className="grid grid-cols-4 px-2 text-sm py-4 border-t border-white/5 hover:bg-white/5 transition"
-            >
-              {/* Name */}
-              <div className=" font-medium">
-                {user.name}
-              </div>
+          {getJobData
+            .filter((item) => item?.userId === users?.id)
+            .map((i) => (
+              <div
+                key={i._id}
+                className="grid grid-cols-4 items-center px-6 py-4 border-t border-white/5 hover:bg-white/5 transition"
+              >
+                {/* Name */}
+                <div className="font-medium">{i.title}</div>
 
-              {/* Role */}
-              <div>
-                {user.role}
-              </div>
+                {/* Role */}
+                <div>{i.jobType}</div>
 
-              {/* Status */}
-              <div>
-                <span
-                  className={`px-3 py-1 rounded-full text-xs font-semibold ${statusStyle[user.status]}`}
-                >
-                  {user.status}
-                </span>
-              </div>
+                {/* Status */}
+                <div>
+                  <span className="px-3 py-1 bg-green-200 rounded-full text-xs font-semibold">
+                    {i.status}
+                  </span>
+                </div>
 
-              {/* Email */}
-              <div className="text-xs">
-                {user.email}
+                {/* Actions */}
+                <div className="flex gap-2 text-2xl">
+                  <FaEye className="p-1 rounded-full active:scale-90 cursor-pointer" />
+                  <MdOutlineEdit className="p-1 rounded-full active:scale-90 cursor-pointer" />
+                  <IoTrashOutline className="p-1 rounded-full text-red-500 active:scale-90 cursor-pointer" />
+                </div>
               </div>
-            </div>
-          ))}
-
+            ))}
         </div>
       </div>
     </div>

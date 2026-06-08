@@ -27,12 +27,12 @@ const AllCards = ({ jobsData }) => {
           <div className="w-full sm:max-w-md h-60 border border-gray-200 rounded-2xl p-4 sm:p-5 shadow-sm font-sans relative transition-all duration-200 hover:shadow-md">
             <div className="flex justify-between items-start gap-4">
               <div className="flex gap-3 items-center min-w-0">
-                <div className="w-11 h-11 sm:w-12 sm:h-12   border-gray-100 rounded-xl flex items-center justify-center shadow-sm shrink-0 overflow-hidden">
+                <div className="w-full h-full sm:w-12 sm:h-12  rounded-xl flex items-center justify-center  shrink-0 overflow-hidden">
                   <Image
                     src={job?.logo}
                     width={40}
                     height={40}
-                    alt={job.title || 'title'}
+                    alt={job.title || "title"}
                   />
                 </div>
 

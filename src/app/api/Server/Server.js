@@ -6,6 +6,10 @@ export const getJobsData = async (page = 1, search = "", location = "") => {
   );
 };
 
+export const getRectuterJobsData=async()=>{
+  return getData('/dashboardjobs');
+}
+
 export const getCompaniesData = async (search = "") => {
   return getData(`/companies?search=${encodeURIComponent(search)}`)
 };

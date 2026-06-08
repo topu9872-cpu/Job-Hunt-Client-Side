@@ -2,6 +2,7 @@
 
 import { getJobsPost } from "@/app/api/Server/Server";
 import { authClient } from "@/lib/auth-client";
+import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import toast from "react-hot-toast";
 import {
@@ -21,7 +22,7 @@ const CreateJobForm = () => {
   const [skills, setSkills] = useState(["ReactJS", "Node.js", "JavaScript"]);
   const [skillInput, setSkillInput] = useState("");
   const [isSubmitted, setIsSubmitted] = useState(false);
-
+const router=useRouter()
   const { data: session } = authClient.useSession();
   const user = session?.user;
 
@@ -39,7 +40,8 @@ const CreateJobForm = () => {
     salaryPeriod: "Hour",
     description: "",
     postedAt: new Date().toLocaleDateString("en-GB"),
-    userId:user?.id,
+    // userId:user?.id,
+    status:'Active'
   });
 console.log(user)
   // Form Input Change Handler
@@ -63,9 +65,10 @@ console.log(user)
   // Form Submit Submission Engine
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const res = await getJobsPost(formData);
+    const res = await getJobsPost({...formData, userId:user?.id});
     if (res) {
       toast.success("Job Cteated Successfully !");
+      router.push('/dashboard')
     } else {
       toast.error("Faild to Creted Job !");
     }
@@ -94,15 +97,7 @@ console.log(user)
 
   return (
     <div className="max-w-4xl mx-auto border mt-12 border-gray-500 rounded-2xl p-4 font-sans antialiased">
-      {/* Toast Notification */}
-      {isSubmitted && (
-        <div className="fixed top-5 right-5 z-50 flex items-center gap-3 bg-emerald-600 text-white px-5 py-3.5 rounded-xl shadow-xl transition-all duration-300 animate-bounce">
-          <FiCheckCircle size={20} />
-          <span className="font-bold text-sm">
-            Job Posting Created Successfully!
-          </span>
-        </div>
-      )}
+   
 
       {/* Header Banner */}
       <div className="mb-8">

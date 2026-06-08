@@ -1,13 +1,14 @@
 'use client'
 import { useRouter } from "next/navigation";
-import { FaArrowLeft } from "react-icons/fa";
+
+import { GoArrowLeft } from "react-icons/go";
 const OneByOneBack = () => {
   const router=useRouter()
   return (
     <div>
-       <button onClick={()=>router.back()} className="flex items-center text-xl font-bold hover:text-info hover-3d">
-        <FaArrowLeft/>
-        Back
+       <button onClick={()=>router.back()} className="flex items-center text-xl hover:text-info hover-3d">
+        <GoArrowLeft />
+       
         </button> 
     </div>
   );
