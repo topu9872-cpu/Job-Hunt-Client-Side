@@ -40,7 +40,7 @@ const router=useRouter()
     salaryPeriod: "Hour",
     description: "",
     postedAt: new Date().toLocaleDateString("en-GB"),
-    // userId:user?.id,
+ 
     status:'Active'
   });
 console.log(user)
@@ -75,7 +75,7 @@ console.log(user)
     setIsSubmitted(true);
     console.log("Job Data Created Successfully:", { ...formData, skills });
     setSkillInput("");
-    // window.location.reload();
+    
     setTimeout(() => setIsSubmitted(false), 4000);
   };
 
@@ -94,6 +94,10 @@ console.log(user)
     const data = await res.json();
     return data.data.url;
   };
+
+  const handleReset=()=>{
+    window.location.reload()
+  }
 
   return (
     <div className="max-w-4xl mx-auto border mt-12 border-gray-500 rounded-2xl p-4 font-sans antialiased">
@@ -382,7 +386,7 @@ console.log(user)
 
         {/* Form Action Controls Footer Area */}
         <div className=" px-6 py-4 border-t border-gray-200 flex items-center justify-end gap-3">
-          <button
+          <button onClick={handleReset}
             type="button"
             className="px-5 py-2.5 btn btn-error rounded-xl text-sm font-bold transition"
           >

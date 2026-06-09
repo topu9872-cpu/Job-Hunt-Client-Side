@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import React, { useState } from "react";
 // Import required icons from react-icons
 import { SiAccenture } from "react-icons/si";
@@ -7,36 +7,30 @@ import { FiBookmark, FiEdit2, FiChevronDown } from "react-icons/fi";
 import { FaCheckCircle, FaCheck, FaTimes, FaBookmark } from "react-icons/fa";
 import Image from "next/image";
 import { BsBookmark } from "react-icons/bs";
+import Link from "next/link";
 
 const JobDetailsComponent1 = ({ jobDetailsData }) => {
+  const [sevedJob, setSevedJob] = useState([]);
 
-   const [sevedJob, setSevedJob] = useState([]);
-  
-    const handleToggle = async (id) => {
-      setSevedJob((prev) =>
-        prev.includes(id) ? prev.filter((item) => item !== id) : [...prev, id],
-      );
-    };
+  const handleToggle = async (id) => {
+    setSevedJob((prev) =>
+      prev.includes(id) ? prev.filter((item) => item !== id) : [...prev, id],
+    );
+  };
 
   const {
     _id,
-    benefits,
-    category,
-    company,
-    deadline,
+
     description,
-    experience,
-    featured,
-    jobType,
-    location,
+
     logo,
-    postedAt,
+
     requirements,
     salary,
     skills,
     title,
-    vacancy,
-    workMode
+
+    workMode,
   } = jobDetailsData;
   console.log(jobDetailsData);
 
@@ -66,9 +60,7 @@ const JobDetailsComponent1 = ({ jobDetailsData }) => {
       </div>
 
       {/* Job Title */}
-      <h1 className="text-[32px] font-bold  leading-tight mb-4">
-        {title}
-      </h1>
+      <h1 className="text-[32px] font-bold  leading-tight mb-4">{title}</h1>
 
       {/* Badges */}
       <div className="flex flex-wrap gap-2 mb-6">
@@ -83,42 +75,36 @@ const JobDetailsComponent1 = ({ jobDetailsData }) => {
 
       {/* Action Buttons */}
       <div className="flex items-center gap-3 mb-8">
-        <button className=" text-black bg-green-200 px-6 py-3 rounded-xl font-bold transition shadow-sm">
+        <Link href={`/jobs/${_id}/apply`} className=" text-black bg-green-200 px-6 py-3 rounded-xl font-bold transition shadow-sm">
           Apply on employer site
-        </button>
+        </Link>
         <button className="border border-gray-400 p-2 rounded-xl  transition flex items-center justify-center">
           <button
-                         onClick={() => {
-                         
-                           handleToggle(_id);
-                         }}
-                         className="  p-1 shrink-0 active:scale-95"
-                       >
-                         {!sevedJob.includes(_id) ? (
-                           <BsBookmark className="w-5 h-5 sm:w-6 sm:h-6 stroke-[0.3]" />
-                         ) : (
-                           <FaBookmark className="w-5 h-5 sm:w-6 text-yellow-400 sm:h-6 stroke-[0.3]" />
-                         )}
-                       </button>
+            onClick={() => {
+              handleToggle(_id);
+            }}
+            className="  p-1 shrink-0 active:scale-95"
+          >
+            {!sevedJob.includes(_id) ? (
+              <BsBookmark className="w-5 h-5 sm:w-6 sm:h-6 stroke-[0.3]" />
+            ) : (
+              <FaBookmark className="w-5 h-5 sm:w-6 text-yellow-400 sm:h-6 stroke-[0.3]" />
+            )}
+          </button>
         </button>
       </div>
 
-     
       <div className="mb-10">
         <div className="flex items-center justify-between mb-4">
           <h2 className="text-2xl font-bold tracking-tight">
             Your qualifications for this job
           </h2>
-          
         </div>
 
         {/* Existing Qualifications Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-y-3 gap-x-6 mb-6">
           {skills?.map((skill, ind) => (
-            <div
-              key={ind}
-              className="flex items-center gap-3  font-medium"
-            >
+            <div key={ind} className="flex items-center gap-3  font-medium">
               <FaCheckCircle className="text-[#107a4a] text-xl shrink-0" />
               <span>{skill}</span>
             </div>
@@ -142,9 +128,7 @@ const JobDetailsComponent1 = ({ jobDetailsData }) => {
                     <FaTimes size={14} />
                   </button>
                 </div>
-                <span className="text-base font-medium ">
-                  {requirement}
-                </span>
+                <span className="text-base font-medium ">{requirement}</span>
               </div>
             ))}
           </div>
@@ -157,28 +141,25 @@ const JobDetailsComponent1 = ({ jobDetailsData }) => {
 
       <hr className="border-gray-200 my-8" />
 
-      
       <div className="space-y-5 text-[15px] leading-relaxed ">
         <p>
-          <strong className=" font-bold">Accenture Flex</strong>{" "}
-          {description}
+          <strong className=" font-bold">Accenture Flex</strong> {description}
         </p>
         <p>
-          As an{" "}
-          <strong className=" font-bold">Accenture Flex</strong>{" "}
-          employee, you will apply your skills and experience to help drive
-          business transformation for leading organizations and communities. In
-          addition to delivering innovative solutions for Accenture’s clients,
-          you will work with a highly skilled, diverse network of people across
-          Accenture businesses who are using the latest emerging technologies to
-          address today’s biggest business challenges.
+          As an <strong className=" font-bold">Accenture Flex</strong> employee,
+          you will apply your skills and experience to help drive business
+          transformation for leading organizations and communities. In addition
+          to delivering innovative solutions for Accenture’s clients, you will
+          work with a highly skilled, diverse network of people across Accenture
+          businesses who are using the latest emerging technologies to address
+          today’s biggest business challenges.
         </p>
         <p>
           You will receive competitive rewards and access to benefits programs
           and world-class learning resources.{" "}
-          <strong className=" font-bold">Accenture Flex</strong>{" "}
-          employees work in their local metro area onsite at the project,
-          significantly reducing and/or...
+          <strong className=" font-bold">Accenture Flex</strong> employees work
+          in their local metro area onsite at the project, significantly
+          reducing and/or...
         </p>
 
         <button className="flex items-center gap-1 text-[#41cb8d] font-bold text-base pt-2 hover:underline">

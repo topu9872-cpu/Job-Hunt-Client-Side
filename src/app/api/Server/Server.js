@@ -25,3 +25,10 @@ export const getCompaniesPost=async(formData)=>{
 export const getJobsPost=async(formData)=>{
   return postData(formData, '/jobs');
 }
+
+
+
+// user apply
+export const getUserApplyPost=async(formData)=>{
+  return postData(formData, "/applyuser") ;
+}

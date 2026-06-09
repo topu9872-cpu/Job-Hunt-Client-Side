@@ -15,9 +15,9 @@ export const getData = async (endpoint) => {
 export const postData = async (formData, endpoint) => {
   try {
     const res = await fetch(`${BASE_URL}${endpoint}`, {
-      method:'POST',
+      method: "POST",
       headers: {
-        "content-type":"application/json",
+        "content-type": "application/json",
       },
 
       body: JSON.stringify(formData),
@@ -30,11 +30,25 @@ export const postData = async (formData, endpoint) => {
   }
 };
 
+// image
 
+export const uploadToImgBB = async (file) => {
+  const formDataImg = new FormData();
+  formDataImg.append("image", file);
 
+  const res = await fetch(
+    `https://api.imgbb.com/1/upload?key=${process.env.NEXT_PUBLIC_IMGBB_API_KEY}`,
+    {
+      method: "POST",
+      body: formDataImg,
+    },
+  );
 
+  const data = await res.json();
+  return data.data.url;
+};
 
-// date 
+// date
 
 export const getDaysAgo = (postedAt) => {
   const [day, month, year] = postedAt.split("/");
@@ -42,7 +56,5 @@ export const getDaysAgo = (postedAt) => {
 
   const today = new Date();
 
-  return Math.floor(
-    (today - postDate) / (1000 * 60 * 60 * 24)
-  );
+  return Math.floor((today - postDate) / (1000 * 60 * 60 * 24));
 };

@@ -6,43 +6,45 @@ import { FaEye, FaEyeSlash } from "react-icons/fa";
 import Link from "next/link";
 import { authClient } from "@/lib/auth-client";
 import toast from "react-hot-toast";
+import { useRouter, useSearchParams } from "next/navigation";
 
 const LoginPage = () => {
   const [showPassword, setShowPassword] = useState(false);
-
+  const searchParams = useSearchParams();
+  const router = useRouter();
+  const redirectTo = searchParams.get("redirect") || "/";
   const handleSubmit = async (e) => {
-     e.preventDefault();
-     const formData = Object.fromEntries(new FormData(e.target));
- console.log(formData)
-     const { data, error } = await authClient.signIn.email({
-       email: formData.email,
-       password: formData.password,
+    e.preventDefault();
+    const formData = Object.fromEntries(new FormData(e.target));
+
+    const { data, error } = await authClient.signIn.email({
+      email: formData.email,
+      password: formData.password,
+    });
+    if (data) {
+      toast.success("Login Successfully !");
+      router.push(redirectTo);
+    }
+    if (error) {
+      toast.error(error.message || "Login Failed!");
+    }
+  };
+
+  const handleGoogleSignin = async () => {
+    await authClient.signIn.social({
+      provider: "google",
+
       callbackURL: "/",
-     });
-     if (data) {
-       toast.success("Login Successfully !");
-      
-     }
-     if (error) {
- toast.error(error.message || "Login Failed!");    }
-   };
- 
-   const handleGoogleSignin= async () => {
-     await authClient.signIn.social({
-       provider: "google",
- 
-       callbackURL: "/",
-     });
-   };
- 
-   const handleGitHubSignin=async()=>{
-      await authClient.signIn.social({
-       provider: "github",
- 
-       callbackURL: "/",
-     });
-   };
-   
+    });
+  };
+
+  const handleGitHubSignin = async () => {
+    await authClient.signIn.social({
+      provider: "github",
+
+      callbackURL: "/",
+    });
+  };
 
   return (
     <div className="min-h-screen flex items-center  justify-center p-4">
@@ -56,7 +58,7 @@ const LoginPage = () => {
 
         {/* EMAIL */}
         <input
-        name="email"
+          name="email"
           type="email"
           placeholder="Email"
           className="w-full p-3 border rounded-lg outline-none focus:ring-2 focus:ring-black"
@@ -65,7 +67,7 @@ const LoginPage = () => {
         {/* PASSWORD */}
         <div className="relative">
           <input
-          name="password"
+            name="password"
             type={showPassword ? "text" : "password"}
             placeholder="Password"
             className="w-full p-3 border rounded-lg pr-12 outline-none focus:ring-2 focus:ring-black"
@@ -94,7 +96,7 @@ const LoginPage = () => {
         <p className="text-center text-sm text-gray-500">
           Don’t have an account?
           <Link
-            href="/signup"
+            href={`/signup?redirect=${redirectTo}`}
             className="text-blue-400 hover:underline font-medium"
           >
             Sign Up
@@ -102,7 +104,10 @@ const LoginPage = () => {
         </p>
         <div className="flex flex-col space-y-3">
           {/* Google */}
-          <button onClick={handleGoogleSignin} className="btn bg-white text-black border-[#e5e5e5]">
+          <button
+            onClick={handleGoogleSignin}
+            className="btn bg-white text-black border-[#e5e5e5]"
+          >
             <svg
               aria-label="Google logo"
               width="20"
@@ -134,7 +139,10 @@ const LoginPage = () => {
           </button>
 
           {/* GitHub */}
-          <button onClick={handleGitHubSignin} className="btn bg-black text-white border-black">
+          <button
+            onClick={handleGitHubSignin}
+            className="btn bg-black text-white border-black"
+          >
             <svg
               aria-label="GitHub logo"
               width="16"

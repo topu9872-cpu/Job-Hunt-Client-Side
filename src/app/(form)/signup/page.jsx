@@ -6,33 +6,21 @@ import { FaEye, FaEyeSlash } from "react-icons/fa";
 import Link from "next/link";
 import { authClient } from "@/lib/auth-client";
 import toast from "react-hot-toast";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
+import { uploadToImgBB } from "@/app/api/Server/api";
 
 const SignupForm = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [role, setRole] = useState("user");
-  const [image, setImage] = useState("");
+  const [images, setImages] = useState("");
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const redirectTo = searchParams.get("/redirect") || "/";
 
-  const uploadToImgBB = async (file) => {
-    const formDataImg = new FormData();
-    formDataImg.append("image", file);
-
-    const res = await fetch(
-      `https://api.imgbb.com/1/upload?key=${process.env.NEXT_PUBLIC_IMGBB_API_KEY}`,
-      {
-        method: "POST",
-        body: formDataImg,
-      },
-    );
-
-    const data = await res.json();
-    return data.data.url;
-  };
-
+ 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+const image=await uploadToImgBB(images)
     const formData = Object.fromEntries(new FormData(e.target));
 
     const { data, error } = await authClient.signUp.email({
@@ -40,13 +28,12 @@ const SignupForm = () => {
       password: formData.password,
       name: formData.name,
       image: image,
-      role: role, 
+      role: role,
     });
-    console.log(formData)
 
     if (data) {
       toast.success("Account Created Successfully!");
-      router.push("/login");
+      router.push(redirectTo);
     }
 
     if (error) {
@@ -93,7 +80,7 @@ const SignupForm = () => {
             if (!file) return;
 
             const url = await uploadToImgBB(file);
-            setImage(url); // ✅ FIXED
+            setImages(url);
           }}
           className="w-full p-3 border rounded-lg"
         />
