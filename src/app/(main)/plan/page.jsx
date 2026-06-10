@@ -22,7 +22,7 @@ const PricingSection = () => {
     },
     {
       name: "Pro",
-      price: "$19",
+      price: "$19.99",
       period: "month",
       description: "For active job seekers looking for a competitive edge.",
       features: [
@@ -95,7 +95,7 @@ const PricingSection = () => {
 
   return (
     <section className="py-16 px-4 min-h-screen font-sans">
-        <OneByOneBack/>
+      <OneByOneBack />
       <div className="max-w-6xl mx-auto">
         {/* Header Section */}
         <div className="text-center mb-12">
@@ -182,15 +182,21 @@ const PricingSection = () => {
               </ul>
 
               {/* CTA Action Button */}
-              <button
-                className={`w-full py-3 px-4 rounded-xl text-sm font-bold tracking-wide transition-colors duration-200 ${
-                  plan.isPopular
-                    ? "bg-blue-600 hover:bg-blue-700 text-white shadow-md shadow-blue-200"
-                    : "bg-gray-100 hover:bg-gray-200 text-gray-800"
-                }`}
-              >
-                Get Started with {plan.name}
-              </button>
+              <form action="/api/checkout_sessions" method="POST">
+                <section>
+                  <button
+                    type="submit"
+                    role="link"
+                    className={`w-full py-3 px-4 rounded-xl text-sm font-bold tracking-wide transition-colors duration-200 ${
+                      plan.isPopular
+                        ? "bg-blue-600 hover:bg-blue-700 text-white shadow-md shadow-blue-200"
+                        : "bg-gray-100 hover:bg-gray-200 text-gray-800"
+                    }`}
+                  >
+                    Get Started with {plan.name}
+                  </button>
+                </section>
+              </form>
             </div>
           ))}
         </div>

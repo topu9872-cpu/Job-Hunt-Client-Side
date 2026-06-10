@@ -14,6 +14,7 @@ const NavBar = () => {
       <NavLink href="/">Home</NavLink>
       <NavLink href="/jobs">Jobs</NavLink>
       <NavLink href="/companies">Companies</NavLink>
+      <NavLink href="/plan">Plan</NavLink>
       <NavLink href="/dashboard">Dashboard</NavLink>
     </>
   );
