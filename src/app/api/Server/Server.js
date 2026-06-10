@@ -6,29 +6,38 @@ export const getJobsData = async (page = 1, search = "", location = "") => {
   );
 };
 
-export const getRectuterJobsData=async()=>{
-  return getData('/dashboardjobs');
-}
+export const getRectuterJobsData = async () => {
+  return getData("/dashboardjobs");
+};
 
 export const getCompaniesData = async (search = "") => {
-  return getData(`/companies?search=${encodeURIComponent(search)}`)
+  return getData(`/companies?search=${encodeURIComponent(search)}`);
 };
 
 export const getJobDetailsData = async (id) => {
-  return getData(`/jobs/${id}`)
+  return getData(`/jobs/${id}`);
 };
 
-export const getCompaniesPost=async(formData)=>{
-  return postData(formData, '/companies')
-}
+export const getCompaniesPost = async (formData) => {
+  return postData(formData, "/companies");
+};
 
-export const getJobsPost=async(formData)=>{
-  return postData(formData, '/jobs');
-}
+export const getJobsPost = async (formData) => {
+  return postData(formData, "/jobs");
+};
 
-
+// getJobId
+export const getJobById = async (jobId) => {
+  return getData(`/jobs/${jobId}`);
+};
 
 // user apply
-export const getUserApplyPost=async(formData)=>{
-  return postData(formData, "/applyuser") ;
-}
+export const getUserApplyPost = async (formData) => {
+  return postData(formData, "/applyuser");
+};
+
+// apply limition
+
+export const getApplicationByApply = async (userId) => {
+  return getData(`/applyuser?userId=${userId}`);
+};

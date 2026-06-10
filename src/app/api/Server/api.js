@@ -30,6 +30,8 @@ export const postData = async (formData, endpoint) => {
   }
 };
 
+
+
 // image
 
 export const uploadToImgBB = async (file) => {
@@ -58,3 +60,6 @@ export const getDaysAgo = (postedAt) => {
 
   return Math.floor((today - postDate) / (1000 * 60 * 60 * 24));
 };
+
+
+// 

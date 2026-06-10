@@ -2,57 +2,77 @@
 
 import { uploadToImgBB } from "@/app/api/Server/api";
 import { getUserApplyPost } from "@/app/api/Server/Server";
+import { useRouter } from "next/navigation";
+
 import { useState } from "react";
 import toast from "react-hot-toast";
 
-const ApplyForm = () => {
+const ApplyForm = ({ user, job }) => {
   const [resumeFile, setResumeFile] = useState(null);
-
+const router=useRouter()
   const handleSubmit = async (e) => {
-  e.preventDefault();
+    e.preventDefault();
+  router.refresh()
+    const formData = Object.fromEntries(new FormData(e.target));
 
-  const formData = Object.fromEntries(new FormData(e.target));
+    if (
+      !formData.name ||
+      !formData.email ||
+      !formData.phone ||
+      !formData.massage
+    ) {
+      toast.error("Please fill all fields!");
+      return;
+    }
 
+    if (!resumeFile) {
+      toast.error("Please upload resume!");
+      return;
+    }
 
-  if (
-    !formData.name ||
-    !formData.email ||
-    !formData.phone ||
-    !formData.massage
-  ) {
-    toast.error("Please fill all fields!");
-    return;
-  }
+    let resumeUrl = "";
 
-  if (!resumeFile) {
-    toast.error("Please upload resume!");
-    return;
-  }
+    if (resumeFile) {
+      resumeUrl = await uploadToImgBB(resumeFile);
+    }
 
-  let resumeUrl = "";
+    const loadingToast = toast.loading("Submitting...");
 
-  if (resumeFile) {
-    resumeUrl = await uploadToImgBB(resumeFile);
-  }
+    try {
+      const userData = {
+        name: formData.name,
+        email: formData.email,
+        phone: formData.phone,
+        massage: formData.massage,
+        resume: resumeUrl,
+        jobId: job?._id,
+        jobTitle: job?.title,
+        companyName: job?.company,
+        userId: user?.id,
+        applicationData: new Date(),
+      };
 
-  const userData = {
-    name: formData.name,
-    email: formData.email,
-    phone: formData.phone,
-    massage: formData.massage,
-    resume: resumeUrl,
+      const res = await getUserApplyPost(userData);
+
+      if (res?.insertedId || res?.acknowledged) {
+        toast.success("Applied Successfully!", {
+          id: loadingToast,
+        });
+        setResumeFile(null);
+        e.target.reset();
+      } else {
+        toast.error("Failed to Apply!", {
+          id: loadingToast,
+        });
+      }
+    } catch (error) {
+      toast.error("Something went wrong!", {
+        id: loadingToast,
+      });
+    }
   };
-
-  const res = await getUserApplyPost(userData);
-
-  if (res?.insertedId || res?.acknowledged) {
-    toast.success("Applied Successfully!");
-  } else {
-    toast.error("Failed to Apply!");
-  }
-};
   return (
-    <div className="min-h-screen flex items-center justify-center p-4 mt-16">
+    <div className="min-h-screen flex items-center justify-center p-4">
       <div className="w-full max-w-xl border rounded-2xl p-6 shadow-lg space-y-4">
         <h2 className="text-2xl font-bold text-center">Job Application</h2>
 

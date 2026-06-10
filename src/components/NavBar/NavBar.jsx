@@ -80,7 +80,7 @@ const NavBar = () => {
         <div className="navbar-end gap-5">
           {user ? (
             <div className="flex gap-5">
-              <h1 className="text-white tracking-wide truncate max-w-30">
+              <h1 className="text-yellow-500 tracking-wide truncate max-w-30">
                 Hi, {user.name}
               </h1>
               <button
