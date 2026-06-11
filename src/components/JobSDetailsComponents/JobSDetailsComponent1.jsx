@@ -32,7 +32,7 @@ const JobDetailsComponent1 = ({ jobDetailsData }) => {
 
     workMode,
   } = jobDetailsData;
-  console.log(jobDetailsData);
+
 
   return (
     <div className="max-w-4xl mx-auto p-6  font-sans antialiased">

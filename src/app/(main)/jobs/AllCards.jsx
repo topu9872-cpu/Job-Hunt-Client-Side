@@ -8,7 +8,7 @@ import { BsBookmark, BsLightningChargeFill } from "react-icons/bs";
 import { FaBookmark } from "react-icons/fa";
 const AllCards = ({ jobsData }) => {
   const [sevedJob, setSevedJob] = useState([]);
-  console.log(jobsData);
+  
 
   const handleToggle = async (id) => {
     setSevedJob((prev) =>

@@ -43,7 +43,6 @@ export const getApplicationByApply = async (userId) => {
   return getData(`/applyuser?userId=${userId}`);
 };
 
-
 export const getPlanById=async(planId)=>{
   return getData(`/plans?plan_id=${planId}`)
 }

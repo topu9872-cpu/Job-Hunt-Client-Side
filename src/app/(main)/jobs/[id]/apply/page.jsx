@@ -56,10 +56,9 @@ const ApplyPage = async ({ params }) => {
 
   const job = await getJobById(id);
   const applications = await getApplicationByApply(user?.id);
-  //  console.log(applications);
+
   const plan = await getPlanById(user?.plan);
- 
-// console.log("PLAN_ID FROM USER:", user?.plan);
+
   const hasRemainingApplications =
     applications?.length < plan?.maxApplicationsPerMonth;
 
