@@ -11,23 +11,22 @@ const NavBar = () => {
   const router = useRouter();
   const { data: session } = authClient.useSession();
   const user = session?.user;
-  const nabLinks = [];
+  const navLinks = [];
   const navData = (
     <>
       <NavLink href="/">Home</NavLink>
       <NavLink href="/jobs">Jobs</NavLink>
       <NavLink href="/companies">Companies</NavLink>
       <NavLink href="/plan">Plan</NavLink>
-      {/* <NavLink href="/dashboard/recruiter">Dashboard</NavLink> */}
+      
     </>
   );
-
   const dashboardLinks = {
     seeker: "/dashboard/seeker",
     recruiter: "/dashboard/recruiter",
   };
   if (user?.email) {
-    nabLinks.push(
+    navLinks.push(
       <NavLink href={dashboardLinks[user?.role] || "/dashboard/seeker"}>
         Dashboard
       </NavLink>,
@@ -70,7 +69,7 @@ const NavBar = () => {
               tabIndex="-1"
               className="menu menu-sm dropdown-content  bg-white/10 backdrop-blur-xs rounded-box z-1 mt-3 w-52 p-2 shadow"
             >
-              {navData}
+              {navData} {navLinks}
             </ul>
           </div>
           <a className="z-50">
@@ -87,7 +86,7 @@ const NavBar = () => {
         </div>
         <div className="navbar-center hidden lg:flex">
           <ul className="menu menu-horizontal gap-5 rounded-full border border-white/20 bg-white/10 backdrop-blur-xs shadow">
-            {navData}
+            {navData} {navLinks}
           </ul>
         </div>
         <div className="navbar-end gap-5">

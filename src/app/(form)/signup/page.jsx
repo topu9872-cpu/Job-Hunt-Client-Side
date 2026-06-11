@@ -115,11 +115,11 @@ const SignupForm = () => {
           <label>
             <input
               type="radio"
-              value="user"
-              checked={role === "user"}
+              value="seeker"
+              checked={role === "seeker"}
               onChange={(e) => setRole(e.target.value)}
             />
-            User
+            Seeker
           </label>
 
           <label>
