@@ -1,3 +1,4 @@
+import { sub } from "framer-motion/m";
 import { getData, postData } from "./api";
 
 export const getJobsData = async (page = 1, search = "", location = "") => {
@@ -41,3 +42,13 @@ export const getUserApplyPost = async (formData) => {
 export const getApplicationByApply = async (userId) => {
   return getData(`/applyuser?userId=${userId}`);
 };
+
+
+export const getPlanById=async(planId)=>{
+  return getData(`/plans?plan_id=${planId}`)
+}
+
+// suscribtions
+export const getSubcreptions=async(subInfo)=>{
+  return postData(subInfo,'/subcriptions')
+}

@@ -9,6 +9,7 @@ const PricingSection = () => {
 
   const jobSeekersPlans = [
     {
+      id:'seeker_free',
       name: "Free",
       price: "$0",
       period: "forever",
@@ -21,6 +22,7 @@ const PricingSection = () => {
       ],
     },
     {
+       id:'seeker_pro',
       name: "Pro",
       price: "$19.99",
       period: "month",
@@ -33,9 +35,9 @@ const PricingSection = () => {
       ],
       isPopular: true,
     },
-    {
+    { id:'seeker_premium',
       name: "Premium",
-      price: "$39",
+      price: "$39.99",
       period: "month",
       description:
         "Maximum visibility and ultimate tools for landing the role.",
@@ -51,6 +53,7 @@ const PricingSection = () => {
 
   const recruitersPlans = [
     {
+       id:'recruters_free',
       name: "Free",
       price: "$0",
       period: "forever",
@@ -62,8 +65,9 @@ const PricingSection = () => {
       ],
     },
     {
+       id:'recruters_growth',
       name: "Growth",
-      price: "$49",
+      price: "$49.99",
       period: "month",
       description: "Designed for expanding companies scaling their teams.",
       features: [
@@ -75,6 +79,7 @@ const PricingSection = () => {
       isPopular: true,
     },
     {
+       id:'recruters_enterprise',
       name: "Enterprise",
       price: "$149",
       period: "month",
@@ -184,6 +189,7 @@ const PricingSection = () => {
               {/* CTA Action Button */}
               <form action="/api/checkout_sessions" method="POST">
                 <section>
+                  <input type="hidden" name="plan_id" value={plan.id}/>
                   <button
                     type="submit"
                     role="link"

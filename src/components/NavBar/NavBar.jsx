@@ -8,19 +8,31 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 
 const NavBar = () => {
-  const router=useRouter()
+  const router = useRouter();
+  const { data: session } = authClient.useSession();
+  const user = session?.user;
+  const nabLinks = [];
   const navData = (
     <>
       <NavLink href="/">Home</NavLink>
       <NavLink href="/jobs">Jobs</NavLink>
       <NavLink href="/companies">Companies</NavLink>
       <NavLink href="/plan">Plan</NavLink>
-      <NavLink href="/dashboard">Dashboard</NavLink>
+      {/* <NavLink href="/dashboard/recruiter">Dashboard</NavLink> */}
     </>
   );
 
-  const { data: session } = authClient.useSession();
-  const user = session?.user;
+  const dashboardLinks = {
+    seeker: "/dashboard/seeker",
+    recruiter: "/dashboard/recruiter",
+  };
+  if (user?.email) {
+    nabLinks.push(
+      <NavLink href={dashboardLinks[user?.role] || "/dashboard/seeker"}>
+        Dashboard
+      </NavLink>,
+    );
+  }
 
   const handleSignout = async () => {
     await authClient.signOut({
@@ -93,8 +105,12 @@ const NavBar = () => {
             </div>
           ) : (
             <div className="space-x-4 flex">
-              <Link href={'/login'} className="btn btn-info text-white">Login</ Link>
-              <Link href={'/signup'} className="btn btn-info text-white">Sigin</Link>
+              <Link href={"/login"} className="btn btn-info text-white">
+                Login
+              </Link>
+              <Link href={"/signup"} className="btn btn-info text-white">
+                Sigin
+              </Link>
             </div>
           )}
           <ThemeSwitch />

@@ -8,7 +8,7 @@ export const getData = async (endpoint) => {
     return res.json();
   } catch (error) {
     console.error(error);
-    return [];
+    return null;
   }
 };
 

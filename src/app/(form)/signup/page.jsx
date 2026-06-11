@@ -17,18 +17,18 @@ const SignupForm = () => {
   const searchParams = useSearchParams();
   const redirectTo = searchParams.get("redirect") || "/";
 
- 
   const handleSubmit = async (e) => {
     e.preventDefault();
-const image=await uploadToImgBB(images)
+    const image = await uploadToImgBB(images);
     const formData = Object.fromEntries(new FormData(e.target));
-
+    const plan = role === "user" ? "seeker_free" : "recruiter";
     const { data, error } = await authClient.signUp.email({
       email: formData.email,
       password: formData.password,
       name: formData.name,
       image: image,
       role: role,
+      plan: plan,
     });
 
     if (data) {

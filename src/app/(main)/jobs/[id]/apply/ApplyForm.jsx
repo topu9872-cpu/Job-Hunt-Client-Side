@@ -8,6 +8,7 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 
 const ApplyForm = ({ user, job }) => {
+
   const [resumeFile, setResumeFile] = useState(null);
 const router=useRouter()
   const handleSubmit = async (e) => {
@@ -49,6 +50,7 @@ const router=useRouter()
         jobTitle: job?.title,
         companyName: job?.company,
         userId: user?.id,
+        userRole:user?.plan,
         applicationData: new Date(),
       };
 
