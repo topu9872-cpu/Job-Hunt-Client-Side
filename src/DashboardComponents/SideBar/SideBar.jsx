@@ -9,7 +9,7 @@ import {
   FiMenu,
   FiUser,
   FiUsers,
-  FiBarChart2,
+  
   FiFileText,
   FiUserCheck,
   FiAlertCircle,
@@ -19,6 +19,7 @@ import { MdCreateNewFolder, MdNoteAdd, MdWorkHistory } from "react-icons/md";
 import React, { useState } from "react";
 import { usePathname } from "next/navigation";
 import { authClient } from "@/lib/auth-client";
+import { FaBuildingColumns } from "react-icons/fa6";
 
 const SideBar = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -87,15 +88,11 @@ const SideBar = () => {
       href: "/dashboard/admin",
     },
     {
-      icon: <FiBarChart2 size={20} />,
-      label: "Analytics",
-      href: "/dashboard/admin/analytics",
+      icon: <FaBuildingColumns size={20} />,
+      label: "Companies",
+      href: "/dashboard/admin/companies",
     },
-    {
-      icon: <FiUsers size={20} />,
-      label: "Users",
-      href: "/dashboard/admin/users",
-    },
+    
     {
       icon: <FiUserCheck size={20} />,
       label: "Seeker Management",
@@ -111,16 +108,7 @@ const SideBar = () => {
       label: "Applications",
       href: "/dashboard/admin/applications",
     },
-    {
-      icon: <FiFileText size={20} />,
-      label: "Reports",
-      href: "/dashboard/admin/reports",
-    },
-    {
-      icon: <FiAlertCircle size={20} />,
-      label: "Activity Logs",
-      href: "/dashboard/admin/logs",
-    },
+   
     {
       icon: <FiSettings size={20} />,
       label: "Settings",

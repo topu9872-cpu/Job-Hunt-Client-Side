@@ -27,7 +27,7 @@ const NavBar = () => {
   };
   if (user?.email) {
     navLinks.push(
-      <NavLink href={dashboardLinks[user?.role] || "/dashboard/seeker"}>
+      <NavLink  key="dashboard" href={dashboardLinks[user?.role] || "/dashboard/seeker"}>
         Dashboard
       </NavLink>,
     );

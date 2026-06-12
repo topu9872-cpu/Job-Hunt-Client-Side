@@ -13,7 +13,6 @@ import {
   FiLayers,
   FiPlus,
   FiX,
-  FiCheckCircle,
   FiFileText,
 } from "react-icons/fi";
 // 2. Dynamic Skills Tag Management State
@@ -22,7 +21,7 @@ const CreateJobForm = () => {
   const [skills, setSkills] = useState(["ReactJS", "Node.js", "JavaScript"]);
   const [skillInput, setSkillInput] = useState("");
   const [isSubmitted, setIsSubmitted] = useState(false);
-const router=useRouter()
+  const router = useRouter();
   const { data: session } = authClient.useSession();
   const user = session?.user;
 
@@ -39,11 +38,9 @@ const router=useRouter()
     skills: skills,
     salaryPeriod: "Hour",
     description: "",
+    status:"pending",
     postedAt: new Date().toLocaleDateString("en-GB"),
- 
-    status:'Active'
   });
-console.log(user)
   // Form Input Change Handler
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -65,17 +62,17 @@ console.log(user)
   // Form Submit Submission Engine
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const res = await getJobsPost({...formData, userId:user?.id});
+    const res = await getJobsPost({ ...formData, userId: user?.id });
     if (res) {
       toast.success("Job Cteated Successfully !");
-      router.push('/dashboard')
+      router.push("/dashboard/recruiter");
     } else {
       toast.error("Faild to Creted Job !");
     }
     setIsSubmitted(true);
     console.log("Job Data Created Successfully:", { ...formData, skills });
     setSkillInput("");
-    
+
     setTimeout(() => setIsSubmitted(false), 4000);
   };
 
@@ -95,14 +92,12 @@ console.log(user)
     return data.data.url;
   };
 
-  const handleReset=()=>{
-    window.location.reload()
-  }
+  const handleReset = () => {
+    window.location.reload();
+  };
 
   return (
     <div className="max-w-4xl mx-auto border mt-12 border-gray-500 rounded-2xl p-4 font-sans antialiased">
-   
-
       {/* Header Banner */}
       <div className="mb-8">
         <h1 className="text-3xl font-extrabold  tracking-tight">
@@ -386,7 +381,8 @@ console.log(user)
 
         {/* Form Action Controls Footer Area */}
         <div className=" px-6 py-4 border-t border-gray-200 flex items-center justify-end gap-3">
-          <button onClick={handleReset}
+          <button
+            onClick={handleReset}
             type="button"
             className="px-5 py-2.5 btn btn-error rounded-xl text-sm font-bold transition"
           >

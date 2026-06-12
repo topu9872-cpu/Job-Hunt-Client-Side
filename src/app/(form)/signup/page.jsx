@@ -31,7 +31,6 @@ const SignupForm = () => {
       plan: plan,
     });
 
-
     if (data) {
       toast.success("Account Created Successfully!");
       router.push(redirectTo);
@@ -74,14 +73,15 @@ const SignupForm = () => {
         />
 
         {/* IMAGE UPLOAD */}
+
         <input
           type="file"
           onChange={async (e) => {
-            const file = e.target.files[0];
+            const file = e.target.files?.[0];
             if (!file) return;
 
-            const url = await uploadToImgBB(file);
-            setImages(url);
+            const imageUrl = await uploadToImgBB(file);
+            setImages(imageUrl);
           }}
           className="w-full p-3 border rounded-lg"
         />
