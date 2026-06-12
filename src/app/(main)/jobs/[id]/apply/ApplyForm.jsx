@@ -25,7 +25,6 @@ const router=useRouter()
       toast.error("Please fill all fields!");
       return;
     }
-
     if (!resumeFile) {
       toast.error("Please upload resume!");
       return;

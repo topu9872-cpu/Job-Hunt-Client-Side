@@ -21,7 +21,7 @@ const DashboardTable = () => {
 
     handleData();
   }, []);
-  console.log(getJobData);
+
   return (
     <div className="w-full flex z-50 justify-center ">
       <div className="w-screen p-4">

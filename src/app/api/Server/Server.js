@@ -44,7 +44,9 @@ export const getApplicationByApply = async (userId) => {
 };
 
 export const getPlanById=async(planId)=>{
+  console.log(planId)
   return getData(`/plans?plan_id=${planId}`)
+  
 }
 
 // suscribtions

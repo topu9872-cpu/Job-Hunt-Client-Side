@@ -11,7 +11,7 @@ import { uploadToImgBB } from "@/app/api/Server/api";
 
 const SignupForm = () => {
   const [showPassword, setShowPassword] = useState(false);
-  const [role, setRole] = useState("user");
+  const [role, setRole] = useState("seeker");
   const [images, setImages] = useState("");
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -21,7 +21,7 @@ const SignupForm = () => {
     e.preventDefault();
     const image = await uploadToImgBB(images);
     const formData = Object.fromEntries(new FormData(e.target));
-    const plan = role === "user" ? "seeker_free" : "recruiter";
+    const plan = role === "seeker" ? "seeker_free" : "recruiters_free";
     const { data, error } = await authClient.signUp.email({
       email: formData.email,
       password: formData.password,
@@ -30,6 +30,7 @@ const SignupForm = () => {
       role: role,
       plan: plan,
     });
+
 
     if (data) {
       toast.success("Account Created Successfully!");

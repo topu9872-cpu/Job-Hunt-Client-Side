@@ -23,9 +23,9 @@ const ApplyPage = async ({ params }) => {
   }
 
   // Unauthorized Role State Card
-  if (user.role !== "user") {
+  if (user.role !== "seeker") {
     return (
-      <div className="min-h-[70vh] flex items-center justify-center px-4 bg-gray-50/50">
+      <div className="min-h-[70vh] flex mt-20 items-center justify-center px-4 bg-gray-50/50">
         <div className="max-w-md w-full bg-white border border-gray-200 rounded-2xl p-8 text-center shadow-sm">
           <div className="w-12 h-12 bg-amber-50 text-amber-600 rounded-full flex items-center justify-center mx-auto mb-4">
             <svg
@@ -56,12 +56,13 @@ const ApplyPage = async ({ params }) => {
 
   const job = await getJobById(id);
   const applications = await getApplicationByApply(user?.id);
+ 
 
   const plan = await getPlanById(user?.plan);
 
   const hasRemainingApplications =
     applications?.length < plan?.maxApplicationsPerMonth;
-
+     console.log(hasRemainingApplications)
   return (
     <main className="min-h-screen py-12 px-4 mt-10 font-sans">
       <div className="max-w-3xl mx-auto">
@@ -70,7 +71,7 @@ const ApplyPage = async ({ params }) => {
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
             <div>
               <p className="text-xs font-bold uppercase tracking-wider text-gray-400 mb-1">
-                Your Current Plan:{" "}
+                Your Current Plan:
                 <span className="text-blue-600">{plan?.name}</span>
               </p>
               <h1 className="text-xl sm:text-2xl font-bold">
