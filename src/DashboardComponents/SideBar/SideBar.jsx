@@ -8,7 +8,13 @@ import {
   FiX,
   FiMenu,
   FiUser,
+  FiUsers,
+  FiBarChart2,
+  FiFileText,
+  FiUserCheck,
+  FiAlertCircle,
 } from "react-icons/fi";
+
 import { MdCreateNewFolder, MdNoteAdd, MdWorkHistory } from "react-icons/md";
 import React, { useState } from "react";
 import { usePathname } from "next/navigation";
@@ -23,7 +29,11 @@ const SideBar = () => {
 
   // ✅ FIXED TYPO: recruiter (not rectuiter)
   const recruiterMenuItems = [
-    { icon: <FiHome size={20} />, label: "Overview", href: "/dashboard/recruiter" },
+    {
+      icon: <FiHome size={20} />,
+      label: "Overview",
+      href: "/dashboard/recruiter",
+    },
     {
       icon: <FiBriefcase size={20} />,
       label: "Job Applications",
@@ -70,9 +80,57 @@ const SideBar = () => {
     },
   ];
 
+  const adminMenuItems = [
+    {
+      icon: <FiHome size={20} />,
+      label: "Dashboard",
+      href: "/dashboard/admin",
+    },
+    {
+      icon: <FiBarChart2 size={20} />,
+      label: "Analytics",
+      href: "/dashboard/admin/analytics",
+    },
+    {
+      icon: <FiUsers size={20} />,
+      label: "Users",
+      href: "/dashboard/admin/users",
+    },
+    {
+      icon: <FiUserCheck size={20} />,
+      label: "Seeker Management",
+      href: "/dashboard/admin/seekers",
+    },
+    {
+      icon: <FiBriefcase size={20} />,
+      label: "Job Posts",
+      href: "/dashboard/admin/jobs",
+    },
+    {
+      icon: <MdWorkHistory size={20} />,
+      label: "Applications",
+      href: "/dashboard/admin/applications",
+    },
+    {
+      icon: <FiFileText size={20} />,
+      label: "Reports",
+      href: "/dashboard/admin/reports",
+    },
+    {
+      icon: <FiAlertCircle size={20} />,
+      label: "Activity Logs",
+      href: "/dashboard/admin/logs",
+    },
+    {
+      icon: <FiSettings size={20} />,
+      label: "Settings",
+      href: "/dashboard/admin/settings",
+    },
+  ];
   const navLinksMap = {
     seeker: seekerMenuItems,
     recruiter: recruiterMenuItems,
+    admin: adminMenuItems,
   };
 
   const role = user?.role?.toLowerCase() || "seeker";
@@ -119,7 +177,7 @@ const SideBar = () => {
 
             return (
               <a
-                key={item.href} // ✅ FIXED KEY WARNING
+                key={item.href}
                 href={item.href}
                 onClick={() => setIsSidebarOpen(false)}
                 className={`
@@ -171,7 +229,5 @@ const SideBar = () => {
     </>
   );
 };
-
-
 
 export default SideBar;

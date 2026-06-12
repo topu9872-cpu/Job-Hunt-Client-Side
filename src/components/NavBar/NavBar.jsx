@@ -18,12 +18,12 @@ const NavBar = () => {
       <NavLink href="/jobs">Jobs</NavLink>
       <NavLink href="/companies">Companies</NavLink>
       <NavLink href="/plan">Plan</NavLink>
-      
     </>
   );
   const dashboardLinks = {
     seeker: "/dashboard/seeker",
     recruiter: "/dashboard/recruiter",
+    admin: "/dashboard/admin",
   };
   if (user?.email) {
     navLinks.push(
