@@ -55,14 +55,14 @@ const ApplyPage = async ({ params }) => {
   }
 
   const job = await getJobById(id);
-  const applications = await getApplicationByApply(user?.id);
- 
-
+  console.log('job',job)
+  const applications = await getApplicationByApply(user?.id) || [];
+console.log(applications)
   const plan = await getPlanById(user?.plan);
 
   const hasRemainingApplications =
     applications?.length < plan?.maxApplicationsPerMonth;
-     console.log(hasRemainingApplications)
+  console.log(hasRemainingApplications);
   return (
     <main className="min-h-screen py-12 px-4 mt-10 font-sans">
       <div className="max-w-3xl mx-auto">
@@ -80,7 +80,7 @@ const ApplyPage = async ({ params }) => {
             </div>
             <div className="text-left sm:text-right">
               <span className="text-3xl font-black ">
-                {applications.length}
+                {applications?.length || 0}
               </span>
               <span className="text-gray-400 font-medium text-lg">
                 / {plan?.maxApplicationsPerMonth}
@@ -98,7 +98,12 @@ const ApplyPage = async ({ params }) => {
                 hasRemainingApplications ? "bg-blue-600" : "bg-amber-500"
               }`}
               style={{
-                width: `${Math.min((applications.length / plan?.maxApplicationsPerMonth) * 100, 100)}%`,
+                width: `${Math.min(
+                  ((applications?.length || 0) /
+                    (plan?.maxApplicationsPerMonth || 1)) *
+                    100,
+                  100,
+                )}%`,
               }}
             />
           </div>

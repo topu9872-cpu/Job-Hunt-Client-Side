@@ -28,7 +28,7 @@ const SideBar = () => {
   const { data: session } = authClient.useSession();
   const user = session?.user;
 
-  // ✅ FIXED TYPO: recruiter (not rectuiter)
+ 
   const recruiterMenuItems = [
     {
       icon: <FiHome size={20} />,
@@ -95,8 +95,8 @@ const SideBar = () => {
     
     {
       icon: <FiUserCheck size={20} />,
-      label: "Seeker Management",
-      href: "/dashboard/admin/seekers",
+      label: "Users Management",
+      href: "/dashboard/admin/users",
     },
     {
       icon: <FiBriefcase size={20} />,

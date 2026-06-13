@@ -1,35 +1,40 @@
 import { getUserToken } from "@/lib/session";
+import { redirect } from "next/navigation";
 
 const BASE_URL = process.env.NEXT_PUBLIC_SERVER_URI;
 
 export const authHeader = async () => {
   const token = await getUserToken();
+ 
   const header = {
     authorization: `Bearer ${token}`,
   };
-   
-  return token ? header : {};
 
+  return token ? header : {};
 };
 
-export const protectedFetch = async (body, path, method) => {
-  const res = await fetch(`${BASE_URL}${path}`, {
+export const protectedFetch = async (body, path, method = "GET") => {
+  const options = {
     method,
     headers: {
       "Content-Type": "application/json",
       ...(await authHeader()),
     },
-    body: JSON.stringify(body),
-  });
+  };
+
+  // only attach body if needed
+  if (method !== "GET" && body) {
+    options.body = JSON.stringify(body);
+  }
+
+  const res = await fetch(`${BASE_URL}${path}`, options);
 
   if (!res.ok) {
     throw new Error("Request failed");
   }
 
-  return res.json();
+  return handleStatusCode(res);
 };
-
-
 
 export const postData = async (formData, endpoint, method = "POST") => {
   try {
@@ -42,8 +47,9 @@ export const postData = async (formData, endpoint, method = "POST") => {
 
       body: JSON.stringify(formData),
     });
+
     if (!res.ok) throw new Error(" faild to fetch post data");
-    return res.json();
+    return handleStatusCode(res);
   } catch (error) {
     console.error(error);
     return null;
@@ -54,9 +60,14 @@ export const getData = async (endpoint) => {
   try {
     const res = await fetch(`${BASE_URL}${endpoint}`, {
       cache: "no-store",
+      headers: {
+        ...(await authHeader()),
+      },
     });
+
     if (!res.ok) throw new Error("faild to fetch get data");
-    return res.json();
+
+    return handleStatusCode(res);
   } catch (error) {
     console.error(error);
     return null;
@@ -93,4 +104,13 @@ export const getDaysAgo = (postedAt) => {
   return Math.floor((today - postDate) / (1000 * 60 * 60 * 24));
 };
 
-//
+// 401, 403 status handle
+
+const handleStatusCode = (res) => {
+  if (res.status === 401) {
+    redirect("login");
+  } else if (res.status === 403) {
+    redirect("unauthorized");
+  }
+  return res.json()
+};

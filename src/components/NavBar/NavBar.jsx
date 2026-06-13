@@ -72,17 +72,15 @@ const NavBar = () => {
               {navData} {navLinks}
             </ul>
           </div>
-          <a className="z-50">
-            {" "}
-            <Image
-              src={
-                "/assets/Gemini_Generated_Image_5d3v7a5d3v7a5d3v-removebg-preview_LE_upscale_prime_light_ai_30-removebg-preview.png"
-              }
-              width={70}
-              height={70}
-              alt="icon"
-            />
-          </a>
+        <a className="z-50 flex items-center">
+  <Image
+    src="/assets/job-hunt-icon.png"
+    width={70}
+    height={70}
+    alt="icon"
+    className="w-17 h-full"
+  />
+</a>
         </div>
         <div className="navbar-center hidden lg:flex">
           <ul className="menu menu-horizontal gap-5 rounded-full border border-white/20 bg-white/10 backdrop-blur-xs shadow">

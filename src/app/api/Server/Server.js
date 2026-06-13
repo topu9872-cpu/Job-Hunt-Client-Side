@@ -30,7 +30,7 @@ export const getCompaniesPost = async (formData) => {
 
 // get company
 export const getUsersCompaniesData = async (userId) => {
-  console.log(userId);
+ 
   return getData(`/user-companies?userId=${userId}`);
 };
 
@@ -45,17 +45,18 @@ export const getJobById = async (jobId) => {
 
 // user apply
 export const getUserApplyPost = async (formData) => {
-  return postData(formData, "/applyuser");
+  return protectedFetch(formData, "/applyuser");
 };
 
 // apply limition
 
 export const getApplicationByApply = async (userId) => {
-  return getData(`/applyuser?userId=${userId}`);
+  
+  return protectedFetch({},`/applyuser?userId=${userId}`);
 };
 
 export const getPlanById = async (planId) => {
-  console.log(planId);
+
   return getData(`/plans?plan_id=${planId}`);
 };
 
