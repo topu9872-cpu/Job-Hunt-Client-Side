@@ -6,6 +6,7 @@ import { Autoplay } from "swiper/modules";
 import { motion } from "framer-motion";
 
 import "swiper/css";
+import Link from "next/link";
 
 const Banner = () => {
   const slides = [
@@ -45,7 +46,6 @@ const Banner = () => {
         {slides.map((slide, index) => (
           <SwiperSlide key={index}>
             <div className="relative h-120 md:h-150">
-          
               <Image
                 src={slide.image}
                 alt={slide.title}
@@ -65,11 +65,16 @@ const Banner = () => {
                     </h1>
 
                     <div className="mt-8 flex gap-4">
-                      <button className="btn btn-info">Browse Jobs</button>
+                      <Link href={"/jobs"} className="btn btn-info">
+                        Browse Jobs
+                      </Link>
 
-                      <button className="btn btn-outline text-white border-white hover:bg-white hover:text-black">
-                        Learn More
-                      </button>
+                      <Link
+                        href={"/plan"}
+                        className="btn btn-outline text-white border-white hover:bg-white hover:text-black"
+                      >
+                        Choose Your Plan
+                      </Link>
                     </div>
                   </div>
                 </div>

@@ -114,7 +114,7 @@ const CreateCompanyForm = ({ onSubmit }) => {
         </div>
         <button
           onClick={() => setViewMode(viewMode === "table" ? "create" : "table")}
-          className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium rounded-lg transition"
+          className="px-4 py-2 bg-info  text-white text-sm font-medium rounded-lg transition"
         >
           {viewMode === "table" ? "+ New Company" : "← Back to Dashboard"}
         </button>
@@ -167,7 +167,7 @@ const CreateCompanyForm = ({ onSubmit }) => {
                       <td className="p-4 font-semibold">{company.openJobs || 0}</td>
                       <td className="p-4">
                         <span className={`px-2 py-1 rounded text-xs font-medium uppercase ${
-                          company.status === "approved" ? "bg-green-500/20 text-green-500" : "bg-yellow-500/20 text-yellow-500"
+                          company.status === "approved" ? "bg-green-500/20 text-green-500" : company.status === "rejected"? 'bg-red-100 text-red-500' : "bg-yellow-500/20 text-yellow-500"
                         }`}>
                           {company.status}
                         </span>

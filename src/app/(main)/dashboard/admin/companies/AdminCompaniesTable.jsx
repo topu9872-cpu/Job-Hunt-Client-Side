@@ -96,7 +96,7 @@ const AdminCompaniesTable = ({ initialCompanies }) => {
                             : "bg-yellow-500/10 text-yellow-500 border border-yellow-500/20"
                       }`}
                     >
-                      {company.status || "pending"}
+                      {company.status}
                     </span>
                   </td>
 

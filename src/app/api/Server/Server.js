@@ -1,4 +1,4 @@
-import { getData, postData } from "./api";
+import { getData, postData, protectedFetch } from "./api";
 
 export const getJobsData = async (page = 1, search = "", location = "") => {
   return getData(
@@ -17,7 +17,7 @@ export const getCompaniesData = async (search = "") => {
 //admin aprove companies
 
 export const updateCompaniesData = async (id, status) => {
-  return postData({ status }, `/companies/${id}`, "PATCH");
+  return protectedFetch({ status }, `/companies/${id}`, "PATCH");
 };
 
 export const getJobDetailsData = async (id) => {
