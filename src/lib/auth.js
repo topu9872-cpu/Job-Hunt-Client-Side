@@ -12,22 +12,22 @@ export const auth = betterAuth({
   }),
   emailAndPassword: {
     enabled: true,
+
+    // requireEmailVerification: true,
   },
   user: {
     additionalFields: {
       role: {
         type: "string",
         required: false,
-        input: true
+        input: true,
       },
-      plan:{
-        defaultValue:'seeker_free'
-      }
+      plan: {
+        defaultValue: "seeker_free",
+      },
     },
   },
-    plugins: [
-        admin() 
-    ],
+  plugins: [admin()],
   socialProviders: {
     google: {
       clientId: process.env.GOOGLE_CLIENT_ID,

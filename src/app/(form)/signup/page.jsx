@@ -27,9 +27,10 @@ const SignupForm = () => {
       password: formData.password,
       name: formData.name,
       image: image,
-      role: role,
+      // role: role,
       plan: plan,
     });
+    console.log(error)
 
     if (data) {
       toast.success("Account Created Successfully!");
