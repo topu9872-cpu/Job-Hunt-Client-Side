@@ -6,7 +6,7 @@ const SeekerApplicationsPage = async () => {
   const applications = await getApplicationByApply(user?.id);
 
   return (
-    <div className="min-h-screen px-4 py-10 flex justify-center">
+    <div className="min-h-screen px-4 py-10 mt-10 md:mt-0 flex justify-center">
       <div className="w-full max-w-6xl">
 
         {/* Header */}

@@ -12,7 +12,7 @@ const DashboardLayout = () => {
 
 
   return (
-    <div className="flex h-screen mb-10 z-10 font-sans antialiased">
+    <div className="flex h-screen md:mt-0 my-10 z-10 font-sans antialiased">
       <div className="flex flex-col flex-1 ">
         <header className=" h-16 border-b border-gray-400 flex items-center justify-between px-6 ">
           <div className="flex items-center gap-4">

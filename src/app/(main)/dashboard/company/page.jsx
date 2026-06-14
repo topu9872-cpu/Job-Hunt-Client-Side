@@ -98,7 +98,7 @@ const CreateCompanyForm = ({ onSubmit }) => {
   };
 
   return (
-    <div className="max-w-6xl mx-auto my-8 p-6 rounded-xl border border-current/20 bg-transparent">
+    <div className="max-w-6xl mt-10 md:mt-0 mx-auto my-8 p-6 rounded-xl border border-current/20 bg-transparent">
       
       {/* Navigation Headers */}
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8 border-b border-current/10 pb-4 gap-4">

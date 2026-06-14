@@ -1,6 +1,6 @@
 const SeekerPage = () => {
   return (
-    <div>
+    <div className="my-10 md:mt-0">
         seeker page
     </div>
   );

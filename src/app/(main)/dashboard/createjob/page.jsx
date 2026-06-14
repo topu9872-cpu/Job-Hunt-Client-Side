@@ -1,5 +1,6 @@
 "use client";
 
+import { uploadToImgBB } from "@/app/api/Server/api";
 import { getJobsPost } from "@/app/api/Server/Server";
 import { authClient } from "@/lib/auth-client";
 import { useRouter } from "next/navigation";
@@ -38,7 +39,7 @@ const CreateJobForm = () => {
     skills: skills,
     salaryPeriod: "Hour",
     description: "",
-    status:"pending",
+    status: "pending",
     postedAt: new Date().toLocaleDateString("en-GB"),
   });
   // Form Input Change Handler
@@ -62,7 +63,8 @@ const CreateJobForm = () => {
   // Form Submit Submission Engine
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const res = await getJobsPost({ ...formData, userId: user?.id });
+    const image = await uploadToImgBB(file);
+    const res = await getJobsPost({ ...formData, userId: user?.id, image });
     if (res) {
       toast.success("Job Cteated Successfully !");
       router.push("/dashboard/recruiter");
@@ -74,22 +76,6 @@ const CreateJobForm = () => {
     setSkillInput("");
 
     setTimeout(() => setIsSubmitted(false), 4000);
-  };
-
-  const uploadToImgBB = async (file) => {
-    const formDataImg = new FormData();
-    formDataImg.append("image", file);
-
-    const res = await fetch(
-      `https://api.imgbb.com/1/upload?key=${process.env.NEXT_PUBLIC_IMGBB_API_KEY}`,
-      {
-        method: "POST",
-        body: formDataImg,
-      },
-    );
-
-    const data = await res.json();
-    return data.data.url;
   };
 
   const handleReset = () => {

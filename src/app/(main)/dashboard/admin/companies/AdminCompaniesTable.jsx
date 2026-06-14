@@ -33,7 +33,7 @@ const AdminCompaniesTable = ({ initialCompanies }) => {
   }
 };
   return (
-    <div className="overflow-x-auto rounded-lg border border-current/10">
+    <div className="overflow-x-auto mt-10 md:mt-0 rounded-lg border border-current/10">
       <table className="w-full text-left border-collapse text-sm">
         <thead>
           <tr className="border-b border-current/10 bg-current/5 font-semibold">

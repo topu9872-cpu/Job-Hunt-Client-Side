@@ -10,7 +10,7 @@ const AdminCompaniesPage = async () => {
     : allCompaniesData ? [allCompaniesData] : [];
 
   return (
-    <div className="max-w-7xl mx-auto my-8 p-6">
+    <div className="max-w-7xl mx-auto mt-10 md:mt-0 my-8 p-6">
       <div className="mb-8 border-b border-current/10 pb-4">
         <h2 className="text-2xl font-bold">Admin Company Directory</h2>
         <p className="text-sm opacity-60 mt-1">
