@@ -14,7 +14,7 @@ router.push(url)
     <div>
       <Pagination
      
-       className="justify-center">
+       className="justify-center flex mx-auto">
         <Pagination.Content>
           <Pagination.Item>
             <Pagination.Previous

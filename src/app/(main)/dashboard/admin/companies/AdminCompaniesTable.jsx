@@ -28,7 +28,7 @@ const AdminCompaniesTable = ({ initialCompanies }) => {
 
     toast.success("Company updated successfully");
   } catch (error) {
-    console.log(error);
+   
     toast.error("Server error!");
   }
 };

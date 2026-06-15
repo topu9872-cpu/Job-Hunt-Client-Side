@@ -5,7 +5,7 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 
 const UsersTable = ({ users }) => {
-   console.log(users);
+  
   const [role, setRole] = useState('');
  
   const [loadingId, setLoadingId] = useState(null);

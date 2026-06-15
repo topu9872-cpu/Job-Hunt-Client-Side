@@ -72,7 +72,7 @@ const CreateJobForm = () => {
       toast.error("Faild to Creted Job !");
     }
     setIsSubmitted(true);
-    console.log("Job Data Created Successfully:", { ...formData, skills });
+  
     setSkillInput("");
 
     setTimeout(() => setIsSubmitted(false), 4000);

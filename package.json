@@ -3,16 +3,16 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "dev": "next dev --webpack"
   },
   "dependencies": {
     "@heroui/react": "^3.1.0",
     "@heroui/styles": "^3.1.0",
     "@stripe/stripe-js": "^9.8.0",
-    "better-auth": "^1.6.14",
+    "better-auth": "^1.6.18",
     "date-fns": "^4.4.0",
     "express": "^5.2.1",
     "framer-motion": "^12.40.0",
@@ -27,6 +27,7 @@
     "react-hot-toast": "^2.6.0",
     "react-icons": "^5.6.0",
     "recharts": "^3.8.1",
+    "resend": "^6.12.4",
     "stripe": "^22.2.0",
     "swiper": "^12.2.0"
   },
@@ -37,5 +38,11 @@
     "eslint": "^9",
     "eslint-config-next": "16.2.7",
     "tailwindcss": "^4"
+  },
+  "overrides": {
+  "recharts": {
+    "react": "$react",
+    "react-dom": "$react-dom"
   }
+}
 }

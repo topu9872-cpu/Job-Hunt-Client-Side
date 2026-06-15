@@ -1,6 +1,15 @@
-export const dynamic = "force-dynamic";
-import CompanyCard from "@/components/Companies/CompanyCard";
-import CompanyFilters from "@/components/Companies/CompanyFilters";
+
+const CompanyCard=dynamic(()=>import("@/components/Companies/CompanyCard"),{
+  loading:()=><div className="flex justify-center py-10">
+      <span className="loading loading-spinner loading-xl"></span>
+    </div>
+})  ;
+const CompanyFilters=dynamic(()=>import("@/components/Companies/CompanyFilters"),{
+  loading:()=><div className="flex justify-center py-10">
+      <span className="loading loading-spinner loading-xl"></span>
+    </div>
+}) ;
+import dynamic from "next/dynamic";
 import { getCompaniesData } from "../../api/Server/Server";
 import OneByOneBack from "@/components/OneByOneBack/OneByOneBack";
 

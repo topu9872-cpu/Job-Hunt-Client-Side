@@ -55,14 +55,14 @@ const ApplyPage = async ({ params }) => {
   }
 
   const job = await getJobById(id);
-  console.log('job',job)
+ 
   const applications = await getApplicationByApply(user?.id) || [];
-console.log(applications)
+
   const plan = await getPlanById(user?.plan);
 
   const hasRemainingApplications =
     applications?.length < plan?.maxApplicationsPerMonth;
-  console.log(hasRemainingApplications);
+
   return (
     <main className="min-h-screen py-12 px-4 mt-10 font-sans">
       <div className="max-w-3xl mx-auto">

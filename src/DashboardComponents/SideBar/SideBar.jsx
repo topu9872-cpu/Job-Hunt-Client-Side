@@ -20,6 +20,7 @@ import React, { useState } from "react";
 import { usePathname } from "next/navigation";
 import { authClient } from "@/lib/auth-client";
 import { FaBuildingColumns } from "react-icons/fa6";
+import Link from "next/link";
 
 const SideBar = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -164,7 +165,7 @@ const SideBar = () => {
             const isActive = pathname === item.href;
 
             return (
-              <a
+              <Link
                 key={item.href}
                 href={item.href}
                 onClick={() => setIsSidebarOpen(false)}
@@ -172,14 +173,14 @@ const SideBar = () => {
                   flex items-center gap-4 px-4 py-3 rounded-xl font-medium text-sm transition-all
                   ${
                     isActive
-                      ? "bg-emerald-500 text-white shadow-lg shadow-emerald-500/20"
+                      ? "bg-info text-white shadow-lg shadow-emerald-500/20"
                       : "hover:bg-slate-800 hover:text-white"
                   }
                 `}
               >
                 {item.icon}
                 <span>{item.label}</span>
-              </a>
+              </Link>
             );
           })}
         </nav>
