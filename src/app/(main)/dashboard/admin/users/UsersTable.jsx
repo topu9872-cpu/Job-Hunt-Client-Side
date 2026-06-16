@@ -1,22 +1,22 @@
 "use client";
 
-import { handleUpdateRole } from "@/app/api/users";
+import { postUsers } from "@/app/api/Server/Server";
+import { useRouter } from "next/navigation";
+
+
 import { useState } from "react";
 import toast from "react-hot-toast";
 
 const UsersTable = ({ users }) => {
-  
   const [role, setRole] = useState('');
- 
+const router = useRouter();
   const [loadingId, setLoadingId] = useState(null);
 
   const handleRoleUpdate = async (userId) => {
-  
     try {
-
       setLoadingId(userId);
-      await handleUpdateRole( userId,role);
-
+      await postUsers(userId,role);
+router.refresh()
       toast.success("Role updated successfully");
     } catch (error) {
       console.error(error);
@@ -45,9 +45,9 @@ const UsersTable = ({ users }) => {
 
           {/* Body */}
           <tbody>
-            {users.map((user) => (
+            {users?.map((user) => (
               <tr
-                key={user.id}
+                key={user._id}
                 className="border-t border-gray-200 dark:border-gray-800 hover:bg-gray-50 dark:hover:bg-gray-900 transition"
               >
                 {/* Name */}
@@ -70,7 +70,7 @@ const UsersTable = ({ users }) => {
                             : "bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-300"
                       }`}
                   >
-                    {user.role}
+                   {user?.role}
                   </span>
                 </td>
 
@@ -107,11 +107,11 @@ const UsersTable = ({ users }) => {
                     </select>
 
                     <button
-                      onClick={() => handleRoleUpdate(user?.id)}
-                      disabled={loadingId === user?.id}
+                      onClick={() => handleRoleUpdate(user?._id)}
+                      disabled={loadingId === user?._id}
                       className="px-3 py-1 rounded-lg bg-blue-600 text-white text-xs hover:bg-blue-700 transition disabled:opacity-50"
                     >
-                      {loadingId === user?.id ? "Saving..." : "Save"}
+                      {loadingId === user?._id ? "Saving..." : "Save"}
                     </button>
                   </div>
                 </td>

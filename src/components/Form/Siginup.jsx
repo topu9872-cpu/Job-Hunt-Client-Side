@@ -1,13 +1,14 @@
 "use client";
 
-import { Suspense, useState } from "react";
+import { useState } from "react";
 import { motion } from "framer-motion";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import Link from "next/link";
-import { authClient } from "@/lib/auth-client";
+
 import toast from "react-hot-toast";
 import { useRouter, useSearchParams } from "next/navigation";
 import { uploadToImgBB } from "@/app/api/Server/api";
+import { authClient } from "@/lib/auth-client";
 
 const SignupForm = () => {
   const [showPassword, setShowPassword] = useState(false);

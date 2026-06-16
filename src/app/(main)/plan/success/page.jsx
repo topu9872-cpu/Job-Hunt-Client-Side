@@ -17,10 +17,9 @@ export default async function Success({ searchParams }) {
     } = await stripe.checkout.sessions.retrieve(session_id, {
         expand: ['line_items', 'payment_intent']
     });
-  
-  // const status = session?.status;
-  // const customerEmail = session?.customer_details?.email;
 
+  console.log(metadata)
+ 
   if (status === "open") {
     return redirect("/");
   }
@@ -29,8 +28,9 @@ export default async function Success({ searchParams }) {
     const subInfo = {
       email: customerEmail,
       planId: metadata.planId,
+      price:metadata.price
     };
-    const res = await getSubcreptions(subInfo);
+    await getSubcreptions(subInfo);
   
     return (
       <main className="min-h-[85vh] flex mt-20  items-center justify-center px-4 font-sans">

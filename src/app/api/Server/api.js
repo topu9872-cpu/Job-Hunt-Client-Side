@@ -1,11 +1,12 @@
 import { getUserToken } from "@/lib/session";
+
 import { redirect } from "next/navigation";
 
 const BASE_URL = process.env.NEXT_PUBLIC_SERVER_URI;
 
 export const authHeader = async () => {
   const token = await getUserToken();
- 
+
   const header = {
     authorization: `Bearer ${token}`,
   };
@@ -13,7 +14,12 @@ export const authHeader = async () => {
   return token ? header : {};
 };
 
-export const protectedFetch = async (body, path, method = "GET") => {
+export const protectedFetch = async (path, body = null, method = "GET") => {
+
+  if (!path) {
+    throw new Error("API path missing");
+  }
+
   const options = {
     method,
     headers: {
@@ -22,7 +28,6 @@ export const protectedFetch = async (body, path, method = "GET") => {
     },
   };
 
-  // only attach body if needed
   if (method !== "GET" && body) {
     options.body = JSON.stringify(body);
   }
@@ -34,7 +39,9 @@ export const protectedFetch = async (body, path, method = "GET") => {
   }
 
   return handleStatusCode(res);
+   
 };
+
 
 export const postData = async (formData, endpoint, method = "POST") => {
   try {
@@ -108,9 +115,9 @@ export const getDaysAgo = (postedAt) => {
 
 const handleStatusCode = (res) => {
   if (res.status === 401) {
-    redirect("login");
+    redirect("/login");
   } else if (res.status === 403) {
-    redirect("unauthorized");
+    redirect("/unauthorized");
   }
-  return res.json()
+  return res.json();
 };

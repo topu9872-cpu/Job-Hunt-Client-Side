@@ -190,13 +190,14 @@ const PricingSection = () => {
               <form action="/api/checkout_sessions" method="POST">
                 <section>
                   <input type="hidden" name="plan_id" value={plan.id}/>
+                  <input type="hidden" name="price" value={plan.price} />
                   <button
                     type="submit"
                     role="link"
                     className={`w-full py-3 px-4 rounded-xl text-sm font-bold tracking-wide transition-colors duration-200 ${
                       plan.isPopular
-                        ? "bg-blue-600 hover:bg-blue-700 text-white shadow-md shadow-blue-200"
-                        : "bg-gray-100 hover:bg-gray-200 text-gray-800"
+                        ? "btn btn-info text-white shadow-md shadow-blue-200"
+                        : "btn btn-info btn-soft text-white"
                     }`}
                   >
                     Get Started with {plan.name}

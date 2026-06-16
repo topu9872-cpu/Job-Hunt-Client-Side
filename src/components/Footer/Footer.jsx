@@ -2,11 +2,22 @@
 import { FaFacebook, FaGithub, FaLinkedin } from "react-icons/fa";
 import { format } from "date-fns";
 import toast from "react-hot-toast";
+import { useState } from "react";
+
+
+
 const Footer = () => {
+  const [suscribeing,setSuscribeing]=useState(false)
   const handleSuscribe = () => {
-    toast.success("Thanks for Suscribeing !", {
+    if(suscribeing){
+ toast.success("Thanks for Suscribeing !", {
       position: "top-right",
     });
+    }else{
+       toast.error("Please fill the input for Suscribeing !", {
+      position: "top-right",})
+    }
+   
   };
 
   return (
@@ -86,15 +97,16 @@ const Footer = () => {
               Subscribe to receive the latest job opportunities.
             </p>
 
-            <div className="flex">
+            <div className="flex border border-info rounded-r-lg ">
               <input
+              onChange={(e)=>setSuscribeing(e.target.value)}
                 type="email"
                 placeholder="Your email"
-                className="input input-bordered rounded-r-none w-full"
+                className="input input-bordered rounded-r-none bg-background  w-full"
               />
               <button
                 onClick={handleSuscribe}
-                className="btn btn-info text-white rounded-l-none"
+                className="btn btn-info text-white rounded-l-none "
               >
                 Subscribe
               </button>

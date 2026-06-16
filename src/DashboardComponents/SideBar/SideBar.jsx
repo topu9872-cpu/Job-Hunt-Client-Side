@@ -28,8 +28,6 @@ const SideBar = () => {
 
   const { data: session } = authClient.useSession();
   const user = session?.user;
-
- 
   const recruiterMenuItems = [
     {
       icon: <FiHome size={20} />,

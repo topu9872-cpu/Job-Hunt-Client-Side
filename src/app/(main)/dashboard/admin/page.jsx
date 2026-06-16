@@ -1,3 +1,10 @@
+import {
+  getAllJobs,
+  getTotalApplications,
+  getTotalSubscriptions,
+  getTotalUsers,
+} from "@/app/api/Server/Server";
+
 import dynamic from "next/dynamic";
 
 const AdminDashboard = dynamic(
@@ -11,10 +18,22 @@ const AdminDashboard = dynamic(
   },
 );
 
-const AdminDashboardPage = () => {
+const AdminDashboardPage = async () => {
+  const totalUsers = await getTotalUsers();
+  const totalJobs = await getAllJobs();
+  const getTotalApply = await getTotalApplications();
+
+  
+  const getSubscriptions = await getTotalSubscriptions();
+ 
   return (
     <div>
-      <AdminDashboard />
+      <AdminDashboard
+        totalUsers={totalUsers}
+        totalJobs={totalJobs}
+        getTotalApply={getTotalApply}
+        getSub={getSubscriptions}
+      />
     </div>
   );
 };

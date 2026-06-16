@@ -1,12 +1,13 @@
 "use client";
 
-import { Suspense, useState } from "react";
+import { useState } from "react";
 import { motion } from "framer-motion";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import Link from "next/link";
-import { authClient } from "@/lib/auth-client";
+
 import toast from "react-hot-toast";
 import { useRouter, useSearchParams } from "next/navigation";
+import { authClient } from "@/lib/auth-client";
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -48,8 +49,7 @@ const Login = () => {
 
   return (
     <div className="min-h-screen flex items-center  justify-center p-4">
-     
-       <motion.form
+      <motion.form
         onSubmit={handleSubmit}
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
@@ -160,7 +160,6 @@ const Login = () => {
           </button>
         </div>
       </motion.form>
-    
     </div>
   );
 };

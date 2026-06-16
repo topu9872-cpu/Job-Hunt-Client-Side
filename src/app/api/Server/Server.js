@@ -1,3 +1,4 @@
+
 import { getData, postData, protectedFetch } from "./api";
 
 export const getJobsData = async (page = 1, search = "", location = "") => {
@@ -30,7 +31,6 @@ export const getCompaniesPost = async (formData) => {
 
 // get company
 export const getUsersCompaniesData = async (userId) => {
- 
   return getData(`/user-companies?userId=${userId}`);
 };
 
@@ -51,16 +51,40 @@ export const getUserApplyPost = async (formData) => {
 // apply limition
 
 export const getApplicationByApply = async (userId) => {
-  
-  return protectedFetch({},`/applyuser?userId=${userId}`);
+  return protectedFetch({}, `/applyuser?userId=${userId}`);
 };
 
 export const getPlanById = async (planId) => {
-
   return getData(`/plans?plan_id=${planId}`);
 };
 
 // suscribtions
 export const getSubcreptions = async (subInfo) => {
   return postData(subInfo, "/subcriptions");
+};
+
+//get users
+
+export const getTotalUsers = async () => {
+  return protectedFetch("/users");
+};
+export const postUsers = async (userId, role) => {
+ 
+  return protectedFetch(`/users/${userId}`,{ role }, "POST");
+   
+};
+
+// get Applications
+export const getTotalApplications = async () => {
+  return getData("/applications");
+};
+export const getAllJobs = async () => {
+  return getData("/all-jobs");
+};
+
+// get subscriptions
+export const getTotalSubscriptions = async () => {
+  return protectedFetch("/subscriptions", {
+    cache: "no-store",
+  });
 };

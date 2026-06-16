@@ -4,11 +4,12 @@ import { mongodbAdapter } from "better-auth/adapters/mongodb";
 
 // DB setup
 const client = new MongoClient(process.env.MONGODB_URI);
+await client.connect();
 const db = client.db("Job_Hunt");
 
 // Email service
 
-await client.connect();
+
 export const auth = betterAuth({
   database: mongodbAdapter(db, {
     client,
@@ -31,7 +32,7 @@ export const auth = betterAuth({
       },
     },
   },
-
+//  plugins: [admin()],
   // SOCIAL LOGIN
   socialProviders: {
     google: {
