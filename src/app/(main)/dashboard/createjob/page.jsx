@@ -22,6 +22,7 @@ const CreateJobForm = () => {
   const [skills, setSkills] = useState(["ReactJS", "Node.js", "JavaScript"]);
   const [skillInput, setSkillInput] = useState("");
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [images, setImages] = useState("");
   const router = useRouter();
   const { data: session } = authClient.useSession();
   const user = session?.user;
@@ -30,7 +31,7 @@ const CreateJobForm = () => {
   const [formData, setFormData] = useState({
     title: "",
     company: "Google",
-    logo: "",
+
     location: "",
     jobType: "Full-time",
     experience: "Mid-Level",
@@ -55,7 +56,6 @@ const CreateJobForm = () => {
       setSkillInput("");
     }
   };
-
   const handleRemoveSkill = (skillToRemove) => {
     setSkills(skills.filter((skill) => skill !== skillToRemove));
   };
@@ -63,8 +63,12 @@ const CreateJobForm = () => {
   // Form Submit Submission Engine
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const image = await uploadToImgBB(file);
-    const res = await getJobsPost({ ...formData, userId: user?.id, image });
+    const image = await uploadToImgBB(images);
+    const res = await getJobsPost({
+      ...formData,
+      userId: user?.id,
+      logo: image,
+    });
     if (res) {
       toast.success("Job Cteated Successfully !");
       router.push("/dashboard/recruiter");
@@ -72,7 +76,7 @@ const CreateJobForm = () => {
       toast.error("Faild to Creted Job !");
     }
     setIsSubmitted(true);
-  
+
     setSkillInput("");
 
     setTimeout(() => setIsSubmitted(false), 4000);
@@ -149,10 +153,7 @@ const CreateJobForm = () => {
 
                     const imageUrl = await uploadToImgBB(file);
 
-                    setFormData((prev) => ({
-                      ...prev,
-                      logo: imageUrl,
-                    }));
+                    setImages(file);
                   }}
                   className="w-full px-4 py-3 border border-gray-400 rounded-xl text-sm focus:outline-none transition"
                 />

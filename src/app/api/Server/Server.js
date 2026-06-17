@@ -1,9 +1,13 @@
-
 import { getData, postData, protectedFetch } from "./api";
 
+// export const getJobsData = async (page = 1, search = "", location = "") => {
+//   return getData(
+//     `/jobs?search=${encodeURIComponent(search)}&$location=${encodeURIComponent(location)}&page=${page}`,
+//   );
+// };
 export const getJobsData = async (page = 1, search = "", location = "") => {
   return getData(
-    `/jobs?search=${encodeURIComponent(search)}&$location=${encodeURIComponent(location)}&page=${page}`,
+    `/jobs?search=${encodeURIComponent(search)}&location=${encodeURIComponent(location)}&page=${page}`
   );
 };
 
@@ -45,13 +49,13 @@ export const getJobById = async (jobId) => {
 
 // user apply
 export const getUserApplyPost = async (formData) => {
-  return protectedFetch(formData, "/applyuser");
+  return protectedFetch("/applyuser", formData, "POST");
 };
 
 // apply limition
 
 export const getApplicationByApply = async (userId) => {
-  return protectedFetch({}, `/applyuser?userId=${userId}`);
+  return protectedFetch( `/applyuser?userId=${userId}`);
 };
 
 export const getPlanById = async (planId) => {
@@ -69,9 +73,7 @@ export const getTotalUsers = async () => {
   return protectedFetch("/users");
 };
 export const postUsers = async (userId, role) => {
- 
-  return protectedFetch(`/users/${userId}`,{ role }, "POST");
-   
+  return protectedFetch(`/users/${userId}`, { role }, "POST");
 };
 
 // get Applications

@@ -13,7 +13,7 @@ const ApplyForm = ({ user, job }) => {
 const router=useRouter()
   const handleSubmit = async (e) => {
     e.preventDefault();
-  router.refresh()
+ 
     const formData = Object.fromEntries(new FormData(e.target));
 
     if (
@@ -59,8 +59,9 @@ const router=useRouter()
         toast.success("Applied Successfully!", {
           id: loadingToast,
         });
+         router.refresh()
         setResumeFile(null);
-        e.target.reset();
+      
       } else {
         toast.error("Failed to Apply!", {
           id: loadingToast,

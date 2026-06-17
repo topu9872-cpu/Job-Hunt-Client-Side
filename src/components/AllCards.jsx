@@ -8,7 +8,7 @@ import { BsBookmark, BsLightningChargeFill } from "react-icons/bs";
 import { FaBookmark } from "react-icons/fa";
 const AllCards = ({ jobsData }) => {
   const [sevedJob, setSevedJob] = useState([]);
-  
+
 
   const handleToggle = async (id) => {
     setSevedJob((prev) =>
@@ -18,7 +18,7 @@ const AllCards = ({ jobsData }) => {
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 ">
-      {jobsData.map((job) => (
+      {jobsData?.map((job) => (
         <Link
           href={`/jobs/${job._id}`}
           key={job._id}

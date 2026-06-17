@@ -63,6 +63,7 @@ const CreateCompanyForm = ({ onSubmit }) => {
     
     const result = await getCompaniesPost({ ...formData, userId: user?.id });
     if (result) {
+      router.refresh()
       setTimeout(() => {
         toast.success("Company Created Successfully!");
       }, 400);
@@ -267,7 +268,7 @@ const CreateCompanyForm = ({ onSubmit }) => {
                 name="rating"
                 min="0"
                 max="5"
-                step="1"
+                step="0.1"
                 value={formData.rating}
                 onChange={handleChange}
                 placeholder="4.5"

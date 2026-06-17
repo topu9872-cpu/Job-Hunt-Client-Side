@@ -1,3 +1,4 @@
+export const dynamic = "force-dynamic";
 import { getCompaniesData } from "@/app/api/Server/Server";
 import AdminCompaniesTable from "./AdminCompaniesTable"; // We will create this next
 

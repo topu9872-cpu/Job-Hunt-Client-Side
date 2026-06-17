@@ -37,11 +37,11 @@ export const protectedFetch = async (path, body = null, method = "GET") => {
   if (!res.ok) {
     throw new Error("Request failed");
   }
-
+  
+ 
   return handleStatusCode(res);
-   
+  
 };
-
 
 export const postData = async (formData, endpoint, method = "POST") => {
   try {
