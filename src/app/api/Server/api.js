@@ -96,8 +96,8 @@ export const uploadToImgBB = async (file) => {
   );
 
   const result = await res.json();
-
-  return result.data.display_url;
+console.log('result:', result)
+  return result.data.url;
 };
 
 // date

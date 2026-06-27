@@ -1,7 +1,7 @@
 import AboutUS from "@/components/FontPage/Banner/AboutUS/AboutUS";
 import Banner from "../../components/FontPage/Banner/Banner";
-import SubscriptionPlans from "@/components/FontPage/SubscriptionCard/SubscriptionCard";
 import Companies from "@/components/FontPage/Companies/Companies";
+import PricingSection from "@/DashboardComponents/PricingSection/PricingSection";
 
 
 export default function Home() {
@@ -10,7 +10,8 @@ export default function Home() {
      <Banner/>
      <Companies/>
      <AboutUS/>
-     <SubscriptionPlans/>
+     <PricingSection/>
+  
     </div>
   );
 }

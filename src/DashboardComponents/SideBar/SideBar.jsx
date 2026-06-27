@@ -28,7 +28,7 @@ const SideBar = () => {
 
   const { data: session } = authClient.useSession();
   const user = session?.user;
-  console.log(user)
+  
   const recruiterMenuItems = [
     {
       icon: <FiHome size={20} />,
@@ -52,8 +52,8 @@ const SideBar = () => {
     },
     {
       icon: <FiSettings size={20} />,
-      label: "Settings",
-      href: "/dashboard/rectuiter-settings",
+      label: "Profile",
+      href: "/dashboard/rectuiter-profile",
     },
   ];
 
@@ -76,8 +76,8 @@ const SideBar = () => {
     },
     {
       icon: <FiSettings size={20} />,
-      label: "Settings",
-      href: "/dashboard/user-settings",
+      label: "Profile",
+      href: "/dashboard/user-profile",
     },
   ];
 
@@ -107,8 +107,8 @@ const SideBar = () => {
    
     {
       icon: <FiSettings size={20} />,
-      label: "Settings",
-      href: "/dashboard/admin/settings",
+      label: "Profile",
+      href: "/dashboard/admin/profile",
     },
   ];
   const navLinksMap = {

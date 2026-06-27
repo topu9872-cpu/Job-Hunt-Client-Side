@@ -9,7 +9,6 @@ const db = client.db("Job_Hunt");
 
 // Email service
 
-
 export const auth = betterAuth({
   database: mongodbAdapter(db, {
     client,
@@ -28,12 +27,22 @@ export const auth = betterAuth({
         input: true,
       },
       plan: {
+        type: "string",
         defaultValue: "seeker_free",
+      },
+      location: {
+        type: "string",
+        required: false,
+        input: true,
+      },
+      bio: {
+        type: "string",
+        required: false,
+        input: true,
       },
     },
   },
-//  plugins: [admin()],
-  // SOCIAL LOGIN
+ 
   socialProviders: {
     google: {
       clientId: process.env.GOOGLE_CLIENT_ID,
