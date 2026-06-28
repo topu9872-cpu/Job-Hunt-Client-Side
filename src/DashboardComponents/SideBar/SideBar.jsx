@@ -51,7 +51,7 @@ const SideBar = () => {
       href: "/dashboard/company",
     },
     {
-      icon: <FiSettings size={20} />,
+      icon: <FiUser  size={20} />,
       label: "Profile",
       href: "/dashboard/rectuiter-profile",
     },
@@ -65,20 +65,16 @@ const SideBar = () => {
     },
     {
       icon: <MdWorkHistory size={20} />,
-      label: "My Applications",
-      href: "/dashboard/applications",
+      label: "Applications",
+      href: "/dashboard/my-applications",
     },
     { icon: <FiBriefcase size={20} />, label: "Browse Jobs", href: "/jobs" },
     {
       icon: <FiUser size={20} />,
       label: "Profile",
-      href: "/dashboard/profile",
-    },
-    {
-      icon: <FiSettings size={20} />,
-      label: "Profile",
       href: "/dashboard/user-profile",
     },
+   
   ];
 
   const adminMenuItems = [
@@ -106,7 +102,7 @@ const SideBar = () => {
     },
    
     {
-      icon: <FiSettings size={20} />,
+      icon: <FiUser  size={20} />,
       label: "Profile",
       href: "/dashboard/admin/profile",
     },

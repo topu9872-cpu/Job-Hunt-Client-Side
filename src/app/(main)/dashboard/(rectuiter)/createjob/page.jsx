@@ -31,7 +31,7 @@ const CreateJobForm = () => {
   const [formData, setFormData] = useState({
     title: "",
     company: "Google",
-
+    jobCreaterId: user?.id,
     location: "",
     jobType: "Full-time",
     experience: "Mid-Level",

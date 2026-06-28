@@ -15,11 +15,10 @@ export const authHeader = async () => {
 };
 
 export const protectedFetch = async (path, body = null, method = "GET") => {
-
+  console.log(path, body)
   if (!path) {
     throw new Error("API path missing");
   }
-
   const options = {
     method,
     headers: {
@@ -37,10 +36,9 @@ export const protectedFetch = async (path, body = null, method = "GET") => {
   if (!res.ok) {
     throw new Error("Request failed");
   }
-  
  
+
   return handleStatusCode(res);
-  
 };
 
 export const postData = async (formData, endpoint, method = "POST") => {
@@ -96,7 +94,7 @@ export const uploadToImgBB = async (file) => {
   );
 
   const result = await res.json();
-console.log('result:', result)
+  
   return result.data.url;
 };
 

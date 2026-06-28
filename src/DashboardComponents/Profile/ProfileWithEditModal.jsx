@@ -69,7 +69,7 @@ export default function ProfileComponent({ user }) {
                       <Label>Image</Label>
                       <input type="file"
                       name="image"
-                        className="bg-background"
+                        className="bg-background py-2 px-2"
                       
                       />
                     </TextField>

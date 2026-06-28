@@ -7,7 +7,7 @@ import { getData, postData, protectedFetch } from "./api";
 // };
 export const getJobsData = async (page = 1, search = "", location = "") => {
   return getData(
-    `/jobs?search=${encodeURIComponent(search)}&location=${encodeURIComponent(location)}&page=${page}`
+    `/jobs?search=${encodeURIComponent(search)}&location=${encodeURIComponent(location)}&page=${page}`,
   );
 };
 
@@ -55,7 +55,7 @@ export const getUserApplyPost = async (formData) => {
 // apply limition
 
 export const getApplicationByApply = async (userId) => {
-  return protectedFetch( `/applyuser?userId=${userId}`);
+  return protectedFetch(`/applyuser?userId=${userId}`);
 };
 
 export const getPlanById = async (planId) => {
@@ -89,4 +89,14 @@ export const getTotalSubscriptions = async () => {
   return protectedFetch("/subscriptions", {
     cache: "no-store",
   });
+};
+
+// get rectuiter`s applications
+export const getRectuterApplications = async (id) => {
+  return protectedFetch(`/applications/${id}`);
+};
+
+// update Rectuter Applications
+export const updateRectuterApplications = async (id, status) => {
+  return protectedFetch(`/applications/${id}`, status, "PATCH");
 };

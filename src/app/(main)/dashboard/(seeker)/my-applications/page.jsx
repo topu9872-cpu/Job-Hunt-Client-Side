@@ -8,29 +8,22 @@ const SeekerApplicationsPage = async () => {
   return (
     <div className="min-h-screen px-4 py-10 mt-10 md:mt-0 flex justify-center">
       <div className="w-full max-w-6xl">
-
         {/* Header */}
         <div className="mb-6">
-          <h1 className="text-lg font-semibold">
-            My Applications
-          </h1>
-          <p className="text-sm ">
-            Track your job applications
-          </p>
+          <h1 className="text-lg font-semibold">My Applications</h1>
+          <p className="text-sm ">Track your job applications</p>
         </div>
 
         {/* Table */}
         <div className="overflow-x-auto border border-gray-700/40 rounded-xl">
-
           <table className="w-full text-sm">
-
             {/* Head */}
             <thead className="text-xs  uppercase">
               <tr className="border-b border-gray-700/40">
                 <th className="px-5 py-4 text-left">Job</th>
                 <th className="px-5 py-4 text-left">Company</th>
                 <th className="px-5 py-4 text-left">Email</th>
-                <th className="px-5 py-4 text-left">Phone</th>
+                <th className="px-5 py-4 text-left">Status</th>
                 <th className="px-5 py-4 text-left">Applied Date</th>
               </tr>
             </thead>
@@ -54,13 +47,20 @@ const SeekerApplicationsPage = async () => {
                     </td>
 
                     {/* Email */}
-                    <td className="px-5 py-4 text-gray-500">
-                      {app.email}
-                    </td>
+                    <td className="px-5 py-4 text-gray-500">{app.email}</td>
 
                     {/* Phone */}
-                    <td className="px-5 py-4 text-gray-500">
-                      {app.phone}
+                    <td
+                      className={`text-center rounded-full p-0.5 ${
+                        app.status === "pending"
+                          ? " text-yellow-500"
+                          : app.status === "Selected"
+                            ? " text-green-500"
+                            : " text-red-500"
+                      }`}
+                    >
+                     
+                      {app.status || "pending"}
                     </td>
 
                     {/* Date */}
@@ -77,9 +77,7 @@ const SeekerApplicationsPage = async () => {
                 </tr>
               )}
             </tbody>
-
           </table>
-
         </div>
       </div>
     </div>

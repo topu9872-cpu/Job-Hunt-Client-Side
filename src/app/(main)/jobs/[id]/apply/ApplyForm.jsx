@@ -8,12 +8,10 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 
 const ApplyForm = ({ user, job }) => {
-
   const [resumeFile, setResumeFile] = useState(null);
-const router=useRouter()
   const handleSubmit = async (e) => {
     e.preventDefault();
- 
+
     const formData = Object.fromEntries(new FormData(e.target));
 
     if (
@@ -49,8 +47,11 @@ const router=useRouter()
         jobTitle: job?.title,
         companyName: job?.company,
         userId: user?.id,
-        userRole:user?.plan,
+        userRole: user?.role,
+        image: user?.image,
         applicationData: new Date(),
+        jobCreaterId: job?.jobCreaterId,
+        status: "pending",
       };
 
       const res = await getUserApplyPost(userData);
@@ -59,9 +60,9 @@ const router=useRouter()
         toast.success("Applied Successfully!", {
           id: loadingToast,
         });
-         router.refresh()
+
         setResumeFile(null);
-      
+        window.location.reload();
       } else {
         toast.error("Failed to Apply!", {
           id: loadingToast,
