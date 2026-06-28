@@ -37,6 +37,13 @@ export default function RecruiterDashboard() {
     handleApplications();
   }, [user]);
 
+  if (!user)
+    return (
+      <div className="pt-10 md:pt-30 text-center">
+        <span className="loading loading-spinner loading-md"></span>
+      </div>
+    );
+
   return (
     <div className="p-6 bg-slate-50 dark:bg-zinc-950 min-h-screen text-zinc-900 dark:text-zinc-100 transition-colors duration-200">
       <div className="max-w-7xl mx-auto space-y-6">
@@ -81,7 +88,7 @@ export default function RecruiterDashboard() {
                       </td>
 
                       <td className="px-6 py-4 whitespace-nowrap text-zinc-500 dark:text-zinc-400">
-                        {app.applicationData}
+                        {new Date(app.applicationData).toLocaleDateString("en-GB")}
                       </td>
 
                       <td className="px-6 py-4 whitespace-nowrap">

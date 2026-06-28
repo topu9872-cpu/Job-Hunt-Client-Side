@@ -100,3 +100,7 @@ export const getRectuterApplications = async (id) => {
 export const updateRectuterApplications = async (id, status) => {
   return protectedFetch(`/applications/${id}`, status, "PATCH");
 };
+
+export const getRectuitersJobs=async(id)=>{
+  return protectedFetch(`/all-jobs/${id}`)
+}
