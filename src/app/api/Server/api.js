@@ -15,11 +15,10 @@ export const authHeader = async () => {
 };
 
 export const protectedFetch = async (path, body = null, method = "GET") => {
-
-  console.log(path)
   if (!path) {
     throw new Error("API path missing");
   }
+
   const options = {
     method,
     headers: {
@@ -27,14 +26,17 @@ export const protectedFetch = async (path, body = null, method = "GET") => {
       ...(await authHeader()),
     },
   };
-  if (method === "GET" && body) {
+
+  if (method !== "GET" && method !== "HEAD" && body) {
     options.body = JSON.stringify(body);
   }
 
   const res = await fetch(`${BASE_URL}${path}`, options);
+
   if (!res.ok) {
     throw new Error("Request failed");
   }
+
   return handleStatusCode(res);
 };
 
