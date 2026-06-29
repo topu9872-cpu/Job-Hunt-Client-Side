@@ -15,7 +15,8 @@ export const authHeader = async () => {
 };
 
 export const protectedFetch = async (path, body = null, method = "GET") => {
-  console.log(path, body)
+
+  console.log(path)
   if (!path) {
     throw new Error("API path missing");
   }
@@ -26,18 +27,14 @@ export const protectedFetch = async (path, body = null, method = "GET") => {
       ...(await authHeader()),
     },
   };
-
-  if (method !== "GET" && body) {
+  if (method === "GET" && body) {
     options.body = JSON.stringify(body);
   }
 
   const res = await fetch(`${BASE_URL}${path}`, options);
-
   if (!res.ok) {
     throw new Error("Request failed");
   }
- 
-
   return handleStatusCode(res);
 };
 
@@ -60,6 +57,27 @@ export const postData = async (formData, endpoint, method = "POST") => {
     return null;
   }
 };
+
+export const deleteData = async (endpoint, method = "DELETE") => {
+  try {
+    const res = await fetch(`${BASE_URL}${endpoint}`, {
+      method: method,
+      headers: {
+        "content-type": "application/json",
+        ...(await authHeader()),
+      },
+
+     
+    });
+
+    if (!res.ok) throw new Error(" faild to fetch post data");
+    return handleStatusCode(res);
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+};
+
 
 export const getData = async (endpoint) => {
   try {

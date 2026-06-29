@@ -14,7 +14,6 @@ export default async function RecruiterDashboard() {
     headers: await headers(),
   });
   const user = session?.user;
-  console.log(user?.id);
   const totalJobs = await getRectuitersJobs(user?.id);
   const totalApplications = await getRectuterApplications(user?.id);
   const totalCompanies = await getRectuterJobsData();
@@ -53,7 +52,6 @@ export default async function RecruiterDashboard() {
           Overview of active metrics, applicant logs, and scheduled interviews.
         </p>
       </div>
-
       {/* Stats Grid - Automatic 3 Column Layout */}
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-3 mb-8">
         {stats.map((stat) => {

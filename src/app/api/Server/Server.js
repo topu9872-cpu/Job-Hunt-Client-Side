@@ -1,10 +1,4 @@
-import { getData, postData, protectedFetch } from "./api";
-
-// export const getJobsData = async (page = 1, search = "", location = "") => {
-//   return getData(
-//     `/jobs?search=${encodeURIComponent(search)}&$location=${encodeURIComponent(location)}&page=${page}`,
-//   );
-// };
+import { deleteData, getData, postData, protectedFetch } from "./api";
 export const getJobsData = async (page = 1, search = "", location = "") => {
   return getData(
     `/jobs?search=${encodeURIComponent(search)}&location=${encodeURIComponent(location)}&page=${page}`,
@@ -101,6 +95,15 @@ export const updateRectuterApplications = async (id, status) => {
   return protectedFetch(`/applications/${id}`, status, "PATCH");
 };
 
-export const getRectuitersJobs=async(id)=>{
-  return protectedFetch(`/all-jobs/${id}`)
-}
+export const getRectuitersJobs = async (id) => {
+  return protectedFetch(`/all-jobs/${id}`);
+};
+export const deleteRectuitersJobs = async (id) => {
+  console.log("DeleteModal id:", id);
+  return deleteData(`/all-jobs/${id}`);
+};
+
+export const updateRectuiterJob = async (id, data) => {
+  
+  return protectedFetch(`/all-jobs/${id}`, data, "PATCH");
+};

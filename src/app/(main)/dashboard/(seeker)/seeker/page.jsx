@@ -1,28 +1,62 @@
 "use client";
 
-import React from "react";
-import { 
-  FaBriefcase, 
-  FaFileLines, 
-  FaClock 
-} from "react-icons/fa6";
-import { 
-  AreaChart, 
-  Area, 
-  XAxis, 
-  YAxis, 
-  CartesianGrid, 
-  Tooltip, 
-  ResponsiveContainer, 
-  Legend 
+import { getApplicationByApply } from "@/app/api/Server/Server";
+import { authClient } from "@/lib/auth-client";
+import { data } from "framer-motion/client";
+import React, { useState, useEffect } from "react";
+import { FaBriefcase, FaFileLines, FaClock } from "react-icons/fa6";
+import {
+  AreaChart,
+  Area,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  ResponsiveContainer,
+  Legend,
 } from "recharts";
 
 export default function JobSeekerDashboard() {
-  // Mock data for Job Seeker's core metrics
+  // Fixes Next.js SSR sizing/rendering bugs with Recharts
+  const [mounted, setMounted] = useState(false);
+  const [datas, setDatas] = useState([]);
+
+  const { data: session } = authClient.useSession();
+  const user = session?.user;
+  const filterSelected = datas.filter((item) => item.status === "Selected");
+  const filterRejacted = datas.filter((item) => item.status === "Rejected");
+
+  useEffect(() => {
+    const handleSSR = async () => {
+      const applications = await getApplicationByApply(user?.id);
+      setDatas(applications);
+    };
+    handleSSR();
+    setMounted(true);
+  }, [user]);
+
   const stats = [
-    { id: 1, name: "Applications Sent", value: "24", icon: FaFileLines, desc: "+3 this week" },
-    { id: 2, name: "Interviews Scheduled", value: "3", icon: FaClock, desc: "Next on Tuesday" },
-    { id: 3, name: "Offers Received", value: "1", icon: FaBriefcase, desc: "Decision pending" },
+    {
+      id: 1,
+      name: "Applications Sent",
+      value: datas.length || 0,
+      icon: FaFileLines,
+      desc: "+3 this week",
+    },
+    {
+      id: 2,
+      name: "Interviews Scheduled",
+      value: filterSelected.length || 0,
+      icon: FaClock,
+      desc: "Next on day",
+    },
+    {
+      id: 3,
+      name: "Offers Received",
+      value: filterRejacted.length || 0,
+      icon: FaBriefcase,
+      desc: "Decision pending",
+    },
   ];
 
   // Mock analytics data tracking applications and progress over months
@@ -40,9 +74,15 @@ export default function JobSeekerDashboard() {
     if (active && payload && payload.length) {
       return (
         <div className="p-4 rounded-xl border border-white/10 bg-black/80 backdrop-blur-md shadow-xl text-xs text-white">
-          <p className="font-bold mb-2 border-b border-white/10 pb-1">{label} Activity</p>
+          <p className="font-bold mb-2 border-b border-white/10 pb-1">
+            {label} Activity
+          </p>
           {payload.map((entry, index) => (
-            <p key={index} style={{ color: entry.color }} className="font-medium py-0.5">
+            <p
+              key={index}
+              style={{ color: entry.color }}
+              className="font-medium py-0.5"
+            >
               {entry.name}: {entry.value}
             </p>
           ))}
@@ -55,11 +95,14 @@ export default function JobSeekerDashboard() {
   return (
     <div className="w-full flex justify-center min-h-screen bg-transparent text-current transition-colors duration-200">
       <div className="w-full max-w-7xl p-4 sm:p-6 lg:p-8">
-        
         {/* Welcome Header */}
         <div className="mb-8">
-          <h1 className="text-2xl sm:text-3xl font-bold tracking-tight">Job Seeker Overview</h1>
-          <p className="text-sm opacity-70 mt-1">Track your application performance metrics and recruitment funnels.</p>
+          <h1 className="text-2xl sm:text-3xl font-bold tracking-tight">
+            Job Seeker Overview
+          </h1>
+          <p className="text-sm opacity-70 mt-1">
+            Track your application performance metrics and recruitment funnels.
+          </p>
         </div>
 
         {/* 3-Column Metrics Grid */}
@@ -67,18 +110,22 @@ export default function JobSeekerDashboard() {
           {stats.map((stat) => {
             const IconComponent = stat.icon;
             return (
-              <div 
-                key={stat.id} 
-                className="p-6 rounded-xl border border-white/10 bg-white/2 backdrop-blur-md shadow-sm"
+              <div
+                key={stat.id}
+                className="p-6 rounded-xl border border-white/10 bg-white/5 backdrop-blur-md shadow-sm"
               >
                 <div className="flex items-center justify-between">
-                  <span className="text-sm font-medium opacity-70">{stat.name}</span>
+                  <span className="text-sm font-medium opacity-70">
+                    {stat.name}
+                  </span>
                   <div className="p-2 rounded-lg bg-white/5">
                     <IconComponent className="text-lg opacity-80" />
                   </div>
                 </div>
                 <div className="mt-4">
-                  <div className="text-2xl sm:text-3xl font-bold tracking-tight">{stat.value}</div>
+                  <div className="text-2xl sm:text-3xl font-bold tracking-tight">
+                    {stat.value}
+                  </div>
                   <p className="text-xs opacity-50 mt-1">{stat.desc}</p>
                 </div>
               </div>
@@ -87,67 +134,109 @@ export default function JobSeekerDashboard() {
         </div>
 
         {/* Recharts Analytics Section */}
-        <div className="rounded-2xl border border-white/10 bg-white/2 backdrop-blur-md p-6 shadow-sm">
+        <div className="rounded-2xl border border-white/10 bg-white/5 backdrop-blur-md p-6 shadow-sm">
           <div className="mb-6">
             <h2 className="text-lg font-bold">Application Trends</h2>
-            <p className="text-xs opacity-60 mt-0.5">Comparison of sent applications vs interview callbacks over time.</p>
+            <p className="text-xs opacity-60 mt-0.5">
+              Comparison of sent applications vs interview callbacks over time.
+            </p>
           </div>
 
-          {/* Chart Wrapper Container with Explicit Height */}
-          <div className="w-full h-88text-xs">
-            <ResponsiveContainer width="100%" height="100%">
-              <AreaChart
-                data={analyticsData}
-                margin={{ top: 10, right: 10, left: -20, bottom: 0 }}
-              >
-                <defs>
-                  {/* Smooth Gradient Fill For "Applied" Line */}
-                  <linearGradient id="colorApplied" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="5%" stopColor="#3b82f6" stopOpacity={0.2}/>
-                    <stop offset="95%" stopColor="#3b82f6" stopOpacity={0}/>
-                  </linearGradient>
-                  {/* Smooth Gradient Fill For "Interviews" Line */}
-                  <linearGradient id="colorInterviews" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="5%" stopColor="#10b981" stopOpacity={0.2}/>
-                    <stop offset="95%" stopColor="#10b981" stopOpacity={0}/>
-                  </linearGradient>
-                </defs>
+          {/* FIXED CONTAINER: Replaced 'h-88text-xs' with standard 'h-[350px] text-xs' */}
+          <div className="w-full h-88 text-xs">
+            {mounted ? (
+              <ResponsiveContainer width="100%" height="100%">
+                <AreaChart
+                  data={analyticsData}
+                  margin={{ top: 10, right: 10, left: -20, bottom: 0 }}
+                >
+                  <defs>
+                    {/* Smooth Gradient Fill For "Applied" Line */}
+                    <linearGradient
+                      id="colorApplied"
+                      x1="0"
+                      y1="0"
+                      x2="0"
+                      y2="1"
+                    >
+                      <stop offset="5%" stopColor="#3b82f6" stopOpacity={0.2} />
+                      <stop offset="95%" stopColor="#3b82f6" stopOpacity={0} />
+                    </linearGradient>
+                    {/* Smooth Gradient Fill For "Interviews" Line */}
+                    <linearGradient
+                      id="colorInterviews"
+                      x1="0"
+                      y1="0"
+                      x2="0"
+                      y2="1"
+                    >
+                      <stop offset="5%" stopColor="#10b981" stopOpacity={0.2} />
+                      <stop offset="95%" stopColor="#10b981" stopOpacity={0} />
+                    </linearGradient>
+                  </defs>
 
-                {/* Grid Lines Config */}
-                <CartesianGrid strokeDasharray="3 3" stroke="currentColor" opacity={0.05} vertical={false} />
-                
-                {/* Axis Config */}
-                <XAxis dataKey="month" stroke="currentColor" opacity={0.5} tickLine={false} />
-                <YAxis stroke="currentColor" opacity={0.5} tickLine={false} />
-                
-                {/* Tooltip & Legend */}
-                <Tooltip content={<CustomTooltip />} cursor={{ stroke: 'currentColor', strokeWidth: 1, strokeDasharray: '4 4', opacity: 0.1 }} />
-                <Legend iconType="circle" iconSize={8} wrapperStyle={{ paddingTop: '20px', opacity: 0.8 }} />
+                  {/* Grid Lines Config */}
+                  <CartesianGrid
+                    strokeDasharray="3 3"
+                    stroke="currentColor"
+                    opacity={0.05}
+                    vertical={false}
+                  />
 
-                {/* Area Graphs */}
-                <Area 
-                  name="Applications Sent"
-                  type="monotone" 
-                  dataKey="Applied" 
-                  stroke="#3b82f6" 
-                  strokeWidth={2}
-                  fillOpacity={1} 
-                  fill="url(#colorApplied)" 
-                />
-                <Area 
-                  name="Interviews Secured"
-                  type="monotone" 
-                  dataKey="Interviews" 
-                  stroke="#10b981" 
-                  strokeWidth={2}
-                  fillOpacity={1} 
-                  fill="url(#colorInterviews)" 
-                />
-              </AreaChart>
-            </ResponsiveContainer>
+                  {/* Axis Config */}
+                  <XAxis
+                    dataKey="month"
+                    stroke="currentColor"
+                    opacity={0.5}
+                    tickLine={false}
+                  />
+                  <YAxis stroke="currentColor" opacity={0.5} tickLine={false} />
+
+                  {/* Tooltip & Legend */}
+                  <Tooltip
+                    content={<CustomTooltip />}
+                    cursor={{
+                      stroke: "currentColor",
+                      strokeWidth: 1,
+                      strokeDasharray: "4 4",
+                      opacity: 0.1,
+                    }}
+                  />
+                  <Legend
+                    iconType="circle"
+                    iconSize={8}
+                    wrapperStyle={{ paddingTop: "20px", opacity: 0.8 }}
+                  />
+
+                  {/* Area Graphs */}
+                  <Area
+                    name="Applications Sent"
+                    type="monotone"
+                    dataKey="Applied"
+                    stroke="#3b82f6"
+                    strokeWidth={2}
+                    fillOpacity={1}
+                    fill="url(#colorApplied)"
+                  />
+                  <Area
+                    name="Interviews Secured"
+                    type="monotone"
+                    dataKey="Interviews"
+                    stroke="#10b981"
+                    strokeWidth={2}
+                    fillOpacity={1}
+                    fill="url(#colorInterviews)"
+                  />
+                </AreaChart>
+              </ResponsiveContainer>
+            ) : (
+              // Clean placeholder loader while mounting to keep layout stable
+              <div className="w-full h-full flex items-center justify-center opacity-40 animate-pulse">
+                Loading chart trends...
+              </div>
+            )}
           </div>
         </div>
-
       </div>
     </div>
   );
