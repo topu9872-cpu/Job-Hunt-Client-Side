@@ -44,7 +44,7 @@ const CompanyCard = ({ company }) => {
 
           <button
             onClick={() => setIsBookmarked(!isBookmarked)}
-            className="p-2 rounded-full hover:bg-gray-100 transition"
+            className="p-2 rounded-full transition"
           >
             {isBookmarked ? (
               <FaBookmark className="w-5 h-5 text-yellow-400" />

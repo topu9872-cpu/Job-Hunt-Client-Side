@@ -68,8 +68,6 @@ export const deleteData = async (endpoint, method = "DELETE") => {
         "content-type": "application/json",
         ...(await authHeader()),
       },
-
-     
     });
 
     if (!res.ok) throw new Error(" faild to fetch post data");
@@ -80,25 +78,29 @@ export const deleteData = async (endpoint, method = "DELETE") => {
   }
 };
 
-
 export const getData = async (endpoint) => {
   try {
-    const res = await fetch(`${BASE_URL}${endpoint}`, {
+    const url = `${BASE_URL}${endpoint}`;
+
+    console.log("Request URL:", url);
+
+    const res = await fetch(url, {
       cache: "no-store",
       headers: {
         ...(await authHeader()),
       },
     });
 
-    if (!res.ok) throw new Error("faild to fetch get data");
+    if (!res.ok) {
+      throw new Error(`HTTP ${res.status}`);
+    }
 
     return handleStatusCode(res);
   } catch (error) {
-    console.error(error);
+    console.error("Fetch Error:", error);
     return null;
   }
 };
-
 // image
 
 export const uploadToImgBB = async (file) => {
@@ -114,7 +116,7 @@ export const uploadToImgBB = async (file) => {
   );
 
   const result = await res.json();
-  
+
   return result.data.url;
 };
 

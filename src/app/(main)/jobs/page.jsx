@@ -1,17 +1,18 @@
 import OneByOneBack from "@/components/OneByOneBack/OneByOneBack";
 import { getJobsData } from "../../api/Server/Server";
-const AllCards = dynamic(() => import("../../../components/AllCards"), {
+import dynamic from "next/dynamic";
 
+const AllCards = dynamic(() => import("../../../components/AllCards"), {
   loading: () => (
     <div className="flex justify-center py-10">
       <span className="loading loading-spinner loading-xl"></span>
     </div>
   ),
 });
-import JobSearch from "../../../components/JobSearch";
-import dynamic from "next/dynamic";
-const PaginationPage = dynamic(() => import("../../../components/PaginationPage"), {
 
+import JobSearch from "../../../components/JobSearch";
+
+const PaginationPage = dynamic(() => import("../../../components/PaginationPage"), {
   loading: () => (
     <div className="flex justify-center py-10">
       <span className="loading loading-spinner loading-xl"></span>
@@ -25,7 +26,13 @@ const JobsPage = async ({ searchParams }) => {
   const page = Number(params?.page) || 1;
   const search = params?.search || "";
   const location = params?.location || "";
-  const jobsData = await getJobsData(page, search, location);
+  
+  let jobsData = null;
+  try {
+    jobsData = await getJobsData(page, search, location);
+  } catch (error) {
+    console.error("Failed to load jobs data:", error.message);
+  }
 
   return (
     <>
@@ -34,13 +41,16 @@ const JobsPage = async ({ searchParams }) => {
           <OneByOneBack />
           <JobSearch search={search} location={location} />
         </div>
-        <AllCards jobsData={jobsData.data} />
+        
+        {/* Fallback to empty array if fetch failed */}
+        <AllCards jobsData={jobsData?.data || []} />
+        
         <div className="my-10">
           <PaginationPage
             page={page}
             search={search}
             location={location}
-            totalPages={jobsData.totalPages}
+            totalPages={jobsData?.totalPages || 1}
           />
         </div>
       </div>
