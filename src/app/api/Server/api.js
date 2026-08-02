@@ -2,7 +2,7 @@ import { getUserToken } from "@/lib/session";
 
 import { redirect } from "next/navigation";
 
-const BASE_URL = process.env.NEXT_PUBLIC_SERVER_URI;
+const BASE_URL = process.env.NEXT_PUBLIC_SERVER_URI
 
 export const authHeader = async () => {
   const token = await getUserToken();
